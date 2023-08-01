@@ -1,0 +1,7 @@
+@import '@/assets/front/styles/variable';
+.dashboard{
+    min-height: calc(100vh - 115px);
+    display: flex;
+    flex-wrap: wrap;
+    background: $light-blue;
+}

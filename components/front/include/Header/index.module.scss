@@ -1,0 +1,102 @@
+@import '@/assets/front/styles/variable';
+.mainHeader {
+    padding: 2rem 0;
+    box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.08);
+    .logo{
+     width: 250px;
+    }
+    .suppLog{
+       li{
+          &:not(:last-child){
+             margin-right: 2rem;
+          }
+          a{
+             display: block;
+             color: $bg-1;
+             font-size: 18px;
+             font-weight: 600;
+             img{
+                margin-right: 10px;
+             }
+             &:hover{
+                color: $bg-3;
+             }
+          }
+       }
+    }
+ }
+
+ .fullExperience {
+   padding: 2rem;
+   .fullExperienceTop{
+      h3{
+         color: $bg-3;
+         font-size: 30px;
+         font-weight: 700;
+      }
+      p{
+         color: $bg-3;
+         font-size: 15px;
+         font-weight: 400;
+      }
+   }
+   .fullExperienceBtm {
+      h6{
+         color: $bg-3;
+         font-size: 15px;
+         font-weight: 600;
+      }
+      ul{
+         li{
+            &:not(:last-child){
+               margin-bottom: 10px;
+            }
+            a{
+               border-radius: 5px;
+               background: #F0F0F0;
+               padding: 0 10px 0 70px;
+               display: block;
+               line-height: 38px;
+               position: relative;
+               color: $bg-3;
+               font-size: 15px;
+               font-weight: 500;
+               img{
+                  position: absolute;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  left: 20px;
+               }
+               &:after{
+                  position: absolute;
+                  content: "";
+                  background: url(../../../../assets/front/images/angle-right-2.svg) center center no-repeat;
+                  height: 18px;
+                  width: 18px;
+                  right: 10px;
+                  top: 50%;
+                  transform: translateY(-50%);
+               }
+               &:hover{
+                  background: $light-blue;
+               }
+            }
+         }
+      }
+   }
+}
+
+.bookedIncorrect {
+   margin-top: 1.5rem;
+   color: $bg-3;
+   font-size: 15px;
+}
+.bookedIncorrectBtm {
+   margin-top: 1.5rem;
+   color: $bg-3;
+   font-size: 15px;
+   a{
+      font-weight: 600;
+      text-decoration: underline;
+   }
+}

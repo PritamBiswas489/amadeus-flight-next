@@ -1,0 +1,131 @@
+@import '@/assets/front/styles/variable';
+.payment {
+    background: $light-blue;
+    padding: 2rem;
+}
+.whiteBdrBox {
+    background: $bg-6;
+    border: #e7eaec 1px solid;
+}
+.paymentBox {
+    padding: 1.25rem;
+    border-radius: 5px;
+}
+.paymentRadio {
+    label{
+        color: #034265;
+        font-size: 15px;
+        font-weight: 600;
+    }
+}
+.radioWrap {
+    &:not(:last-child){
+        margin-bottom: 1rem;
+    }
+    small{
+        display: block;
+        color: #034265;
+        font-size: 12px;
+        font-weight: 400;
+    }
+}
+.paymentBoxTop {
+    border-bottom: #d9d9d9 1px solid;
+    h5{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+    }
+}
+.paymentBoxBtm {
+    padding-top: 1rem;
+}
+.paymentForm {
+    span{
+        position: absolute;
+        bottom: 9px;
+        right: 10px;
+    }
+}
+
+.discountVoucher {
+    padding: 1.25rem;
+    margin-top: 1.25rem;
+    border-radius: 5px;
+}
+.discountVoucherTop {
+    h5{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+    }
+}
+
+.discountVoucherBtm {
+    background: $bg-6;
+    border: #e7eaec 1px solid;
+    margin-top: 1rem;
+    padding: 1.25rem;
+    border-radius: 3px;
+    h6{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 3px;
+    }
+    ul{
+        &:not(:last-child){
+            margin-bottom: 3px;
+        }
+        li{
+            color: $bg-3;
+            font-size: 14px;
+            font-weight: 500;
+            a{
+                color: #24a9e1;
+                text-decoration: underline;
+                font-size: 13px;
+            }
+        }
+    }
+}
+.voucherBtmCheck {
+    padding: 2rem 2rem;
+    .custom-2 {
+        input[type=checkbox] {
+            position: relative;
+            top: 6px;
+        }
+    }
+}
+.secureBooking {
+    ul{
+        li{
+            color: $bg-3;
+            font-size: 15px;
+            font-weight: 400;
+            img{
+                display: inline-block;
+                vertical-align: middle;
+                margin-right: 5px;
+            }
+            a{
+                border-radius: 5px;
+                background: $bg-2;
+                color: $bg-3;
+                font-size: 15px;
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 46px;
+                display: block;
+                min-width: 184px;
+                text-align: center;
+                &:hover{
+                    background: $bg-3;
+                    color: $bg-6;
+                }
+            }
+        }
+    }
+}

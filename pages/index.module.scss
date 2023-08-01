@@ -1,0 +1,299 @@
+@import '@/assets/front/styles/variable';
+.homeBanner {
+  width: 100%;
+  background-size: cover !important;
+  position: relative;
+  z-index: 2;
+  padding: 4rem 0;
+  &:after{
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 231, 148, 0.2);
+      z-index: -1;
+  }
+}
+
+.citiesDestinationBox {
+    a{
+        display: block;
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        &::after{
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,.2);
+            transition: all ease-in-out .4s;
+        }
+        .destinationName {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            left: 0;
+            z-index: 1;
+            transition: all ease-in-out .4s;
+            h5{
+                color: #fff;
+                font-weight: 700;
+            }
+            h6{
+                color: #fff;
+                font-weight: 600;
+                margin-bottom: 0;
+            }
+        }
+    }
+    &:hover{
+        a{
+            &::after{
+                background: rgba(0, 0, 0, 0.534);
+            }
+            .destinationName {
+                bottom: 25px;
+            }
+        }
+    }
+}
+
+.bgWhite {
+    background: #fff;
+}
+
+.destinationsSection {
+    padding: 4rem 0;
+}
+
+
+.sectionTitle {
+    h2{
+        text-transform: uppercase;
+    }
+     p{
+        color: $black;
+        font-weight: 600;
+        margin-bottom: 0.313rem;
+     }
+}
+.travelersChoose {
+    background: #f3fbff;
+    padding: 3rem 0;
+    h2{
+        margin-bottom: 1.5rem;
+    }
+}
+.travelersChooseBox {
+    max-width: 220px;
+    margin: 0.625rem 0;
+    span{
+        display: inline-block;
+        width: 58px;
+        height: 58px;
+        background: #32d5f9;
+        border-radius: 5px;
+        line-height: 58px;
+        text-align: center;
+        margin-bottom: 0.625rem;
+        img{
+            width: auto;
+            height: 38px;
+        }
+    }
+    h4{
+        font-size: 20px;
+        font-weight: 600;
+        color: $bg-3;
+    }
+    p{
+        color: #868C8E;
+        font-size: 13px;
+    }
+}
+.PopularFlights {
+    padding: 3rem 0;
+    background: #fff;
+}
+.PopularFlightsBox {
+    box-shadow: rgba(0, 0, 0, 0.4) 0 0 10px -5px;
+    border-radius: 20px;
+    overflow: hidden;
+    text-align: center;
+    .pfbLeft {
+        flex: 146px;
+        max-width: 146px;
+        span{
+            display: block;
+            img{
+                width: 100% !important;
+                display: block;
+            }
+        }
+    }
+    .pfbRight {
+        flex:1 0 0%;
+        padding: 0 1rem;
+        h5{
+            font-size: 1.125rem;
+            color: $bg-3;
+            span{
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+        p{
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: $bg-2;
+            margin: 0;
+            letter-spacing: 0;
+        }
+    }
+}
+
+.mapSection {
+    background: #F2F4F5;
+    padding: 3rem 0;
+    .mapSectionWrap {
+        background: #fff;
+        padding: 30px;
+        border-radius: 20px;
+    }
+    .mapTop{
+        margin-bottom: 1rem;
+        .mapTopLeft {
+            ul{
+                li{
+                    font-size: 15px;
+                    font-weight: 500;
+                    color: #034265;
+                    &:not(:last-child){
+                        margin-right: 2rem;
+                    }
+                    span{
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin-right: 5px;
+                        img{
+                            display: block;
+                            vertical-align: middle;
+                            position: relative;
+                            top: -2px;
+                        }
+                    }
+                    select{
+                        border: none;
+                        background-color: transparent;
+                        color: $bg-3;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .mapTopRight {
+            font-size: 15px;
+            color: #034265;
+            font-weight: 600;
+            a{
+                color: #32D5F9;
+                &:hover{
+                    color: #034265;
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+    .mapMid {
+        .mapMidInput {
+            border: #C4D0D8 1px solid;
+            padding: .4rem .8rem;
+            border-radius: 6px;
+            .input-2 {
+                width: 100%;
+                border: none;
+                background-color: transparent;
+                padding: 2px 0;
+                font-weight: 700;
+                color: #034265;
+            }
+        }
+        .srcBtn {
+            background: #32d5f9;
+            height: 66px;
+            width: 76px;
+            text-align: center;
+            border: none;
+            border-radius: 6px;
+            img{
+                display: inline-block;
+                line-height: 60px;
+            }
+        }
+    }
+}
+
+.mapImg {
+    margin-top: 1rem;
+    img {
+        display: block;
+        border-radius: 20px;
+    }
+}
+
+.newsLatter {
+    padding: 3rem 0;
+    background: url(../assets/front/images/flight-pattern.png) center center no-repeat $bg-4;
+    background-size: cover;
+    .newsLatterDesk {
+        margin: 10px 0;
+        h5{
+            margin: 0;
+            font-size: 1.125rem;
+            color: $bg-3;
+        }
+        p{
+            color: #034265;
+            font-weight: 600;
+            font-size: 0.75rem;
+            margin: 0;
+        }
+    }
+    .input-3 {
+        width: 100%;
+        background: #fff;
+        border: $bg-1 1px dashed;
+        height: 40px;
+        border-radius: 6px;
+        padding: 0 20px;
+        color: $bg-3;
+        font-size: 0.75rem;
+        font-weight: 600;
+
+    }
+    .sendDeal {
+        height: 40px;
+        background: $bg-1;
+        color: #fff;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 0 2.5rem;
+        display: block;
+        border-radius: 6px;
+        border: none;
+        text-transform: capitalize;
+        width: 100%;
+        margin: 10px 0;
+    }
+    img{
+        margin: 10px auto;
+        display: block;
+    }
+}

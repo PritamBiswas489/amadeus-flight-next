@@ -1,0 +1,325 @@
+@import '@/assets/front/styles/variable';
+.dashboard{
+    min-height: calc(100vh - 115px);
+    display: flex;
+    flex-wrap: wrap;
+    background: $light-blue;
+}
+.dashboardLeft {
+    flex: 0 0 395px;
+    max-width: 395px;
+    background: $bg-3;
+    min-height: calc(100vh - 115px)
+}
+
+.proBoxTop {
+    background: #24a9e1;
+    padding: 3rem;
+    text-align: center;
+    h5{
+        color: $bg-3;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+    p{
+        color: $bg-3;
+        font-size: 11px;
+        font-weight: 500;
+    }
+    span{
+        width: 126px;
+        height: 126px;
+        margin: 0 auto 1.25rem;
+        display: block;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: $bg-3 0 0 0 5px;
+        img{
+            display: block;
+            height: 126px;
+            object-fit: cover;
+        }
+    }
+}
+
+.proBoxBtm {
+    padding: 0 10px;
+    ul{
+        li{
+            &:not(:last-child){
+                border-bottom: rgba(255,255,255,.3) 1px solid;
+            }
+            a{
+                padding: 1rem 2rem;
+                display: block;
+                color: $bg-6;
+                font-size: 18px;
+                font-family: Maven Pro;
+                font-weight: 700;
+                text-transform: capitalize;
+                span{
+                    font-size: 11px;
+                    font-weight: 500;
+                    text-transform: lowercase;
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+.dashboardRight {
+    flex: 1 0 0%;
+    padding: 2rem;
+}
+.dashboardRightInner {
+    width: 100%;
+    >h4{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 700;
+    }
+}
+.whiteBox {
+    background: $bg-6;
+    padding: 2rem;
+    border-radius: 6px;
+}
+.geniusLevel {
+    h5{
+        color: $bg-3;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    p{
+        color: $bg-3;
+        font-size: 14px;
+        font-weight: 400;
+    }
+}
+.geniusLevelStep {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 30px 0;
+    &:after{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 7px;
+        width: 100%;
+        background: #bababa;
+    }
+    .circle {
+        width: 20px;
+        height: 20px;
+        position: relative;
+        z-index: 2;
+        background: #bababa;
+        border-radius: 50%;
+        position: relative;
+        span{
+            position: absolute;
+            top: calc(100% + 1rem);
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: nowrap;
+            
+        }
+        &.active{
+            width: 30px;
+            height: 30px;
+            background: #24a9e1;
+        }
+    }
+    .progress{
+        position: absolute;
+        z-index: 1;
+        height: 7px;
+    }
+}
+
+.dashboardRightInner {
+    .whiteBox {
+        margin-bottom: 1.25rem;
+    }
+    .bookTravel {
+        h5{
+            color: $bg-3;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        p{
+            color: $bg-3;
+            font-size: 13px;
+            font-weight: 400;
+        }
+    }
+}
+.geniusDiscountArea {
+    margin-top: 1.25rem;
+}
+.geniusDiscountTop {
+    margin-bottom: 1rem;
+}
+.geniusDiscount {
+    border-radius: 5px;
+    border: 1.5px solid #E7EAEC;
+    background: #FFF;
+    padding: 1.25rem;
+    .geniusDiscountTopLeft{
+        flex: 0 0 52px;
+        max-width: 52px;
+    }
+    .geniusDiscountTopRight {
+        flex: 1 0 0%;
+        padding-left: 1rem;
+        h6{
+            color: $bg-3;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        p{
+            color: $bg-3;
+            font-size: 12px;
+            font-weight: 400;
+        }
+    }
+}
+
+.geniusLabelBox {
+    padding: 30px 15px;
+    position: relative;
+    border-radius: 5px;
+    span{
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 0px 0px 5px 5px;
+        color: $bg-3;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 0 10px;
+    }
+    &.blueBg {
+        background: #e9fbff;
+        span{
+            background: #86e4fa;
+        }
+    }
+    &.greenBg {
+        background: #e9fbf6;
+        span{
+            background: #afecda;
+        }
+    }
+    &.redBg {
+        background: #fff5f5;
+        span{
+            background: #fccdcd;
+        }
+    }
+    h6{
+        color: $bg-3;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    p{
+        font-size: 10px !important;
+    }
+}
+
+.facilities {
+    border-radius: 5px;
+    border: 1.5px solid #E7EAEC;
+    background: #FFF;
+    padding: .85rem 1.25rem;
+    .facilitiesIcon {
+        flex: 0 0 50px;
+        max-width: 50px;
+        span{
+            display: block;
+            border-radius: 10px;
+            background: #afecda;
+            padding: 2px 5px;
+            font-size: 9px;
+            text-align: center;
+            margin-top: 5px;
+        }
+    }
+    .facilitiesDesc {
+        flex: 1 0 0%;
+        padding-left: 15px;
+        h6{
+            color: $bg-3;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        p{
+            color: $bg-3;
+            font-size: 10px;
+            font-weight: 400;
+        }
+    }
+}
+.discoverLevels {
+    h4{
+        color: $bg-3;
+        font-size: 18px;
+        font-weight: 700;
+    }
+    p{
+        color: $bg-3;
+        font-size: 13px;
+        font-weight: 400;
+    }
+}
+.discoverLevelWrap {
+    margin-top: 25px;
+}
+.discoverLevelBox {
+    border: 1px solid #e7eaec;
+    border-radius: 5px;
+        overflow: hidden;
+    h5{
+        padding: 10px 15px;
+        margin: 0;
+        border-bottom: 1px solid #e7eaec;
+        background: #e7eaec;
+        color: $bg-3;
+        font-size: 13px;
+        font-weight: 700;
+    }
+    .discoverLevelBoxInner{
+        padding: 10px 15px 30px;
+        p{
+            margin-bottom: 15px;
+        }
+        h6{
+            color: $bg-3;
+            font-size: 12px;
+            font-weight: 700;
+            margin: 0;
+            img{
+                display: inline-block;
+                margin-right: 5px;
+                vertical-align: middle;
+            }
+        }
+    }
+}
+
+.infoGraph {
+    text-align: center;
+    img{
+        display: inline-block;
+    }
+}

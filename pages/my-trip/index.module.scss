@@ -1,0 +1,178 @@
+@import '@/assets/front/styles/variable';
+.whiteBox {
+    background: $bg-6;
+    padding: 2rem 3rem;
+    border-radius: 6px;
+}
+
+.itineraryNumber {
+    .itineraryInput{
+        border-radius: 5px;
+        border: 1px solid rgba(196, 208, 216, 0.50);
+        height: 58px;
+        padding: 0 2rem;
+    }
+    .continueBtn {
+        border-radius: 5px;
+        background: #24a9e1;
+        height: 58px;
+        color: #FFF;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+    }
+}
+
+.itineraryNumber {
+    h4{
+        color: $bg-3;
+        font-size: 25px;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+    h6{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    p{
+        color: $bg-3;
+        font-size: 15px;
+        margin-bottom: .8rem;
+    }
+    a{
+        display: inline-block;
+        color: $bg-2-derk;
+        text-decoration: underline;
+    }
+}
+
+.differentAddress {
+    margin-top: 1.5rem;
+    a{
+        display: block;
+        border-radius: 5px;
+        border: 1px solid rgba(196, 208, 216, 0.50);
+        padding: 1.5rem 2rem;
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+        position: relative;
+        span{
+            display: block;
+            font-size: 12px;
+            font-weight: 400;
+        }
+        &:after{
+            content: "";
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: url(../../assets/front/images/angle-right.svg) center center no-repeat;
+            transition: all ease-in-out .4s;
+        }
+        &:hover{
+            background: #effcff;
+            border-color: #e3f6fa;
+            &:after{
+                right: .5rem;
+            }
+        }
+    }
+}
+
+.tripTabBox {
+    border-radius: 5px;
+    border: 1px solid rgba(196, 208, 216, 0.50);
+    &:not(:last-child) {
+        margin-bottom: 1.25rem;
+    }
+    .tripTabBoxTop {
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(196, 208, 216, 0.50);
+        position: relative;
+        .planeIcon {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: -15px;
+        }
+    }
+    .tripTabLeft {
+        flex: 1 0 0%;
+        .tripTabLeftTop{
+            margin-bottom: 5px;
+            li{
+                color: $bg-3;
+                font-size: 15px;
+                font-weight: 600;
+                &:not(:last-child) {
+                    margin-right: 2rem;
+                }
+            }
+        }
+        .tripTabLeftBtm {
+            li{
+                color: $bg-3;
+                font-size: 12px;
+                font-weight: 400;
+                position: relative;
+                &:not(:last-child) {
+                    margin-right: 2rem;
+                    &:after{
+                        content: "";
+                        position: absolute;
+                        width: 4px;
+                        height: 4px;
+                        background: #24a9e1;
+                        border-radius: 50%;
+                        top: 50%;
+                        right: calc(-1rem - 2px);
+                        transform: translateY(-50%);
+                    }
+                }
+                span{
+                    font-weight: 500;
+                }
+            }
+        }
+    }
+    .tripTabRight {
+        flex: 0 0 160px;
+        max-width: 160px;
+        .manageBooking {
+            display: block;
+            width: 100%;
+            background: #24a9e1;
+            line-height: 30px;
+            color: $bg-6;
+            font-size: 12px;
+            font-weight: 600;
+            text-align: center;
+            padding: 0 10px;
+            border-radius: 5px;
+            &:hover{
+                background: $bg-3;
+            }
+        }
+    }
+    .tripTabBoxBtm {
+        padding: 1rem 1.5rem;
+        ul{
+            li{
+                color: $bg-3;
+                font-size: 12px;
+                font-weight: 400;
+                &.dateTime{
+                    font-size: 14px;
+                }
+                &:not(:last-child){
+                    margin-bottom: .3rem;
+                }
+            }
+        }
+    }
+}

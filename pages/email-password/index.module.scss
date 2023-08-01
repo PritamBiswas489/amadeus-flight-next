@@ -1,0 +1,91 @@
+@import '@/assets/front/styles/variable';
+.whiteBox {
+    background: $bg-6;
+    padding: 2rem 3rem;
+    border-radius: 6px;
+}
+.emailPasswordInner {
+    max-width: 570px;
+    width: 100%;
+    &:not(:last-child){
+        margin-bottom: 2.5rem;
+    }
+    ul {
+        &:not(:last-child){
+            margin-bottom: 1rem;
+        }
+        li{
+            color: $bg-3;
+            font-size: 14px;
+            text-transform: capitalize;
+            &.info {
+                flex: 0 0 155px;
+                max-width: 155px;
+                font-weight: 700;
+                padding-top: 8px;
+            }
+            &.value{
+                flex:1 0 0%;
+                font-weight: 500;
+                span{
+                    font-weight: 400;
+                    display: block;
+                }
+                a{
+                    color: $bg-2;
+                }
+                input{
+                    height: 40px;
+                }
+            }
+            .personalInfoEdit {
+                flex: 0 0 30px;
+                max-width: 30px;
+            }
+        }
+    }
+    .saveCancel {
+        margin-top: 1rem;
+        li{
+            &:not(:last-child) {
+                margin-right: 15px;
+            }
+        }
+        .saveBtn{
+            background: $bg-2-derk;
+            line-height: 40px;
+            border: 1px transparent;
+            padding: 0 50px;
+            color: $bg-6;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 5px;
+            display: block;
+        }
+        .cancelBtn{
+            background: $bg-6;
+            border: rgba(196, 208, 216, 0.50) 1px solid;
+            line-height: 40px;
+            padding: 0 50px;
+            color: $bg-3;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 5px;
+            display: block;
+        }
+    }
+}
+
+.deleteAccount {
+    margin-top: 2rem;
+    .deleteAccountBtn{
+        background: $bg-6;
+        border: rgba(196, 208, 216, 0.50) 1px solid;
+        line-height: 40px;
+        padding: 0 50px;
+        color: $bg-3;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 5px;
+    }
+}

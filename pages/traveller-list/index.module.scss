@@ -1,0 +1,29 @@
+@import '@/assets/front/styles/variable';
+.whiteBox {
+    background: $bg-6;
+    padding: 2rem 3rem;
+    border-radius: 6px;
+}
+
+.listArea {
+    ul{
+        &:not(:last-child){
+            margin-bottom: 10px;
+        }
+        .info{
+            font-weight: 600;
+            flex: 0 0 200px;
+            max-width: 200px;
+            color: $bg-3;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .value{
+            flex: 1 0 0%;
+            padding-left: 15px;
+            color: #849096;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+}

@@ -1,0 +1,113 @@
+@import '@/assets/front/styles/variable';
+.bookFlight {
+    background: #fff;
+    padding: 30px;
+    margin: 0 auto;
+    width: 100%;
+    h4{
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+}
+.radio {
+    margin-bottom: 1.2rem;
+    ul {
+        li {
+            &:not(:last-child) {
+                margin-right: 1.8rem;
+            }
+            label{
+                font-weight: 600;
+                font-size: 13px;
+                color: $bg-3;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.inputArea {
+    border: rgba(196, 208, 216, 0.5) 1px solid;
+    border-radius: 6px;
+    padding: 10px 12px;
+    position: relative;
+    .roundTripIcon{
+        position: absolute;
+        right: -27px;
+        z-index: 1;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    label {
+        font-size: 14px;
+    }
+    .formInput {
+        border: none;
+        outline: none;
+        font-size: 18px;
+        font-weight: 500;
+        color: #034265;
+        width: 100%;
+        background-color: transparent;
+        height: 26px;
+    }
+    select {
+        border: none;
+        outline: none;
+        font-size: 18px;
+        font-weight: 500;
+        color: #034265;
+        width: 100%;
+        background-color: transparent;
+        height: 26px;
+    }
+    .react-date-picker__wrapper {
+        border: none !important;
+        background: #f00;
+        padding: 3px;
+    }
+}
+
+.bannSearch {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    .input-1 {
+        width: 100%;
+        border: rgba(196, 208, 216, 0.5) 1px solid;
+        padding: 0 15px 0 40px;
+        height: 42px;
+        outline-width: 0;
+        color: #034265;
+        font-weight: 500;
+        background: #fff;
+    }
+    .srcButton {
+        position: absolute;
+        left: 0;
+        background-color: transparent;
+        border: none;
+        outline-width: 0;
+        height: 38px;
+        width: 38px;
+    }
+}
+
+.findFlight {
+    padding: 0 5rem;
+    background: $bg-2;
+    color: $bg-3;
+    line-height: 61px;
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 5px;
+    &:hover {
+        background: $bg-3;
+        color: $bg-6;
+    }
+}

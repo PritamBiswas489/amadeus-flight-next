@@ -1,0 +1,203 @@
+@import '@/assets/front/styles/variable';
+.supportBann {
+    height: 350px;
+    width: 100%;
+    background-size: cover !important;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    &:after{
+        content: "";
+        background: rgba(36, 157, 225, 0.47);
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1;
+    }
+}
+
+.supportSearchArea {
+    width: 100%;
+    max-width: 1140px;
+    h2{
+        color: $bg-6;
+        text-shadow: 0px 0px 7px rgba(0,0,0,.5);
+        font-size: 58px;
+        font-family: Maven Pro;
+        font-style: normal;
+        font-weight: 800;
+        line-height: normal;
+        margin-bottom: 2rem;
+        text-align: center;
+    }
+    .supportSearchInput {
+        flex: 1 0 0%;
+        border: none;
+        background: $bg-6;
+        height: 75px;
+        border-radius: 5px 0 0 5px;
+        padding: 0 1.25rem;
+        font-size: 1rem;
+        color: $bg-3;
+        font-family: Maven Pro;
+    }
+    .supportSearchBtn {
+        background: $bg-1;
+        height: 75px;
+        border-radius: 0 5px 5px 0;
+        border: none;
+        font-size: 25px;
+        font-weight: 600;
+        padding: 0 2rem;
+        color: $bg-6;
+    }
+}
+
+.virtualAgent {
+    padding: 2rem 0 3rem;
+    h2{
+        color: #24A9E1;
+        font-size: 30px;
+        font-family: Maven Pro;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.virtualAgentBox {
+    padding: 2rem 1.25rem;
+    background: $bg-6;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.47) 0 0 10px -5px;
+    display: block;
+    color: #000;
+    font-size: 18px;
+    font-family: Maven Pro;
+    font-weight: 600;
+    text-align: center;
+    transition: all ease-in-out .4s;
+    img{
+        margin-right: 15px;
+    }
+    &:hover{
+        // background: $light-blue;
+        box-shadow: rgba(9, 106, 136, 0.70) 0 0 10px -5px;
+        transform: scale(1.04);
+    }
+}
+
+.categorySection {
+    padding: 2rem;
+    background: $light-blue;
+}
+.catMenu {
+    flex: 0 0 230px;
+    max-width: 230px;
+}
+.catDesc {
+    flex: 1 0 0%;
+}
+
+.catMenuInner {
+    h4{
+        color: #2CA7EC;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+    ul{
+        li{
+            &:not(:last-child){
+                margin-bottom: 5px;
+            }
+            a{
+                border-radius: 5px;
+                background: #fffefe;
+                padding: 1rem 1rem;
+                display: block;
+                color: #000;
+                font-size: 15px;
+                font-weight: 500;
+                position: relative;
+                &:after{
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    width: 0;
+                    height: 0;
+                    border-style: solid;
+                    border-width: 5px 0 5px 5px;
+                    border-color: transparent transparent transparent #2ca7ec;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all ease-in-out .4s;
+                }
+                &.active, &:hover{
+                    &:after{
+                        opacity: 1;
+                        visibility: visible;
+                        right: 10px;
+                    }
+                }
+                img{
+                    margin-right: 10px;
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
+.catDescInner {
+    h4{
+        color: #2CA7EC;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+    }
+}
+.accordionInner {
+    p{
+        color: #000;
+        font-size: 13px;
+        font-weight: 400;
+    }
+}
+.topicHelpful {
+    margin-top: 1rem;
+    border-top: #ccc 1px solid;
+    padding-top: 1rem;
+    h6{
+        color: #000;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    ul{
+        li{
+            &:not(:last-child){
+                margin-right: 12px;
+            }
+            a{
+                border-radius: 5px;
+                background: #d9d9d9;
+                line-height: 24px;
+                padding: 0 15px;
+                display: block;
+                color: #000;
+                font-size: 13px;
+                font-weight: 500;
+                &:hover{
+                    background: $bg-2;
+                    color: $bg-6;
+                }
+            }
+        }
+    }
+}

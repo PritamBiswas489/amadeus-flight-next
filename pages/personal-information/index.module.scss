@@ -1,0 +1,46 @@
+@import '@/assets/front/styles/variable';
+.whiteBox {
+    background: $bg-6;
+    padding: 2rem 3rem;
+    border-radius: 6px;
+}
+
+.personalInfoBox {
+    .personalInfoLeft {
+        flex: 1 0 0%;
+
+    }
+    
+}
+.personalInfoLeft {
+    ul {
+        &:not(:last-child){
+            margin-bottom: 2rem;
+        }
+        li{
+            color: $bg-3;
+            font-size: 14px;
+            text-transform: capitalize;
+            &.info {
+                flex: 0 0 155px;
+                max-width: 155px;
+                font-weight: 700;
+            }
+            &.value{
+                flex:1 0 0%;
+                font-weight: 500;
+                span{
+                    font-weight: 400;
+                    display: block;
+                }
+                a{
+                    color: $bg-2;
+                }
+            }
+            .personalInfoEdit {
+                flex: 0 0 30px;
+                max-width: 30px;
+            }
+        }
+    }
+}

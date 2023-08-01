@@ -1,0 +1,84 @@
+@import '@/assets/front/styles/variable';
+.dashboardLeft {
+    flex: 0 0 395px;
+    max-width: 395px;
+    background: $bg-3;
+    min-height: calc(100vh - 115px)
+}
+
+.proBoxTop {
+    background: #24a9e1;
+    padding: 3rem;
+    text-align: center;
+    h5{
+        color: $bg-3;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: capitalize;
+    }
+    p{
+        color: $bg-3;
+        font-size: 11px;
+        font-weight: 500;
+    }
+    span{
+        width: 126px;
+        height: 126px;
+        margin: 0 auto 1.25rem;
+        display: block;
+        border-radius: 50%;
+        overflow: hidden;
+        box-shadow: $bg-3 0 0 0 5px;
+        img{
+            display: block;
+            height: 126px;
+            object-fit: cover;
+        }
+    }
+}
+
+.proBoxBtm {
+    padding: 0 10px;
+    margin-top: .8rem;
+    ul{
+        li{
+            &:not(:last-child){
+                border-bottom: rgba(255,255,255,.3) 1px solid;
+            }
+            a{
+                padding: 1rem 2rem;
+                display: block;
+                color: $bg-6;
+                font-size: 18px;
+                font-family: Maven Pro;
+                font-weight: 700;
+                text-transform: capitalize;
+                span{
+                    font-size: 11px;
+                    font-weight: 500;
+                    text-transform: lowercase;
+                    display: block;
+                }
+                
+                &:hover, &.active{
+                    color: #24A9E1 !important;
+                    span{
+                        color: $bg-6;
+                    }
+                }
+            }
+            ul{
+                margin-bottom: 1rem;
+               li{
+                    border: none !important;
+                    a{
+                        font-size: 13px;
+                        padding: .3rem 2rem;
+                    }
+                }
+            }
+            
+        }
+    }
+    
+}

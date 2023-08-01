@@ -1,0 +1,20 @@
+@import '@/assets/front/styles/variable';
+.whiteBox {
+    background: $bg-6;
+    padding: 2rem 3rem;
+    border-radius: 6px;
+}
+.smsPreference {
+    p{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    a{
+        color: $bg-2-derk;
+        font-size: 14px;
+        font-weight: 400;
+        margin-top: 15px;
+        display: inline-block;
+    }
+}

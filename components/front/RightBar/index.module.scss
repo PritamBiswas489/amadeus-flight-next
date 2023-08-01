@@ -1,0 +1,396 @@
+@import '@/assets/front/styles/variable';
+.stepDtlsSection {
+    background: $light-blue;
+    padding: 2rem 0;
+    .whiteBdrBox {
+        &:not(:last-child){
+            margin-bottom: 1.25rem;
+        }
+    }
+}
+.whiteBdrBox {
+    background: $bg-6;
+    border: #e7eaec 1px solid;
+    
+}
+
+.ContactInformation {
+    padding: 20px;
+    h6{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .boldLable {
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 500;
+        
+    }
+    input[type=number] {
+        &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    }
+    small.enterNumber{
+        position: absolute;
+        top: 100%;
+        left: 15px;
+        color: #849096;
+        font-size: 10px;
+    }
+}
+.exclusiveDeals {
+    margin-top: .8rem;
+    color: #849096;
+    font-size: 12px;
+    svg{
+        color: #00885B;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+}
+.PassengerAdult {
+    padding: 20px;
+    h6{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+        small{
+            font-size: 10px;
+            display: block;
+            font-weight: 400;
+        }
+    }
+}
+
+.formNotification {
+    border-radius: 16px;
+    background: #e9f5ff;
+    padding: 1.8rem 1.8rem 1.8rem 3rem;
+    p{
+        color: $bg-3;
+        font-size: 12px;
+        font-weight: 500;
+        position: relative;
+        span{
+            position: absolute;
+            top: 0;
+            left: -1.4rem;
+            color: $bg-2;
+        }
+    }
+}
+.gender {
+    margin: 2.25rem 0 1.2rem;
+    ul {
+        li{
+            margin-bottom: 0;
+            &:not(:last-child){
+                margin-right: 2rem;
+            }
+        }
+    }
+}
+.frequentFlyer {
+    color: $bg-2;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: underline;
+}
+.genderForm {
+    label {
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 500;
+    }
+}
+.baggage {
+    &:not(:last-child){
+        margin-bottom: 1.25rem;
+    }
+    h5{
+        color: bg-3;
+        font-size: 15px;
+        font-weight: 700;
+        color: $bg-3;
+    }
+    .baggageInner{
+        border-radius: 2px;
+        border: 0.8px solid #C7CCCF;
+        background: #FFF;
+        padding: 10px;
+        ul{
+            li{
+                &:not(:last-child){
+                    margin-right: 2rem;
+                }
+                span{
+                    display: block;
+                    background: #ace5ff;
+                    padding: 0 20px;
+                    border-radius: 20px;
+                    line-height: 33px;
+                    color: $bg-3;
+                    font-size: 15px;
+                    font-weight: 600;
+                }
+            }
+        }
+        p{
+            color: $bg-3;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        h6{
+            margin-bottom: 5px;
+        }
+    }
+}
+.configureTrip {
+    h5{
+        color: $bg-3;
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+.pricingAreaTop {
+    margin-bottom: 1.25rem;
+    h6{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    p{
+        color: $bg-3;
+        font-size: 12px;
+        font-weight: 400;
+    }
+}
+.configureTripInner {
+    padding: 1.5rem;
+}
+.pricingArea {
+    .priceInner {
+        text-align: center;
+        background: #faf9f9;
+        padding: 1.2rem;
+        &.premium {
+            background: #f5f3f3;
+        }
+        h5{
+            color: #034265;
+            font-size: 15px;
+            font-weight: 500;
+        }
+        ul{
+            li{
+                padding: 13px 0;
+            }
+        }
+        .priceInnerAmmount {
+            margin-top: 1.2rem;
+            h6{
+                color: #707B81;
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: 5px;
+            }
+            p{
+                color: #707B81;
+                font-size: 13px;
+                font-weight: 400;
+                &:not(:last-child){
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+}
+.priceRadio {
+    margin-top: 1.25rem;
+    label{
+        display: block;
+    }
+    input{
+        width: 28px;
+        height: 28px;
+    }
+}
+.willWithout {
+    margin-top: 1.25rem;
+    h6{
+        color: #707B81;
+        font-size: 15px;
+        font-weight: 600;
+        margin: 0;
+        img{
+            margin-left: 10px;
+        }
+    }
+}
+
+.protectData {
+    text-align: center;
+    padding: 1.6rem 0;
+    h6{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    h5{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 700;
+    }
+    ul{
+        margin-bottom: 2rem;
+        li{
+            &:not(:last-child){
+                margin-right: 70px;
+            }
+            color: $bg-3;
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
+    a{
+        border-radius: 5px;
+        background: $bg-2;
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 46px;
+        padding: 0 40px;
+        display: inline-block;
+        margin-bottom: 1.5rem;
+    }
+    p{
+        color: #849096;
+        font-size: 15px;
+        font-weight: 400;
+    }
+}
+.yourOrder {
+    background: #d8f7fe;
+    padding: 10px 5px;
+    position: sticky;
+    top: 0;
+    h5{
+        color: $bg-3;
+        font-size: 15px;
+        font-weight: 700;
+        border-bottom: $bg-3 1px solid;
+        padding: 0.5rem 1.25rem 0.8rem;
+        margin-bottom: 1rem;
+    }
+    .yourOrderInner {
+        padding: 0 1rem;
+        position: relative;
+        h6{
+            color: $bg-3;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        ul{
+            li{
+                color: $bg-3;
+                font-size: 13px;
+                span{
+                    font-weight: 600;
+                }
+            }
+        }
+        .airAsia {
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+        &:not(:last-child){
+            margin-bottom: 1.25rem;
+        }
+    }
+}
+
+.yourOrderBox {
+    border-bottom: $bg-3 1px solid;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    .bagsBox {
+        
+        &:not(:last-child){
+            margin-bottom: 5px;
+        }
+        p{
+            color: $bg-3;
+            font-size: 13px;
+        }
+    }
+}
+
+.travelDetails {
+    position: relative;
+    h4{
+        position: absolute;
+        left: 50%;
+        top: -36px;
+        transform: translateX(-50%);
+        border-radius: 30px;
+        border: 0.5px solid #356B87;
+        background: #DDF1F5;
+        color: #034265;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 7px 15px;
+    }
+}
+
+.yourOrderTable {
+    padding: 0 10px;
+    table{
+        th,td{
+            background-color: transparent; 
+            vertical-align: bottom;
+            padding: 2px 5px;
+            strong{
+                display: block;
+            }
+            a{
+                color: $bg-2;
+                text-decoration: underline;
+                color: #03A9F4;
+                font-size: 10px;
+                font-weight: 600;
+                text-decoration-line: underline;
+            }
+        }
+    }
+    td{
+        font-size: 12px;
+    }
+}
+
+.hurry {
+    padding: 0 10px;
+    margin-bottom: 5px;
+    h4{
+        color: $bg-2-derk;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+}
