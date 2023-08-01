@@ -1,37 +1,37 @@
-@import '@/assets/front/styles/variable';
+@import "@/assets/front/styles/variable";
 .homeBanner {
-  width: 100%;
-  background-size: cover !important;
-  position: relative;
-  z-index: 2;
-  padding: 4rem 0;
-  &:after{
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 231, 148, 0.2);
-      z-index: -1;
-  }
+    width: 100%;
+    background-size: cover !important;
+    position: relative;
+    z-index: 2;
+    padding: 4rem 0;
+    &:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 231, 148, 0.2);
+        z-index: -1;
+    }
 }
 
 .citiesDestinationBox {
-    a{
+    a {
         display: block;
         position: relative;
         border-radius: 16px;
         overflow: hidden;
-        &::after{
+        &::after {
             content: "";
             position: absolute;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,.2);
-            transition: all ease-in-out .4s;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all ease-in-out 0.4s;
         }
         .destinationName {
             position: absolute;
@@ -40,21 +40,21 @@
             padding: 20px;
             left: 0;
             z-index: 1;
-            transition: all ease-in-out .4s;
-            h5{
+            transition: all ease-in-out 0.4s;
+            h5 {
                 color: #fff;
                 font-weight: 700;
             }
-            h6{
+            h6 {
                 color: #fff;
                 font-weight: 600;
                 margin-bottom: 0;
             }
         }
     }
-    &:hover{
-        a{
-            &::after{
+    &:hover {
+        a {
+            &::after {
                 background: rgba(0, 0, 0, 0.534);
             }
             .destinationName {
@@ -72,28 +72,27 @@
     padding: 4rem 0;
 }
 
-
 .sectionTitle {
-    h2{
+    h2 {
         text-transform: uppercase;
     }
-     p{
+    p {
         color: $black;
         font-weight: 600;
         margin-bottom: 0.313rem;
-     }
+    }
 }
 .travelersChoose {
     background: #f3fbff;
     padding: 3rem 0;
-    h2{
+    h2 {
         margin-bottom: 1.5rem;
     }
 }
 .travelersChooseBox {
     max-width: 220px;
     margin: 0.625rem 0;
-    span{
+    span {
         display: inline-block;
         width: 58px;
         height: 58px;
@@ -102,18 +101,18 @@
         line-height: 58px;
         text-align: center;
         margin-bottom: 0.625rem;
-        img{
+        img {
             width: auto;
             height: 38px;
         }
     }
-    h4{
+    h4 {
         font-size: 20px;
         font-weight: 600;
         color: $bg-3;
     }
-    p{
-        color: #868C8E;
+    p {
+        color: #868c8e;
         font-size: 13px;
     }
 }
@@ -126,29 +125,32 @@
     border-radius: 20px;
     overflow: hidden;
     text-align: center;
+    &:hover {
+        box-shadow: rgba(0, 0, 0, 0.4) 0 0 20px -5px;
+    }
     .pfbLeft {
         flex: 146px;
         max-width: 146px;
-        span{
+        span {
             display: block;
-            img{
+            img {
                 width: 100% !important;
                 display: block;
             }
         }
     }
     .pfbRight {
-        flex:1 0 0%;
+        flex: 1 0 0%;
         padding: 0 1rem;
-        h5{
+        h5 {
             font-size: 1.125rem;
             color: $bg-3;
-            span{
+            span {
                 display: inline-block;
                 vertical-align: middle;
             }
         }
-        p{
+        p {
             font-size: 0.75rem;
             font-weight: 600;
             color: $bg-2;
@@ -159,36 +161,36 @@
 }
 
 .mapSection {
-    background: #F2F4F5;
+    background: #f2f4f5;
     padding: 3rem 0;
     .mapSectionWrap {
         background: #fff;
         padding: 30px;
         border-radius: 20px;
     }
-    .mapTop{
+    .mapTop {
         margin-bottom: 1rem;
         .mapTopLeft {
-            ul{
-                li{
+            ul {
+                li {
                     font-size: 15px;
                     font-weight: 500;
                     color: #034265;
-                    &:not(:last-child){
+                    &:not(:last-child) {
                         margin-right: 2rem;
                     }
-                    span{
+                    span {
                         display: inline-block;
                         vertical-align: middle;
                         margin-right: 5px;
-                        img{
+                        img {
                             display: block;
                             vertical-align: middle;
                             position: relative;
                             top: -2px;
                         }
                     }
-                    select{
+                    select {
                         border: none;
                         background-color: transparent;
                         color: $bg-3;
@@ -202,9 +204,9 @@
             font-size: 15px;
             color: #034265;
             font-weight: 600;
-            a{
-                color: #32D5F9;
-                &:hover{
+            a {
+                color: #32d5f9;
+                &:hover {
                     color: #034265;
                     text-decoration: underline;
                 }
@@ -213,8 +215,8 @@
     }
     .mapMid {
         .mapMidInput {
-            border: #C4D0D8 1px solid;
-            padding: .4rem .8rem;
+            border: #c4d0d8 1px solid;
+            padding: 0.4rem 0.8rem;
             border-radius: 6px;
             .input-2 {
                 width: 100%;
@@ -227,12 +229,15 @@
         }
         .srcBtn {
             background: #32d5f9;
-            height: 66px;
+            height: 100%;
             width: 76px;
             text-align: center;
             border: none;
             border-radius: 6px;
-            img{
+            &:hover {
+                background: $bg-1;
+            }
+            img {
                 display: inline-block;
                 line-height: 60px;
             }
@@ -242,9 +247,11 @@
 
 .mapImg {
     margin-top: 1rem;
+    border-radius: 20px;
+    overflow: hidden;
+
     img {
         display: block;
-        border-radius: 20px;
     }
 }
 
@@ -254,12 +261,12 @@
     background-size: cover;
     .newsLatterDesk {
         margin: 10px 0;
-        h5{
+        h5 {
             margin: 0;
             font-size: 1.125rem;
             color: $bg-3;
         }
-        p{
+        p {
             color: #034265;
             font-weight: 600;
             font-size: 0.75rem;
@@ -276,7 +283,6 @@
         color: $bg-3;
         font-size: 0.75rem;
         font-weight: 600;
-
     }
     .sendDeal {
         height: 40px;
@@ -292,7 +298,7 @@
         width: 100%;
         margin: 10px 0;
     }
-    img{
+    img {
         margin: 10px auto;
         display: block;
     }

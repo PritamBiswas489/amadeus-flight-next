@@ -8,20 +8,20 @@
     "start": "NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "bootstrap": "^5.3.0",
     "eslint": "8.44.0",
     "eslint-config-next": "13.4.9",
-    "next": "13.4.9",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "bootstrap": "^5.3.0",
     "jquery": "^3.7.0",
+    "next": "13.4.9",
     "prop-types": "^15.8.1",
+    "react": "18.2.0",
     "react-date-picker": "^10.2.0",
+    "react-dom": "18.2.0",
     "react-form-stepper": "^2.0.3",
     "react-icons": "^4.10.1",
     "react-owl-carousel": "^2.3.3"
   },
   "devDependencies": {
-    "sass": "^1.63.6"
+    "sass": "^1.64.2"
   }
 }

@@ -3,6 +3,7 @@ import style from "./index.module.scss";
 import Image from "next/image";
 import logo from "@/assets/front/images/logo.svg";
 import setting from "@/assets/front/images/setting.svg";
+import manageBooking from "@/assets/front/images/manage-booking.svg";
 import login from "@/assets/front/images/login.svg";
 import flag from "@/assets/front/images/flag.svg";
 import email from "@/assets/front/images/email.svg";
@@ -28,36 +29,48 @@ const Header = () => {
                                 </Link>
                             </div>
                         </div>
-                        <div className="col-auto">
+                        <div className="col-auto d-flex flex-wrap">
                             {/* <ul className='d-flex suppLog'> */}
-                            <ul className={`d-flex ${style.suppLog}`}>
-                                <li>
-                                    <Link href="#">
-                                        <Image src={setting} width={28} height={28} alt="" /> Manage Booking
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <Image src={trustpilot} width={250} height={"auto"} alt="" />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <Image src={flag} width={28} height={28} alt="" />
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <Image src={setting} width={28} height={28} alt="" /> Support
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        <Image src={login} width={28} height={28} alt="" />
-                                        Login | Sign up
-                                    </Link>
-                                </li>
-                            </ul>
+                            <div className={style.manageBooking}>
+                                <ul className={`d-flex ${style.suppLog}`}>
+                                    <li>
+                                        <Link href="#">
+                                            <Image src={manageBooking} width={28} height={24} alt="" /> Manage Booking
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="#">
+                                            <Image src={trustpilot} width={250} height={"auto"} alt="" />
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="#">
+                                            <Image src={flag} width={28} height={28} alt="" />
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="#">
+                                            <Image src={setting} width={28} height={28} alt="" /> Support
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={style.logRegArea}>
+                                <ul className={`d-flex ${style.logReg}`}>
+                                    <li>
+                                        <Link href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <Image src={login} width={28} height={28} alt="" />
+                                            Login
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            {/* <Image src={login} width={28} height={28} alt="" /> */}
+                                            Sign up
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

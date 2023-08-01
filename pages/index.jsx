@@ -28,7 +28,8 @@ import plain_2 from "@/assets/front/images/plain-2.svg";
 import adult from "@/assets/front/images/adult.svg";
 import economy from "@/assets/front/images/economy.svg";
 import map from "@/assets/front/images/map.svg";
-import search from "@/assets/front/images/search-icon.svg";
+// import search from "@/assets/front/images/search-icon.svg";
+import searchWhite from "@/assets/front/images/search-white.svg";
 import mapImg from "@/assets/front/images/map.png";
 import envelope from "@/assets/front/images/envelope.svg";
 
@@ -379,7 +380,7 @@ export default function Home() {
                                 </div>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
+                                <Link href={"#"} className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
                                     <div className={style.pfbLeft}>
                                         <span>
                                             <Image alt="" src={populerFlight_1} placeholder="logo" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
@@ -397,10 +398,10 @@ export default function Home() {
                                             <span>23rd may</span> - <span>29th may</span> round trip
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
+                                <Link href={"#"} className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
                                     <div className={style.pfbLeft}>
                                         <span>
                                             <Image alt="" src={populerFlight_1} placeholder="logo" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
@@ -418,10 +419,10 @@ export default function Home() {
                                             <span>23rd may</span> - <span>29th may</span> round trip
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
+                                <Link href={"#"} className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
                                     <div className={style.pfbLeft}>
                                         <span>
                                             <Image alt="" src={populerFlight_1} placeholder="logo" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
@@ -439,10 +440,10 @@ export default function Home() {
                                             <span>23rd may</span> - <span>29th may</span> round trip
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
+                                <Link href={"#"} className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
                                     <div className={style.pfbLeft}>
                                         <span>
                                             <Image alt="" src={populerFlight_1} placeholder="logo" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
@@ -460,10 +461,10 @@ export default function Home() {
                                             <span>23rd may</span> - <span>29th may</span> round trip
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
+                                <Link href={"#"} className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
                                     <div className={style.pfbLeft}>
                                         <span>
                                             <Image alt="" src={populerFlight_1} placeholder="logo" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
@@ -481,10 +482,10 @@ export default function Home() {
                                             <span>23rd may</span> - <span>29th may</span> round trip
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                             <div className="col-lg-4 col-md-4 col-sm-6 col-6">
-                                <div className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
+                                <Link href={"#"} className={`d-flex align-items-center ${style.PopularFlightsBox}`}>
                                     <div className={style.pfbLeft}>
                                         <span>
                                             <Image alt="" src={populerFlight_1} placeholder="logo" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
@@ -502,7 +503,7 @@ export default function Home() {
                                             <span>23rd may</span> - <span>29th may</span> round trip
                                         </p>
                                     </div>
-                                </div>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -521,6 +522,7 @@ export default function Home() {
                                                     </span>
                                                     <select>
                                                         <option value="">One way</option>
+                                                        <option value="">Round Trip</option>
                                                     </select>
                                                 </li>
                                                 <li>
@@ -528,7 +530,9 @@ export default function Home() {
                                                         <Image alt="" src={adult} placeholder="" width={16} height={16} />
                                                     </span>
                                                     <select>
-                                                        <option value="">1Adult</option>
+                                                        <option value="">1 Adult</option>
+                                                        <option value="">2 Adult</option>
+                                                        <option value="">3 Adult</option>
                                                     </select>
                                                 </li>
                                                 <li>
@@ -537,6 +541,7 @@ export default function Home() {
                                                     </span>
                                                     <select>
                                                         <option value="">Economy</option>
+                                                        <option value="">Business</option>
                                                     </select>
                                                 </li>
                                             </ul>
@@ -566,7 +571,7 @@ export default function Home() {
                                             </div>
                                             <div className="col-auto">
                                                 <button type="button" className={style.srcBtn}>
-                                                    <Image alt="" src={search} placeholder="" width={30} height={30} sizes="100vw" />
+                                                    <Image alt="" src={searchWhite} placeholder="" width={24} height={25} sizes="100vw" />
                                                 </button>
                                             </div>
                                         </div>
