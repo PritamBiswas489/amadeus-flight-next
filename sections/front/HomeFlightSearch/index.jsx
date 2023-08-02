@@ -8,9 +8,12 @@ import plain2 from "@/assets/front/images/plain-3.svg";
 
 import DatePicker from "react-date-picker";
 
+import { FaAngleDown } from "react-icons/fa";
+
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 import style from "./index.module.scss";
+import Link from "next/link";
 
 const HomeFlightSearch = () => {
     const [value, onChange] = useState(new Date());
@@ -23,7 +26,7 @@ const HomeFlightSearch = () => {
                 <div className="row">
                     <div className="col-12">
                         <div className={style.bookFlight}>
-                            <h4>Book Your Flight2</h4>
+                            <h4>Book Your Flight</h4>
                             <div className="row g-3">
                                 <div className="col-12">
                                     <div className={style.radio}>
@@ -186,27 +189,99 @@ const HomeFlightSearch = () => {
                                         </div>
                                         <div className="col-lg-3 col-md-3 col-sm-6 col-6">
                                             <div className={style.inputArea}>
-                                                <div className="w-100">
+                                                <div className={`w-100 ${style.inputSelect}`}>
                                                     <label>Passengers</label>
-                                                </div>
-                                                <div className={style.inputBox}>
-                                                    <select>
-                                                        <option value="">1 Adult</option>
-                                                        <option value="">2 Adult</option>
-                                                    </select>
+                                                    <Link href={"#"}>
+                                                        1 Adult <FaAngleDown />
+                                                    </Link>
+                                                    <div className={style.inputDropDown}>
+                                                        <h5>Passanger</h5>
+                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
+                                                            <div className={style.numberLeft}>
+                                                                <h6>Adults</h6>
+                                                            </div>
+                                                            <div className={style.numberRight}>
+                                                                <div className={`d-flex align-items-center ${style.number}`}>
+                                                                    <span className={style.minus}>-</span>
+                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
+                                                                    <span className={style.plus}>+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
+                                                            <div className={style.numberLeft}>
+                                                                <h6>
+                                                                    Children<small>Ages 2- 17</small>
+                                                                </h6>
+                                                            </div>
+                                                            <div className={style.numberRight}>
+                                                                <div className={`d-flex align-items-center ${style.number}`}>
+                                                                    <span className={style.minus}>-</span>
+                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
+                                                                    <span className={style.plus}>+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
+                                                            <div className={style.numberLeft}>
+                                                                <h6>
+                                                                    Infant<small>less or eu al to 2</small>
+                                                                </h6>
+                                                            </div>
+                                                            <div className={style.numberRight}>
+                                                                <div className={`d-flex align-items-center ${style.number}`}>
+                                                                    <span className={style.minus}>-</span>
+                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
+                                                                    <span className={style.plus}>+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-lg-3 col-md-3 col-sm-6 col-6">
                                             <div className={style.inputArea}>
-                                                <div className="w-100">
+                                                <div className={`w-100 ${style.inputSelect}`}>
                                                     <label>Class</label>
-                                                </div>
-                                                <div className={style.inputBox}>
-                                                    <select>
-                                                        <option value="">Business</option>
-                                                        <option value="">2 Adult</option>
-                                                    </select>
+                                                    <Link href={"#"}>
+                                                        Business <FaAngleDown />
+                                                    </Link>
+                                                    <div className={style.inputDropDown}>
+                                                        <h5>Passanger</h5>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-6">
+                                                                    Economy
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-6" />
+                                                            </div>
+                                                        </div>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-7">
+                                                                    Premium Economy
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-7" />
+                                                            </div>
+                                                        </div>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-8">
+                                                                    Buisness class
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-8" />
+                                                            </div>
+                                                        </div>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-8">
+                                                                    First Class
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-8" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
