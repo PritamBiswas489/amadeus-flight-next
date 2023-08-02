@@ -1,4 +1,4 @@
-@import '@/assets/front/styles/variable';
+@import "@/assets/front/styles/variable";
 .whiteBox {
     background: $bg-6;
     padding: 2rem 3rem;
@@ -6,41 +6,44 @@
 }
 
 .itineraryNumber {
-    .itineraryInput{
+    .itineraryInput {
         border-radius: 5px;
-        border: 1px solid rgba(196, 208, 216, 0.50);
+        border: 1px solid rgba(196, 208, 216, 0.5);
         height: 58px;
         padding: 0 2rem;
     }
     .continueBtn {
         border-radius: 5px;
-        background: #24a9e1;
+        background: $bg-2-derk;
         height: 58px;
-        color: #FFF;
+        color: $bg-6;
         font-size: 16px;
         font-weight: 600;
         border: none;
+        &:hover {
+            background: $bg-3;
+        }
     }
 }
 
 .itineraryNumber {
-    h4{
+    h4 {
         color: $bg-3;
         font-size: 25px;
         font-weight: 600;
         margin-bottom: 1.5rem;
     }
-    h6{
+    h6 {
         color: $bg-3;
         font-size: 15px;
         font-weight: 600;
     }
-    p{
+    p {
         color: $bg-3;
         font-size: 15px;
-        margin-bottom: .8rem;
+        margin-bottom: 0.8rem;
     }
-    a{
+    a {
         display: inline-block;
         color: $bg-2-derk;
         text-decoration: underline;
@@ -49,21 +52,21 @@
 
 .differentAddress {
     margin-top: 1.5rem;
-    a{
+    a {
         display: block;
         border-radius: 5px;
-        border: 1px solid rgba(196, 208, 216, 0.50);
+        border: 1px solid rgba(196, 208, 216, 0.5);
         padding: 1.5rem 2rem;
         color: $bg-3;
         font-size: 15px;
         font-weight: 600;
         position: relative;
-        span{
+        span {
             display: block;
             font-size: 12px;
             font-weight: 400;
         }
-        &:after{
+        &:after {
             content: "";
             position: absolute;
             right: 1rem;
@@ -72,13 +75,13 @@
             width: 12px;
             height: 12px;
             background: url(../../assets/front/images/angle-right.svg) center center no-repeat;
-            transition: all ease-in-out .4s;
+            transition: all ease-in-out 0.4s;
         }
-        &:hover{
+        &:hover {
             background: #effcff;
             border-color: #e3f6fa;
-            &:after{
-                right: .5rem;
+            &:after {
+                right: 0.5rem;
             }
         }
     }
@@ -86,13 +89,13 @@
 
 .tripTabBox {
     border-radius: 5px;
-    border: 1px solid rgba(196, 208, 216, 0.50);
+    border: 1px solid rgba(196, 208, 216, 0.5);
     &:not(:last-child) {
         margin-bottom: 1.25rem;
     }
     .tripTabBoxTop {
         padding: 1.5rem;
-        border-bottom: 1px solid rgba(196, 208, 216, 0.50);
+        border-bottom: 1px solid rgba(196, 208, 216, 0.5);
         position: relative;
         .planeIcon {
             position: absolute;
@@ -103,9 +106,9 @@
     }
     .tripTabLeft {
         flex: 1 0 0%;
-        .tripTabLeftTop{
+        .tripTabLeftTop {
             margin-bottom: 5px;
-            li{
+            li {
                 color: $bg-3;
                 font-size: 15px;
                 font-weight: 600;
@@ -115,14 +118,14 @@
             }
         }
         .tripTabLeftBtm {
-            li{
+            li {
                 color: $bg-3;
                 font-size: 12px;
                 font-weight: 400;
                 position: relative;
                 &:not(:last-child) {
                     margin-right: 2rem;
-                    &:after{
+                    &:after {
                         content: "";
                         position: absolute;
                         width: 4px;
@@ -134,7 +137,7 @@
                         transform: translateY(-50%);
                     }
                 }
-                span{
+                span {
                     font-weight: 500;
                 }
             }
@@ -154,23 +157,23 @@
             text-align: center;
             padding: 0 10px;
             border-radius: 5px;
-            &:hover{
+            &:hover {
                 background: $bg-3;
             }
         }
     }
     .tripTabBoxBtm {
         padding: 1rem 1.5rem;
-        ul{
-            li{
+        ul {
+            li {
                 color: $bg-3;
                 font-size: 12px;
                 font-weight: 400;
-                &.dateTime{
+                &.dateTime {
                     font-size: 14px;
                 }
-                &:not(:last-child){
-                    margin-bottom: .3rem;
+                &:not(:last-child) {
+                    margin-bottom: 0.3rem;
                 }
             }
         }

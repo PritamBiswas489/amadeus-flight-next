@@ -1,4 +1,4 @@
-@import '@/assets/front/styles/variable';
+@import "@/assets/front/styles/variable";
 .whiteBox {
     background: $bg-6;
     padding: 2rem 3rem;
@@ -7,14 +7,14 @@
 .emailPasswordInner {
     max-width: 570px;
     width: 100%;
-    &:not(:last-child){
+    &:not(:last-child) {
         margin-bottom: 2.5rem;
     }
     ul {
-        &:not(:last-child){
+        &:not(:last-child) {
             margin-bottom: 1rem;
         }
-        li{
+        li {
             color: $bg-3;
             font-size: 14px;
             text-transform: capitalize;
@@ -24,17 +24,17 @@
                 font-weight: 700;
                 padding-top: 8px;
             }
-            &.value{
-                flex:1 0 0%;
+            &.value {
+                flex: 1 0 0%;
                 font-weight: 500;
-                span{
+                span {
                     font-weight: 400;
                     display: block;
                 }
-                a{
+                a {
                     color: $bg-2;
                 }
-                input{
+                input {
                     height: 40px;
                 }
             }
@@ -46,12 +46,12 @@
     }
     .saveCancel {
         margin-top: 1rem;
-        li{
+        li {
             &:not(:last-child) {
                 margin-right: 15px;
             }
         }
-        .saveBtn{
+        .saveBtn {
             background: $bg-2-derk;
             line-height: 40px;
             border: 1px transparent;
@@ -61,10 +61,13 @@
             font-weight: 600;
             border-radius: 5px;
             display: block;
+            &:hover {
+                background: $bg-3;
+            }
         }
-        .cancelBtn{
+        .cancelBtn {
             background: $bg-6;
-            border: rgba(196, 208, 216, 0.50) 1px solid;
+            border: rgba(196, 208, 216, 0.5) 1px solid;
             line-height: 40px;
             padding: 0 50px;
             color: $bg-3;
@@ -72,15 +75,18 @@
             font-weight: 600;
             border-radius: 5px;
             display: block;
+            &:hover {
+                background: $bg-2;
+            }
         }
     }
 }
 
 .deleteAccount {
     margin-top: 2rem;
-    .deleteAccountBtn{
+    .deleteAccountBtn {
         background: $bg-6;
-        border: rgba(196, 208, 216, 0.50) 1px solid;
+        border: rgba(196, 208, 216, 0.5) 1px solid;
         line-height: 40px;
         padding: 0 50px;
         color: $bg-3;

@@ -1,4 +1,4 @@
-@import '@/assets/front/styles/variable';
+@import "@/assets/front/styles/variable";
 .whiteBox {
     background: $bg-6;
     padding: 2rem 3rem;
@@ -8,16 +8,14 @@
 .personalInfoBox {
     .personalInfoLeft {
         flex: 1 0 0%;
-
     }
-    
 }
 .personalInfoLeft {
     ul {
-        &:not(:last-child){
+        &:not(:last-child) {
             margin-bottom: 2rem;
         }
-        li{
+        li {
             color: $bg-3;
             font-size: 14px;
             text-transform: capitalize;
@@ -26,20 +24,30 @@
                 max-width: 155px;
                 font-weight: 700;
             }
-            &.value{
-                flex:1 0 0%;
+            &.value {
+                flex: 1 0 0%;
                 font-weight: 500;
-                span{
+                span {
                     font-weight: 400;
                     display: block;
                 }
-                a{
+                a {
                     color: $bg-2;
                 }
             }
-            .personalInfoEdit {
+            &.personalInfoEdit {
                 flex: 0 0 30px;
                 max-width: 30px;
+                span {
+                    display: block;
+                    cursor: pointer;
+                    width: 100%;
+                    text-align: center;
+                    line-height: 30px;
+                    img {
+                        display: inline-block;
+                    }
+                }
             }
         }
     }

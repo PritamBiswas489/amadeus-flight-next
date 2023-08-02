@@ -1,4 +1,4 @@
-@import '@/assets/front/styles/variable';
+@import "@/assets/front/styles/variable";
 .whiteBox {
     background: $bg-6;
     padding: 2rem 3rem;
@@ -7,25 +7,25 @@
 
 .emailPreferenceBox {
     padding-left: 35px;
-    &:before{
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    left: 0;
-    top: 3px;
-    background: url(../../assets/front/images/check-2.svg);
+    &:before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        left: 0;
+        top: 3px;
+        background: url(../../assets/front/images/check-2.svg);
     }
-    &:not(:last-child){
+    &:not(:last-child) {
         margin-bottom: 2rem;
     }
-    h5{
+    h5 {
         color: $bg-3;
         font-size: 14px;
         font-weight: 700;
-        margin-bottom: .2rem;
+        margin-bottom: 0.2rem;
     }
-    p{
+    p {
         color: $bg-3;
         font-size: 14px;
         font-weight: 400;
@@ -33,10 +33,10 @@
 }
 .languagePreference {
     padding-left: 35px;
-    &:not(:last-child){
+    &:not(:last-child) {
         margin-bottom: 2rem;
     }
-    h5{
+    h5 {
         color: $bg-3;
         font-size: 14px;
         font-weight: 700;
@@ -46,22 +46,21 @@
     select {
         max-width: 306px;
     }
-    label{
+    label {
         color: $bg-3;
         font-size: 15px;
         font-weight: 400;
     }
-    
 }
 .saveCancel {
     margin-top: 1rem;
     margin-left: 1.6rem;
-    li{
+    li {
         &:not(:last-child) {
             margin-right: 15px;
         }
     }
-    .saveBtn{
+    .saveBtn {
         background: $bg-2-derk;
         line-height: 40px;
         border: 1px transparent;
@@ -71,10 +70,13 @@
         font-weight: 600;
         border-radius: 5px;
         display: block;
+        &:hover {
+            background: $bg-3;
+        }
     }
-    .cancelBtn{
+    .cancelBtn {
         background: $bg-6;
-        border: rgba(196, 208, 216, 0.50) 1px solid;
+        border: rgba(196, 208, 216, 0.5) 1px solid;
         line-height: 40px;
         padding: 0 50px;
         color: $bg-3;
@@ -82,5 +84,9 @@
         font-weight: 600;
         border-radius: 5px;
         display: block;
+        &:hover {
+            background: $bg-2;
+            color: $bg-6;
+        }
     }
 }
