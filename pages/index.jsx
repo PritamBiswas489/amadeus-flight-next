@@ -6,6 +6,8 @@ import style from "./index.module.scss";
 import Layout from "@/components/front/include/Layout";
 import HomeFlightSearch from "@/sections/front/HomeFlightSearch";
 
+import Loader from "@/components/front/include/Loader";
+
 // import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import DatePicker from "react-date-picker";
@@ -72,6 +74,7 @@ export default function Home() {
 
     return (
         <>
+            <Loader />
             <Layout>
                 <section className={style.homeBanner} style={{ backgroundImage: `url(${bg.src})` }}>
                     <HomeFlightSearch />
