@@ -1,24 +1,241 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-
+ 
 import plain from "@/assets/front/images/plain.svg";
 import searchIcon from "@/assets/front/images/search-icon.svg";
 import rtIcon from "@/assets/front/images/rtIcon.svg";
-import plain2 from "@/assets/front/images/plain-3.svg";
+import oneWayIcon from "@/assets/front/images/oneway.svg";
 
-import DatePicker from "react-date-picker";
-
-import { FaAngleDown } from "react-icons/fa";
-
-import "react-date-picker/dist/DatePicker.css";
-import "react-calendar/dist/Calendar.css";
 import style from "./index.module.scss";
-import Link from "next/link";
+import AirlineCodeList from "@/components/front/AirlineCodeList/AirlineCodeList";
+import PassengerTypeList from "@/components/front/PassengerTypeList/PassengerTypeList";
+import ClassTypeList from "@/components/front/ClassTypeList/ClassTypeList";
+import FlightType from "@/components/front/FlightType/FlightType";
+import Departure from "@/components/front/DateSelector/Departure";
+import Return from "@/components/front/DateSelector/Return";
+
+import useGeolocation from "@/hooks/useGeolocation";
+import useFetch from "@/hooks/useFetch";
+import useGlobalCookies from "@/hooks/useGlobalCookies";
+import { useSnackbar } from "notistack";
+import { apiDateFormat, objectToQueryString } from "@/service/Helpers";
+
+
+ 
 
 const HomeFlightSearch = () => {
-    const [value, onChange] = useState(new Date());
-    const [valueTwo, onChangeTwo] = useState(new Date());
-    const [valueThree, onChangeThree] = useState(new Date());
+    const { enqueueSnackbar } = useSnackbar();
+
+    const [depatureDate, setDepatureDate] = useState(new Date());
+    const [returnDate, setReturnDate] = useState(new Date());
+    const [fromAircodeShow,setFromAircodeShow]  = useState(false); 
+    const [toAircodeShow,settoAircodeShow]  = useState(false); 
+    const [classValue,setClassValue] = useState('ECONOMY');
+
+    const [adultValue,setAdultValue] = useState(1);
+    const [childrenValue,setChildrenValue] = useState(0);
+    const [infantValue,setInfantValue] = useState(0);
+
+    const [flightType, setflightType] = useState('ONEWAY');
+    const [nonStop, setNonStop] = useState(true);
+
+    const { cookies, setGlobalCookie, removeGlobalCookie } = useGlobalCookies();
+
+
+    const [fromAirportData, setfromAirportData] = useState({});
+    const [toAirportData, settoAirportData] = useState({});
+
+    const [country,setDefaultCountry] = useState('');
+    const [city,setDefaultCity] = useState(cookies.cityFrom ? cookies.cityFrom :  'New york');
+
+    const [countryTo,setDefaultToCountry] = useState('');
+    const [cityTo,setDefaultToCity] = useState(cookies.cityTo ? cookies.cityTo :  'London');
+
+
+    const [defaultFromAirportList,setDefaultFromAirportList] = useState([]);
+    const [defaultToAirportList,setDefaultToAirportList] = useState([]);
+
+
+    const fromAircodeRef = useRef(null);
+    const toAircodeRef = useRef(null);
+    const listFromAircodeRef = useRef(null);
+    const listToAircodeRef = useRef(null);
+
+    useEffect(()=>{
+        //enqueueSnackbar('Successfully logged in');
+        //enqueueSnackbar('Successfully logged in', {variant:'error'} );
+    })
+
+    function findFlightGoToSearch(){
+        if(fromAirportData.iataCode===''){
+            enqueueSnackbar('Select departure airport', {variant:'error'} );
+        }else if(toAirportData.iataCode===''){
+            enqueueSnackbar('Select arrival airport', {variant:'error'} );
+        }else if(depatureDate ==='' || depatureDate ===null){
+            enqueueSnackbar('Select departure date', {variant:'error'} );
+        }else if(flightType ==='RETURN' && (returnDate === '' ||  returnDate ===null)){
+            enqueueSnackbar('Select return date', {variant:'error'} );
+        }else{
+           
+            
+            let apiQueryObject = {
+                originLocationCode : fromAirportData.iataCode,
+                destinationLocationCode:toAirportData.iataCode,
+                adults : parseInt(adultValue),
+                departureDate : apiDateFormat(depatureDate),
+                children : parseInt(childrenValue),
+                infants : parseInt(infantValue),
+                nonStop : nonStop,
+                travelClass: classValue
+            };
+
+            alert(objectToQueryString(apiQueryObject));
+
+        }
+        //alert(depatureDate);
+        //alert('Everything okay');
+
+        //alert(formatDateWithLeadingZero(depatureDate));
+        //alert(toAirportData.iataCode);
+          
+    }
+
+    
+        const {
+            geoLoading,
+            geoError,
+            geoLocationData
+          } =  useGeolocation(cookies.cityFrom ? {trigger:false} : {trigger:true}) ;
+    
+          useEffect(() => {
+              if(  typeof geoLocationData.latitude!=='undefined'){
+                const apiKey = 'AIzaSyCBeYhfznD1X2nWYFXFpH6B4eJ9hGrr9_g';
+                const lat = geoLocationData.latitude; // Example latitude
+                const lng = geoLocationData.longitude; // Example longitude
+                const apiUrl = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`;  
+                fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                        if (data.status === 'OK') {
+                            const results = data.results;
+                            if (results.length > 0) {
+                                const addressComponents = results[0].address_components;
+                                let country = '';
+                                let city = '';
+                                for (const component of addressComponents) {
+                                    if (component.types.includes('country')) {
+                                        country = component.long_name;
+                                    }
+                                    if (component.types.includes('locality')) {
+                                        city = component.long_name;
+                                    }
+                                }
+                                setDefaultCountry(country);
+                                setDefaultCity(city);
+                                if(city!=''){
+                                    setGlobalCookie('cityFrom', city, { maxAge: 360000 });
+                                }
+    
+                            } else {
+                                console.log('No results found.');
+                            }
+                    } else {
+                            console.log('Geocoding API request failed.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+              }        
+          },[geoLocationData]);
+
+    
+    
+
+      const {
+        data: responseCityData,
+        fetchData: cityFetch
+      } = useFetch();
+
+      useEffect(() => {
+        if(city!=''){
+            
+            cityFetch(`${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${city}`, { method: 'GET' });
+        } 
+      },[country,city]);
+
+      const {
+        data: responseToCityData,
+        fetchData: cityToFetch
+      } = useFetch();
+
+      useEffect(() => {
+        if(cityTo!=''){
+            cityToFetch(`${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${cityTo}`, { method: 'GET' });
+        } 
+      },[countryTo,cityTo]);
+
+
+      useEffect(() => {
+      if(responseCityData){
+        if(responseCityData.response){
+            setDefaultFromAirportList(responseCityData);
+            
+            if(typeof responseCityData.response!=='undefined' && typeof responseCityData.response[0]!=='undefined'){
+                setfromAirportData(responseCityData.response[0]);
+            }
+        }
+    }
+    },[responseCityData]);
+
+    useEffect(() => {
+        if(responseToCityData){
+          if(responseToCityData.response){
+              setDefaultToAirportList(responseToCityData);
+              if(typeof responseToCityData.response!=='undefined' && typeof responseToCityData.response[0]!=='undefined'){
+                  settoAirportData(responseToCityData.response[0]);
+              }
+          }
+      }
+      },[responseToCityData]);
+
+    
+    //from aircode 
+    useEffect(() => {
+                    const handleClickOutside = (event) => {
+                         if ((fromAircodeRef.current 
+                              && 
+                              !fromAircodeRef.current.contains(event.target))  
+                              &&
+                              ( listFromAircodeRef.current &&
+                               !listFromAircodeRef.current.contains(event.target))
+                           ) {
+                                setFromAircodeShow(false); 
+                        }
+                    };
+                    document.addEventListener('click', handleClickOutside);
+                    return () => {
+                        document.removeEventListener('click', handleClickOutside);
+                    };
+      }, []);
+      //to aircode
+      useEffect(() => {
+                const handleClickOutsideSecond = (event) => {
+                    if ((toAircodeRef.current 
+                        && 
+                        !toAircodeRef.current.contains(event.target))
+                        &&
+                       ( listToAircodeRef.current &&
+                        !listToAircodeRef.current.contains(event.target))
+                       ) {
+                        settoAircodeShow(false)
+                    }  
+                };
+                document.addEventListener('click', handleClickOutsideSecond);
+                return () => {
+                        document.removeEventListener('click', handleClickOutsideSecond);
+                };
+      }, []);
 
     return (
         <>
@@ -27,273 +244,65 @@ const HomeFlightSearch = () => {
                     <div className="col-12">
                         <div className={style.bookFlight}>
                             <h4>Book Your Flight</h4>
-                            <div className="row g-3">
-                                <div className="col-12">
-                                    <div className={style.radio}>
-                                        <ul className="d-flex">
-                                            <li className="form-check">
-                                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="rd-1" />
-                                                <label className="form-check-label" htmlFor="rd-1">
-                                                    Return
-                                                </label>
-                                            </li>
-                                            <li className="form-check">
-                                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="rd-2" />
-                                                <label className="form-check-label" htmlFor="rd-2">
-                                                    One way
-                                                </label>
-                                            </li>
-                                            <li className="form-check">
-                                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="rd-3" />
-                                                <label className="form-check-label" htmlFor="rd-3">
-                                                    Multy City
-                                                </label>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
+                            <FlightType flightType={flightType} setType={(value)=>setflightType(value)}></FlightType>
                             <div className="row">
                                 <div className="col-8">
                                     <div className="row g-3">
                                         <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div className={style.inputArea}>
                                                 <div className="d-flex justify-content-between align-items-center">
-                                                    <label>From</label>
+                                                    <label>{fromAirportData.iataCode ? fromAirportData.iataCode  : 'From'}</label>
                                                     <span>
                                                         <Image src={plain} width={16} height={14} alt="" />
                                                     </span>
                                                     <span className={style.roundTripIcon}>
-                                                        <Image src={rtIcon} width={36} height={36} alt="" />
+                                                        <Image src={flightType === 'RETURN' ? rtIcon : oneWayIcon} width={36} height={36} alt="" />
                                                     </span>
                                                 </div>
                                                 <div className={style.inputBox}>
-                                                    <input type="text" placeholder="New York" className={style.formInput} readOnly={true} />
-                                                    <div className={style.srcDropdown}>
-                                                        <div className={style.dropdownSearch}>
-                                                            <input type="text" placeholder="" className={style.srcInput} />
-                                                        </div>
-                                                        <div className={style.dropdownSearchList}>
-                                                            <div className={style.recentSearch}>
-                                                                <h3>Recent Search</h3>
-                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
-                                                                    <div className={style.srcBoxLeft}>
-                                                                        <Image src={plain2} width={26} height={26} alt="" />
-                                                                    </div>
-                                                                    <div className={style.srcBoxMid}>
-                                                                        <h5>Dhaka , Bangladesh</h5>
-                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
-                                                                    </div>
-                                                                    <div className={style.srcBoxRight}>
-                                                                        <h3>DAC</h3>
-                                                                    </div>
-                                                                </div>
-                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
-                                                                    <div className={style.srcBoxLeft}>
-                                                                        <Image src={plain2} width={26} height={26} alt="" />
-                                                                    </div>
-                                                                    <div className={style.srcBoxMid}>
-                                                                        <h5>Dhaka , Bangladesh</h5>
-                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
-                                                                    </div>
-                                                                    <div className={style.srcBoxRight}>
-                                                                        <h3>DAC</h3>
-                                                                    </div>
-                                                                </div>
-                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
-                                                                    <div className={style.srcBoxLeft}>
-                                                                        <Image src={plain2} width={26} height={26} alt="" />
-                                                                    </div>
-                                                                    <div className={style.srcBoxMid}>
-                                                                        <h5>Dhaka , Bangladesh</h5>
-                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
-                                                                    </div>
-                                                                    <div className={style.srcBoxRight}>
-                                                                        <h3>DAC</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className={style.recentSearch}>
-                                                                <h3>Popular Cities</h3>
-                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
-                                                                    <div className={style.srcBoxLeft}>
-                                                                        <Image src={plain2} width={26} height={26} alt="" />
-                                                                    </div>
-                                                                    <div className={style.srcBoxMid}>
-                                                                        <h5>Dhaka , Bangladesh</h5>
-                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
-                                                                    </div>
-                                                                    <div className={style.srcBoxRight}>
-                                                                        <h3>DAC</h3>
-                                                                    </div>
-                                                                </div>
-                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
-                                                                    <div className={style.srcBoxLeft}>
-                                                                        <Image src={plain2} width={26} height={26} alt="" />
-                                                                    </div>
-                                                                    <div className={style.srcBoxMid}>
-                                                                        <h5>Dhaka , Bangladesh</h5>
-                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
-                                                                    </div>
-                                                                    <div className={style.srcBoxRight}>
-                                                                        <h3>DAC</h3>
-                                                                    </div>
-                                                                </div>
-                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
-                                                                    <div className={style.srcBoxLeft}>
-                                                                        <Image src={plain2} width={26} height={26} alt="" />
-                                                                    </div>
-                                                                    <div className={style.srcBoxMid}>
-                                                                        <h5>Dhaka , Bangladesh</h5>
-                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
-                                                                    </div>
-                                                                    <div className={style.srcBoxRight}>
-                                                                        <h3>DAC</h3>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <input onClick={()=>{
+                                                        setFromAircodeShow(true);
+                                                    }} type="text" ref={fromAircodeRef} placeholder={fromAirportData.name ? fromAirportData.name  : 'Select From'}  className={style.formInput} readOnly={true} />
+                                                   {fromAircodeShow && <AirlineCodeList hidePanel={()=>setFromAircodeShow(false)} updateDefaultList={(value)=>setDefaultFromAirportList(value)}  defaultAirportList={defaultFromAirportList} setSelectAirportData={(data)=>setfromAirportData(data)} placeholder="From" ref={listFromAircodeRef}></AirlineCodeList>}  
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-lg-6 col-md-6 col-sm-6 col-12">
                                             <div className={style.inputArea}>
                                                 <div className="d-flex justify-content-between align-items-center">
-                                                    <label>To</label>
+                                                    <label>{toAirportData.iataCode ? toAirportData.iataCode  : 'To'}</label>
                                                     <span>
                                                         <Image src={plain} width={16} height={14} alt="" />
                                                     </span>
                                                 </div>
                                                 <div className={style.inputBox}>
-                                                    <input type="text" placeholder="London" className={style.formInput} readOnly={true} />
+                                                    <input onClick={()=>{
+                                                        settoAircodeShow(true);
+                                                    }} ref={toAircodeRef} type="text" placeholder={toAirportData.name ? toAirportData.name  : 'Select To'} className={style.formInput} readOnly={true} />
+                                                    {toAircodeShow && <AirlineCodeList hidePanel={()=>settoAircodeShow(false)} defaultAirportList={defaultToAirportList} updateDefaultList={(value)=>setDefaultToAirportList(value)} setSelectAirportData={(data)=>settoAirportData(data)} placeholder="To" ref={listToAircodeRef}></AirlineCodeList>}  
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
-                                            <div className={style.inputArea}>
-                                                <div className="w-100">
-                                                    <label>Departure</label>
-                                                </div>
-                                                <DatePicker onChange={onChange} value={value} />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
-                                            <div className={style.inputArea}>
-                                                <div className="w-100">
-                                                    <label>Returne</label>
-                                                </div>
-                                                <DatePicker onChange={onChangeTwo} value={valueTwo} />
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
-                                            <div className={style.inputArea}>
-                                                <div className={`w-100 ${style.inputSelect}`}>
-                                                    <label>Passengers</label>
-                                                    <Link href={"#"}>
-                                                        1 Adult <FaAngleDown />
-                                                    </Link>
-                                                    <div className={style.inputDropDown}>
-                                                        <h5>Passanger</h5>
-                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
-                                                            <div className={style.numberLeft}>
-                                                                <h6>Adults</h6>
-                                                            </div>
-                                                            <div className={style.numberRight}>
-                                                                <div className={`d-flex align-items-center ${style.number}`}>
-                                                                    <span className={style.minus}>-</span>
-                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
-                                                                    <span className={style.plus}>+</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
-                                                            <div className={style.numberLeft}>
-                                                                <h6>
-                                                                    Children<small>Ages 2- 17</small>
-                                                                </h6>
-                                                            </div>
-                                                            <div className={style.numberRight}>
-                                                                <div className={`d-flex align-items-center ${style.number}`}>
-                                                                    <span className={style.minus}>-</span>
-                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
-                                                                    <span className={style.plus}>+</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
-                                                            <div className={style.numberLeft}>
-                                                                <h6>
-                                                                    Infant<small>less or eu al to 2</small>
-                                                                </h6>
-                                                            </div>
-                                                            <div className={style.numberRight}>
-                                                                <div className={`d-flex align-items-center ${style.number}`}>
-                                                                    <span className={style.minus}>-</span>
-                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
-                                                                    <span className={style.plus}>+</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
-                                            <div className={style.inputArea}>
-                                                <div className={`w-100 ${style.inputSelect}`}>
-                                                    <label>Class</label>
-                                                    <Link href={"#"}>
-                                                        Business <FaAngleDown />
-                                                    </Link>
-                                                    <div className={style.inputDropDown}>
-                                                        <h5>Passanger</h5>
-                                                        <div className={style.radioArea}>
-                                                            <div className="form-check d-flex justify-content-between ps-0">
-                                                                <label className="form-check-label" htmlFor="rd-6">
-                                                                    Economy
-                                                                </label>
-                                                                <input className="form-check-input" type="radio" name="radio" id="rd-6" />
-                                                            </div>
-                                                        </div>
-                                                        <div className={style.radioArea}>
-                                                            <div className="form-check d-flex justify-content-between ps-0">
-                                                                <label className="form-check-label" htmlFor="rd-7">
-                                                                    Premium Economy
-                                                                </label>
-                                                                <input className="form-check-input" type="radio" name="radio" id="rd-7" />
-                                                            </div>
-                                                        </div>
-                                                        <div className={style.radioArea}>
-                                                            <div className="form-check d-flex justify-content-between ps-0">
-                                                                <label className="form-check-label" htmlFor="rd-8">
-                                                                    Buisness class
-                                                                </label>
-                                                                <input className="form-check-input" type="radio" name="radio" id="rd-8" />
-                                                            </div>
-                                                        </div>
-                                                        <div className={style.radioArea}>
-                                                            <div className="form-check d-flex justify-content-between ps-0">
-                                                                <label className="form-check-label" htmlFor="rd-8">
-                                                                    First Class
-                                                                </label>
-                                                                <input className="form-check-input" type="radio" name="radio" id="rd-8" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                         <Departure value={depatureDate} setValue={(value)=>setDepatureDate(value)}></Departure>
+                                         <Return depatureDate={depatureDate} flightType={flightType} value={returnDate} setValue={(value)=>setReturnDate(value)}/> 
+                                       
+                                        <PassengerTypeList 
+                                        setPassAdult={setAdultValue}
+                                        setPassChild={setChildrenValue}
+                                        setPassInfant={setInfantValue} 
+                                        adultValue={adultValue} 
+                                        childrenValue={childrenValue} 
+                                        infantValue={infantValue}></PassengerTypeList>
+                                         <ClassTypeList classValue={classValue} setClass={(value)=>setClassValue(value)}></ClassTypeList>
                                     </div>
                                 </div>
                                 <div className="col-4">
                                     <div className="mb-3">
-                                        <button className={style.findFlight}>find your flight</button>
+                                        <button onClick={findFlightGoToSearch} className={style.findFlight}>find your flight</button>
                                     </div>
                                     <div className="checkbox custom text-center mb-2">
                                         <label>
-                                            <input type="checkbox" defaultChecked /> Non Stop FlightOnly
+                                            <input type="checkbox" onChange={()=>setNonStop(prev=>!prev)} defaultChecked={nonStop} /> Non Stop FlightOnly
                                         </label>
                                     </div>
                                     <div className={style.bannSearch}>
@@ -311,5 +320,6 @@ const HomeFlightSearch = () => {
         </>
     );
 };
+ 
 
 export default HomeFlightSearch;
