@@ -1,77 +1,24 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import DatePicker from "react-date-picker";
-import "react-date-picker/dist/DatePicker.css";
-import "react-calendar/dist/Calendar.css";
-import { FaAngleDown } from "react-icons/fa";
-import Link from "next/link";
 
 import plain from "@/assets/front/images/plain.svg";
 import searchIcon from "@/assets/front/images/search-icon.svg";
 import rtIcon from "@/assets/front/images/rtIcon.svg";
+import plain2 from "@/assets/front/images/plain-3.svg";
 
+import DatePicker from "react-date-picker";
+
+import { FaAngleDown } from "react-icons/fa";
+
+import "react-date-picker/dist/DatePicker.css";
+import "react-calendar/dist/Calendar.css";
 import style from "./index.module.scss";
-import AirlineCodeList from "@/components/front/AirlineCodeList/AirlineCodeList";
-import PassengerTypeList from "@/components/front/PassengerTypeList/PassengerTypeList";
-import ClassTypeList from "@/components/front/ClassTypeList/ClassTypeList";
-import FlightType from "@/components/front/FlightType/FlightType";
-
+import Link from "next/link";
 
 const HomeFlightSearch = () => {
     const [value, onChange] = useState(new Date());
     const [valueTwo, onChangeTwo] = useState(new Date());
-    const [fromAircodeShow,setFromAircodeShow]  = useState(false); 
-    const [toAircodeShow,settoAircodeShow]  = useState(false); 
-    const [classValue,setClassValue] = useState('ECONOMY');
-
-    const [adultValue,setAdultValue] = useState(1);
-    const [childrenValue,setChildrenValue] = useState(0);
-    const [infantValue,setInfantValue] = useState(0);
-
-    const [flightType, setflightType] = useState('RETURN');
-
-
-    const fromAircodeRef = useRef(null);
-    const toAircodeRef = useRef(null);
-    const listFromAircodeRef = useRef(null);
-    const listToAircodeRef = useRef(null);
-    
-    //from aircode 
-    useEffect(() => {
-                    const handleClickOutside = (event) => {
-                         if ((fromAircodeRef.current 
-                              && 
-                              !fromAircodeRef.current.contains(event.target))  
-                              &&
-                              ( listFromAircodeRef.current &&
-                               !listFromAircodeRef.current.contains(event.target))
-                           ) {
-                                setFromAircodeShow(false); 
-                        }
-                    };
-                    document.addEventListener('click', handleClickOutside);
-                    return () => {
-                        document.removeEventListener('click', handleClickOutside);
-                    };
-      }, []);
-      //to aircode
-      useEffect(() => {
-                const handleClickOutsideSecond = (event) => {
-                    if ((toAircodeRef.current 
-                        && 
-                        !toAircodeRef.current.contains(event.target))
-                        &&
-                       ( listToAircodeRef.current &&
-                        !listToAircodeRef.current.contains(event.target))
-                       ) {
-                        settoAircodeShow(false)
-                    }  
-                };
-                document.addEventListener('click', handleClickOutsideSecond);
-                return () => {
-                        document.removeEventListener('click', handleClickOutsideSecond);
-                };
-      }, []);
+    const [valueThree, onChangeThree] = useState(new Date());
 
     return (
         <>
@@ -80,7 +27,33 @@ const HomeFlightSearch = () => {
                     <div className="col-12">
                         <div className={style.bookFlight}>
                             <h4>Book Your Flight</h4>
-                            <FlightType flightType={flightType} setType={(value)=>setflightType(value)}></FlightType>
+                            <div className="row g-3">
+                                <div className="col-12">
+                                    <div className={style.radio}>
+                                        <ul className="d-flex">
+                                            <li className="form-check">
+                                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="rd-1" />
+                                                <label className="form-check-label" htmlFor="rd-1">
+                                                    Return
+                                                </label>
+                                            </li>
+                                            <li className="form-check">
+                                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="rd-2" />
+                                                <label className="form-check-label" htmlFor="rd-2">
+                                                    One way
+                                                </label>
+                                            </li>
+                                            <li className="form-check">
+                                                <input className="form-check-input" type="radio" name="flexRadioDefault" id="rd-3" />
+                                                <label className="form-check-label" htmlFor="rd-3">
+                                                    Multy City
+                                                </label>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="row">
                                 <div className="col-8">
                                     <div className="row g-3">
@@ -96,10 +69,92 @@ const HomeFlightSearch = () => {
                                                     </span>
                                                 </div>
                                                 <div className={style.inputBox}>
-                                                    <input onClick={()=>{
-                                                        setFromAircodeShow(true);
-                                                    }} type="text" ref={fromAircodeRef} placeholder="Select From" className={style.formInput} readOnly={true} />
-                                                   {fromAircodeShow && <AirlineCodeList ref={listFromAircodeRef}></AirlineCodeList>}  
+                                                    <input type="text" placeholder="New York" className={style.formInput} readOnly={true} />
+                                                    <div className={style.srcDropdown}>
+                                                        <div className={style.dropdownSearch}>
+                                                            <input type="text" placeholder="" className={style.srcInput} />
+                                                        </div>
+                                                        <div className={style.dropdownSearchList}>
+                                                            <div className={style.recentSearch}>
+                                                                <h3>Recent Search</h3>
+                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
+                                                                    <div className={style.srcBoxLeft}>
+                                                                        <Image src={plain2} width={26} height={26} alt="" />
+                                                                    </div>
+                                                                    <div className={style.srcBoxMid}>
+                                                                        <h5>Dhaka , Bangladesh</h5>
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
+                                                                    </div>
+                                                                    <div className={style.srcBoxRight}>
+                                                                        <h3>DAC</h3>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
+                                                                    <div className={style.srcBoxLeft}>
+                                                                        <Image src={plain2} width={26} height={26} alt="" />
+                                                                    </div>
+                                                                    <div className={style.srcBoxMid}>
+                                                                        <h5>Dhaka , Bangladesh</h5>
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
+                                                                    </div>
+                                                                    <div className={style.srcBoxRight}>
+                                                                        <h3>DAC</h3>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
+                                                                    <div className={style.srcBoxLeft}>
+                                                                        <Image src={plain2} width={26} height={26} alt="" />
+                                                                    </div>
+                                                                    <div className={style.srcBoxMid}>
+                                                                        <h5>Dhaka , Bangladesh</h5>
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
+                                                                    </div>
+                                                                    <div className={style.srcBoxRight}>
+                                                                        <h3>DAC</h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div className={style.recentSearch}>
+                                                                <h3>Popular Cities</h3>
+                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
+                                                                    <div className={style.srcBoxLeft}>
+                                                                        <Image src={plain2} width={26} height={26} alt="" />
+                                                                    </div>
+                                                                    <div className={style.srcBoxMid}>
+                                                                        <h5>Dhaka , Bangladesh</h5>
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
+                                                                    </div>
+                                                                    <div className={style.srcBoxRight}>
+                                                                        <h3>DAC</h3>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
+                                                                    <div className={style.srcBoxLeft}>
+                                                                        <Image src={plain2} width={26} height={26} alt="" />
+                                                                    </div>
+                                                                    <div className={style.srcBoxMid}>
+                                                                        <h5>Dhaka , Bangladesh</h5>
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
+                                                                    </div>
+                                                                    <div className={style.srcBoxRight}>
+                                                                        <h3>DAC</h3>
+                                                                    </div>
+                                                                </div>
+                                                                <div className={`d-flex align-items-center justify-content-between ${style.srcBox}`}>
+                                                                    <div className={style.srcBoxLeft}>
+                                                                        <Image src={plain2} width={26} height={26} alt="" />
+                                                                    </div>
+                                                                    <div className={style.srcBoxMid}>
+                                                                        <h5>Dhaka , Bangladesh</h5>
+                                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. A, ipsum.</p>
+                                                                    </div>
+                                                                    <div className={style.srcBoxRight}>
+                                                                        <h3>DAC</h3>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -112,10 +167,7 @@ const HomeFlightSearch = () => {
                                                     </span>
                                                 </div>
                                                 <div className={style.inputBox}>
-                                                    <input onClick={()=>{
-                                                        settoAircodeShow(true);
-                                                    }} ref={toAircodeRef} type="text" placeholder="Select To" className={style.formInput} readOnly={true} />
-                                                    {toAircodeShow && <AirlineCodeList ref={listToAircodeRef}></AirlineCodeList>}  
+                                                    <input type="text" placeholder="London" className={style.formInput} readOnly={true} />
                                                 </div>
                                             </div>
                                         </div>
@@ -130,19 +182,109 @@ const HomeFlightSearch = () => {
                                         <div className="col-lg-3 col-md-3 col-sm-6 col-6">
                                             <div className={style.inputArea}>
                                                 <div className="w-100">
-                                                    <label>Return</label>
+                                                    <label>Returne</label>
                                                 </div>
                                                 <DatePicker onChange={onChangeTwo} value={valueTwo} />
                                             </div>
                                         </div>
-                                        <PassengerTypeList 
-                                        setPassAdult={setAdultValue}
-                                        setPassChild={setChildrenValue}
-                                        setPassInfant={setInfantValue} 
-                                        adultValue={adultValue} 
-                                        childrenValue={childrenValue} 
-                                        infantValue={infantValue}></PassengerTypeList>
-                                         <ClassTypeList classValue={classValue} setClass={(value)=>setClassValue(value)}></ClassTypeList>
+                                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
+                                            <div className={style.inputArea}>
+                                                <div className={`w-100 ${style.inputSelect}`}>
+                                                    <label>Passengers</label>
+                                                    <Link href={"#"}>
+                                                        1 Adult <FaAngleDown />
+                                                    </Link>
+                                                    <div className={style.inputDropDown}>
+                                                        <h5>Passanger</h5>
+                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
+                                                            <div className={style.numberLeft}>
+                                                                <h6>Adults</h6>
+                                                            </div>
+                                                            <div className={style.numberRight}>
+                                                                <div className={`d-flex align-items-center ${style.number}`}>
+                                                                    <span className={style.minus}>-</span>
+                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
+                                                                    <span className={style.plus}>+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
+                                                            <div className={style.numberLeft}>
+                                                                <h6>
+                                                                    Children<small>Ages 2- 17</small>
+                                                                </h6>
+                                                            </div>
+                                                            <div className={style.numberRight}>
+                                                                <div className={`d-flex align-items-center ${style.number}`}>
+                                                                    <span className={style.minus}>-</span>
+                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
+                                                                    <span className={style.plus}>+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div className={`d-flex justify-content-between align-align-items-center ${style.numberArea}`}>
+                                                            <div className={style.numberLeft}>
+                                                                <h6>
+                                                                    Infant<small>less or eu al to 2</small>
+                                                                </h6>
+                                                            </div>
+                                                            <div className={style.numberRight}>
+                                                                <div className={`d-flex align-items-center ${style.number}`}>
+                                                                    <span className={style.minus}>-</span>
+                                                                    <input className={style.valueInput} type="text" defaultValue={1} />
+                                                                    <span className={style.plus}>+</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-lg-3 col-md-3 col-sm-6 col-6">
+                                            <div className={style.inputArea}>
+                                                <div className={`w-100 ${style.inputSelect}`}>
+                                                    <label>Class</label>
+                                                    <Link href={"#"}>
+                                                        Business <FaAngleDown />
+                                                    </Link>
+                                                    <div className={style.inputDropDown}>
+                                                        <h5>Passanger</h5>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-6">
+                                                                    Economy
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-6" />
+                                                            </div>
+                                                        </div>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-7">
+                                                                    Premium Economy
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-7" />
+                                                            </div>
+                                                        </div>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-8">
+                                                                    Buisness class
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-8" />
+                                                            </div>
+                                                        </div>
+                                                        <div className={style.radioArea}>
+                                                            <div className="form-check d-flex justify-content-between ps-0">
+                                                                <label className="form-check-label" htmlFor="rd-8">
+                                                                    First Class
+                                                                </label>
+                                                                <input className="form-check-input" type="radio" name="radio" id="rd-8" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="col-4">

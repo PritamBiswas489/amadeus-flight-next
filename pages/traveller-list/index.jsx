@@ -32,12 +32,12 @@ const TravellerList = () => {
                                     <ul className="d-flex">
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-solid fa-trash-can"></i>
+                                                <i class="fa-solid fa-trash-can"></i>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-regular fa-pen-to-square"></i>
+                                                <i class="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                         </li>
                                     </ul>
@@ -80,12 +80,12 @@ const TravellerList = () => {
                                     <ul className="d-flex">
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-solid fa-trash-can"></i>
+                                                <i class="fa-solid fa-trash-can"></i>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-regular fa-pen-to-square"></i>
+                                                <i class="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                         </li>
                                     </ul>
@@ -128,12 +128,12 @@ const TravellerList = () => {
                                     <ul className="d-flex">
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-solid fa-trash-can"></i>
+                                                <i class="fa-solid fa-trash-can"></i>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-regular fa-pen-to-square"></i>
+                                                <i class="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                         </li>
                                     </ul>
@@ -176,12 +176,12 @@ const TravellerList = () => {
                                     <ul className="d-flex">
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-solid fa-trash-can"></i>
+                                                <i class="fa-solid fa-trash-can"></i>
                                             </Link>
                                         </li>
                                         <li>
                                             <Link href={"#"}>
-                                                <i className="fa-regular fa-pen-to-square"></i>
+                                                <i class="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                         </li>
                                     </ul>

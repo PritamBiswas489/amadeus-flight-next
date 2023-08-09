@@ -274,7 +274,7 @@ const BlogDetails = () => {
                                         <h5>Recent Post</h5>
                                         <div className="recentPostSlider">
                                             <OwlCarousel className="owl-theme" {...options}>
-                                                <div className="item">
+                                                <div class="item">
                                                     <div className={style.recentPost}>
                                                         <div className={style.recentPostImg}>
                                                             <span>
@@ -316,7 +316,7 @@ const BlogDetails = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="item">
+                                                <div class="item">
                                                     <div className={style.recentPost}>
                                                         <div className={style.recentPostImg}>
                                                             <span>

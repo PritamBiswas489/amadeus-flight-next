@@ -67,7 +67,7 @@ const RightBar = () => {
                     </div>
                 </div>
                 <div className={`${style.yourOrderBox} ${style.yourOrderTable}`}>
-                    <table className="table table-borderless">
+                    <table class="table table-borderless">
                         <thead>
                             <tr>
                                 <th scope="col">Peter Gomes, adult</th>
@@ -95,7 +95,7 @@ const RightBar = () => {
                     </table>
                 </div>
                 <div className={`${style.yourOrderBox} ${style.yourOrderTable}`}>
-                    <table className="table table-borderless">
+                    <table class="table table-borderless">
                         <thead>
                             <tr>
                                 <th scope="col" colSpan={2}>

@@ -43,7 +43,7 @@ const blog = () => {
             <Layout>
                 <section>
                     <OwlCarousel className="owl-theme" {...options}>
-                        <div className="item">
+                        <div class="item">
                             <div className={style.blogBanner} style={{ background: `url(${Background.src})` }}>
                                 <div className="container">
                                     <div className="row">
@@ -74,7 +74,7 @@ const blog = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="item">
+                        <div class="item">
                             <div className={style.blogBanner} style={{ background: `url(${Background.src})` }}>
                                 <div className="container">
                                     <div className="row">

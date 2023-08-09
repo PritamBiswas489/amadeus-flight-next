@@ -31,7 +31,7 @@ const EmailPreference = () => {
                         </div>
                         <div className={`d-flex flex-flex-wrap align-items-center ${style.languagePreference}`}>
                             <h5>Language Preference</h5>
-                            <select className="form-select" aria-label="Default select example">
+                            <select class="form-select" aria-label="Default select example">
                                 <option selected>English</option>
                                 <option value="1">One</option>
                                 <option value="2">Two</option>
