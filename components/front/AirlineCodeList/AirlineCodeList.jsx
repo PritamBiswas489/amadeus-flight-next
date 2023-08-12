@@ -56,8 +56,8 @@ const AirlineCodeList = forwardRef((props, ref) => {
         <input ref={inputRef} type="text" style={{fontSize:'16px',fontWeight:'bold'}} value={inputValue} onInput={(event)=>setInputValue(event.target.value)} placeholder={props.placeholder} className={style.srcInput} />
         {loading && (
           <span   style={{   position: "absolute",  right: "20px", top: "20px" }}>
-          <div class="spinner-border spinner-border-sm" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-border spinner-border-sm" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
         </span>
         )}

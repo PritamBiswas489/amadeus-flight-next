@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import { useRouter } from 'next/router';
  
 import plain from "@/assets/front/images/plain.svg";
 import searchIcon from "@/assets/front/images/search-icon.svg";
@@ -18,13 +19,25 @@ import useGeolocation from "@/hooks/useGeolocation";
 import useFetch from "@/hooks/useFetch";
 import useGlobalCookies from "@/hooks/useGlobalCookies";
 import { useSnackbar } from "notistack";
-import { apiDateFormat, objectToQueryString } from "@/service/Helpers";
+import { apiDateFormat, objectToQueryString, formatDateWithLeadingZero, isValidDate } from "@/service/Helpers";
 
 
  
 
-const HomeFlightSearch = () => {
+const HomeFlightSearch = ({isInner, execute,exceuteSearch, querySearchField = {}, disablebtn}) => {
     const { enqueueSnackbar } = useSnackbar();
+    const router = useRouter();
+    const currentRoute = router.pathname;
+    let defaultFromValue = '';
+    if(currentRoute!=='/flight/search'){
+        defaultFromValue = 'New york';
+    }
+    let defaultToValue = '';
+    if(currentRoute!=='/flight/search'){
+        defaultToValue = 'London';
+    }
+
+    const searchQueryStringValue = router.query;
 
     const [depatureDate, setDepatureDate] = useState(new Date());
     const [returnDate, setReturnDate] = useState(new Date());
@@ -46,10 +59,10 @@ const HomeFlightSearch = () => {
     const [toAirportData, settoAirportData] = useState({});
 
     const [country,setDefaultCountry] = useState('');
-    const [city,setDefaultCity] = useState(cookies.cityFrom ? cookies.cityFrom :  'New york');
+    const [city,setDefaultCity] = useState((cookies.cityFrom && currentRoute!=='/flight/search') ? cookies.cityFrom :  defaultFromValue);
 
     const [countryTo,setDefaultToCountry] = useState('');
-    const [cityTo,setDefaultToCity] = useState(cookies.cityTo ? cookies.cityTo :  'London');
+    const [cityTo,setDefaultToCity] = useState((cookies.cityTo && currentRoute!=='/flight/search') ? cookies.cityTo :  defaultToValue);
 
 
     const [defaultFromAirportList,setDefaultFromAirportList] = useState([]);
@@ -76,36 +89,117 @@ const HomeFlightSearch = () => {
         }else if(flightType ==='RETURN' && (returnDate === '' ||  returnDate ===null)){
             enqueueSnackbar('Select return date', {variant:'error'} );
         }else{
-           
-            
-            let apiQueryObject = {
-                originLocationCode : fromAirportData.iataCode,
-                destinationLocationCode:toAirportData.iataCode,
-                adults : parseInt(adultValue),
-                departureDate : apiDateFormat(depatureDate),
-                children : parseInt(childrenValue),
-                infants : parseInt(infantValue),
-                nonStop : nonStop,
-                travelClass: classValue
+               
+            let itinerary =  `${fromAirportData.iataCode}-${toAirportData.iataCode}-${formatDateWithLeadingZero(depatureDate)}`;
+            if(flightType ==='RETURN'){
+                itinerary+=`-${formatDateWithLeadingZero(returnDate)}`;
+            }
+            let tripType = 'O';
+            if(flightType === 'RETURN'){
+                tripType = 'R';  
+            }else if(flightType === 'MULTI_CITY'){
+                tripType = 'M';  
+            }
+            let cabinClass = '';
+            if(classValue === 'ECONOMY'){
+                cabinClass = 'E';
+            }
+            if(classValue === 'PREMIUM_ECONOMY'){
+                cabinClass = 'P';
+            }
+            if(classValue === 'BUSINESS'){
+                cabinClass = 'B';
+            }
+            if(classValue === 'FIRST'){
+                cabinClass = 'F';
+            }
+            const  paxType =  `A-${parseInt(adultValue)}_C-${parseInt(childrenValue)}_I-${parseInt(infantValue)}`;
+            const ns = nonStop;
+            const queryParameters = {
+                itinerary,
+                tripType,
+                cabinClass,
+                paxType,
+                ns:(nonStop == true ? 1 : 0)
             };
 
-            alert(objectToQueryString(apiQueryObject));
+            const destinationRoute = '/flight/search';
+            const queryString = new URLSearchParams(queryParameters).toString();
+            const finalRoute = `${destinationRoute}?${queryString}`;
+            router.push(finalRoute);
 
         }
-        //alert(depatureDate);
-        //alert('Everything okay');
-
-        //alert(formatDateWithLeadingZero(depatureDate));
-        //alert(toAirportData.iataCode);
-          
     }
+     
+        useEffect(()=>{
+            let apiQueryObject = {};
+            if(
+                typeof querySearchField.departureDate!=='undefined' 
+                && querySearchField.departureDate!=='' 
+                && querySearchField.departureDate!==null
+              ){
+                setDepatureDate(new Date(querySearchField.departureDate));
+                apiQueryObject.departureDate = apiDateFormat(new Date(querySearchField.departureDate));
+            }else{
+                setDepatureDate(new Date());
+                apiQueryObject.departureDate = apiDateFormat(new Date());
+            }
+            if(typeof querySearchField.tripType!=='undefined' && querySearchField.tripType === 'RETURN'){
+                if(
+                    typeof querySearchField.arrivalDate!=='undefined' 
+                    && querySearchField.arrivalDate!=='' 
+                    && querySearchField.arrivalDate!==null
+                  ){
+                    setReturnDate(new Date(querySearchField.arrivalDate));
+                    apiQueryObject.returnDate = apiDateFormat(new Date(querySearchField.arrivalDate));
+                }else{
+                    setReturnDate(new Date());
+                    apiQueryObject.returnDate = apiDateFormat(new Date());
+                }
+            }
+            if(
+                typeof querySearchField.tripType!=='undefined'){
+                setflightType(querySearchField.tripType);
+            }
+            if(
+                typeof querySearchField.cabinClass!=='undefined'){
+                setClassValue(querySearchField.cabinClass);
+                apiQueryObject.travelClass = querySearchField.cabinClass;
+            }
+            setAdultValue(querySearchField.adult);
+            apiQueryObject.adults = querySearchField.adult;
+            setChildrenValue(querySearchField.child);
+            apiQueryObject.children = querySearchField.child;
+            setInfantValue(querySearchField.infant);
+            apiQueryObject.infants = querySearchField.infant;
+            if(typeof querySearchField.nonstopflight!=='undefined'){
+                setNonStop(querySearchField.nonstopflight);
+                apiQueryObject.nonStop = querySearchField.nonstopflight;
+            }
+            if(typeof querySearchField.fromAirportObject!=='undefined'){
+                setfromAirportData(querySearchField.fromAirportObject);
+                apiQueryObject.originLocationCode = querySearchField?.fromAirportObject?.iataCode;
+            }
+            if(typeof querySearchField.toAirportObject!=='undefined'){
+                settoAirportData(querySearchField.toAirportObject);
+                apiQueryObject.destinationLocationCode = querySearchField?.toAirportObject?.iataCode;
+            }
+            if(parseInt(execute) === 1){
+                if(typeof exceuteSearch==='function'){
+                    exceuteSearch(apiQueryObject);
+                }
+            }
+        },[querySearchField]);
+
+
+
 
     
         const {
             geoLoading,
             geoError,
             geoLocationData
-          } =  useGeolocation(cookies.cityFrom ? {trigger:false} : {trigger:true}) ;
+          } =  useGeolocation(cookies.cityFrom || currentRoute==='/flight/search' ? {trigger:false} : {trigger:true}) ;
     
           useEffect(() => {
               if(  typeof geoLocationData.latitude!=='undefined'){
@@ -162,7 +256,7 @@ const HomeFlightSearch = () => {
             
             cityFetch(`${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${city}`, { method: 'GET' });
         } 
-      },[country,city]);
+      },[city]);
 
       const {
         data: responseToCityData,
@@ -173,7 +267,7 @@ const HomeFlightSearch = () => {
         if(cityTo!=''){
             cityToFetch(`${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${cityTo}`, { method: 'GET' });
         } 
-      },[countryTo,cityTo]);
+      },[cityTo]);
 
 
       useEffect(() => {
@@ -238,12 +332,13 @@ const HomeFlightSearch = () => {
       }, []);
 
     return (
+       
         <>
             <div className="container">
                 <div className="row">
                     <div className="col-12">
-                        <div className={style.bookFlight}>
-                            <h4>Book Your Flight</h4>
+                        <div className={ !isInner  && style.bookFlight}>
+                           { !isInner && <h4>Book Your Flight</h4> } 
                             <FlightType flightType={flightType} setType={(value)=>setflightType(value)}></FlightType>
                             <div className="row">
                                 <div className="col-8">
@@ -262,7 +357,7 @@ const HomeFlightSearch = () => {
                                                 <div className={style.inputBox}>
                                                     <input onClick={()=>{
                                                         setFromAircodeShow(true);
-                                                    }} type="text" ref={fromAircodeRef} placeholder={fromAirportData.name ? fromAirportData.name  : 'Select From'}  className={style.formInput} readOnly={true} />
+                                                    }} type="text" ref={fromAircodeRef} placeholder={fromAirportData.name ? `${fromAirportData.name}, ${fromAirportData.address.cityName}`: 'Select From'}  className={style.formInput} readOnly={true} />
                                                    {fromAircodeShow && <AirlineCodeList hidePanel={()=>setFromAircodeShow(false)} updateDefaultList={(value)=>setDefaultFromAirportList(value)}  defaultAirportList={defaultFromAirportList} setSelectAirportData={(data)=>setfromAirportData(data)} placeholder="From" ref={listFromAircodeRef}></AirlineCodeList>}  
                                                 </div>
                                             </div>
@@ -278,7 +373,7 @@ const HomeFlightSearch = () => {
                                                 <div className={style.inputBox}>
                                                     <input onClick={()=>{
                                                         settoAircodeShow(true);
-                                                    }} ref={toAircodeRef} type="text" placeholder={toAirportData.name ? toAirportData.name  : 'Select To'} className={style.formInput} readOnly={true} />
+                                                    }} ref={toAircodeRef} type="text" placeholder={toAirportData.name ? `${toAirportData.name}, ${toAirportData.address.cityName}`  : 'Select To'} className={style.formInput} readOnly={true} />
                                                     {toAircodeShow && <AirlineCodeList hidePanel={()=>settoAircodeShow(false)} defaultAirportList={defaultToAirportList} updateDefaultList={(value)=>setDefaultToAirportList(value)} setSelectAirportData={(data)=>settoAirportData(data)} placeholder="To" ref={listToAircodeRef}></AirlineCodeList>}  
                                                 </div>
                                             </div>
@@ -298,11 +393,11 @@ const HomeFlightSearch = () => {
                                 </div>
                                 <div className="col-4">
                                     <div className="mb-3">
-                                        <button onClick={findFlightGoToSearch} className={style.findFlight}>find your flight</button>
+                                        <button disabled={disablebtn} onClick={findFlightGoToSearch} className={ !isInner  ? style.findFlight : style.findFlightInner }>find your flight</button>
                                     </div>
                                     <div className="checkbox custom text-center mb-2">
                                         <label>
-                                            <input type="checkbox" onChange={()=>setNonStop(prev=>!prev)} defaultChecked={nonStop} /> Non Stop FlightOnly
+                                            <input type="checkbox" onChange={()=>setNonStop(prev=>!prev)} defaultChecked={nonStop} checked={nonStop} /> Non Stop FlightOnly
                                         </label>
                                     </div>
                                     <div className={style.bannSearch}>

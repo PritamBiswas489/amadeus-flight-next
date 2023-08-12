@@ -36,4 +36,45 @@ export function formatDateWithLeadingZero(date) {
   
     return queryParams.join('&');
   }
+  export function isValidDate  (dateString)  {
+    const date = new Date(dateString);
+    return !isNaN(date);
+  };
+
+  export function getCurrencySymbol(currencyCode){
+    const currencyData = [
+        { code: "USD", symbol: "$" },
+        { code: "EUR", symbol: "€" },
+        { code: "JPY", symbol: "¥" },
+        { code: "GBP", symbol: "£" },
+        { code: "AUD", symbol: "$" },
+        // Add more currencies as needed
+
+      ];
+      const currency = currencyData.find(item => item.code === currencyCode);
+      if (currency) {
+          return currency.symbol;
+      } else {
+          return currencyCode;
+      }
+  }
+  export function convertToLocalDate(date){
+    const inputDate = new Date(date); // Replace this with your input date
+    // Convert date to "MMM DD" format
+    const formattedDate = inputDate.toLocaleString('en-US', {
+    month: 'short', // Abbreviated month name (e.g., Jan)
+    day: '2-digit'  // Day of the month with leading zero (e.g., 01)
+    });
+    return formattedDate;
+
+  }
+  export function removeDuplicateData(originalArray){
+
+    const uniqueObjects = originalArray.filter((obj, index, arr) =>
+    arr.findIndex(item => item.iataCode === obj.iataCode) === index
+  );
+
+  return uniqueObjects;
+
+}
   

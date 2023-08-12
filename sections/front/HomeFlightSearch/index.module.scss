@@ -324,3 +324,21 @@
         background: url(../../../assets/front/images/search-icon.svg) left 15px center no-repeat;
     }
 }
+
+.findFlightInner {
+    padding: 0 5rem;
+    background: $bg-2;
+    color: $bg-3;
+    line-height: 61px;
+    width: 100%;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 5px;
+    &:hover {
+        background: $bg-3;
+        color: $bg-6;
+    }
+}

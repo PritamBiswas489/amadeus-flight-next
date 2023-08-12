@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from "@/sections/front/HomeFlightSearch/index.module.scss";
 import DatePicker from "react-date-picker";
 import "react-date-picker/dist/DatePicker.css";
@@ -10,6 +10,11 @@ export default function Return({value, setValue, flightType, depatureDate}) {
     if(depatureDate){
         today = depatureDate;
     }
+    useEffect(()=>{
+        if(new Date(value) < new Date(depatureDate)){
+            setValue(today);
+        }   
+    },[today,depatureDate,value])
     today.setHours(0, 0, 0, 0);
   return (
     <div style={flightType!=='RETURN' ? {backgroundColor:'#f0f0f0'} : {} } className="col-lg-3 col-md-3 col-sm-6 col-6">

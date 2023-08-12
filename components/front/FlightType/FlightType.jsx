@@ -15,6 +15,7 @@ export default function FlightType({flightType,setType}) {
                                                 <input 
                                                 onClick={()=>setType('RETURN')} 
                                                 defaultChecked={flightType === 'RETURN' ? true : false}
+                                                checked={flightType === 'RETURN' ? true : false}
                                                 className="form-check-input" 
                                                 type="radio" name="flexRadioDefault" id="rd-1" />
                                                 <label className="form-check-label" htmlFor="rd-1">
@@ -24,6 +25,7 @@ export default function FlightType({flightType,setType}) {
                                             <li className="form-check">
                                                 <input 
                                                 defaultChecked={flightType === 'ONEWAY' ? true : false}
+                                                checked={flightType === 'ONEWAY' ? true : false}
                                                 onClick={()=>setType('ONEWAY')} className="form-check-input" type="radio" name="flexRadioDefault" id="rd-2" />
                                                 <label className="form-check-label" htmlFor="rd-2">
                                                     One way
@@ -32,6 +34,7 @@ export default function FlightType({flightType,setType}) {
                                             <li className="form-check">
                                                 <input disabled
                                                 defaultChecked={flightType === 'MULTI_CITY' ? true : false}
+                                                checked={flightType === 'MULTI_CITY' ? true : false}
                                                 onClick={()=>setType('MULTI_CITY')} className="form-check-input" type="radio" name="flexRadioDefault" id="rd-3" />
                                                 <label className="form-check-label" htmlFor="rd-3">
                                                     Multi City
