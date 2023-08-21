@@ -1,0 +1,115 @@
+@import "@/assets/front/styles/variable";
+.conformation {
+    padding: 5rem 0;
+}
+.congBox {
+    background: #d8f7fe;
+    padding: 3.75rem 5rem;
+    border-radius: 5px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 926px;
+}
+.congBoxTop {
+    margin-bottom: 3rem;
+}
+.congBoxTopLeft {
+    flex: 0 0 50px;
+    max-width: 50px;
+    span {
+        position: relative;
+        .congCheckImg {
+            position: absolute;
+            right: -5px;
+            top: -5px;
+        }
+    }
+}
+.congBoxTopRight {
+    flex: 1 0 0%;
+    padding-left: 2rem;
+    h6 {
+        color: #849096;
+        font-size: 15px;
+        font-weight: 400;
+    }
+    h4 {
+        color: $bg-3;
+        font-size: 1.375rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    ul {
+        margin-bottom: 1.5rem;
+        &.referenceNumber {
+            li {
+                &:not(:last-child) {
+                    margin-bottom: 0.5rem;
+                }
+                color: $bg-3;
+                font-size: 13px;
+                font-weight: 400;
+                span,
+                a {
+                    color: $bg-2-derk;
+                    font-size: 13px;
+                    font-weight: 500;
+                    display: inline-block;
+                }
+                a {
+                    font-weight: 700;
+                }
+            }
+        }
+        &.status {
+            li {
+                &:not(:last-child) {
+                    margin-bottom: 0.5rem;
+                }
+                color: $bg-3;
+                font-size: 13px;
+                font-weight: 400;
+                span {
+                    font-weight: 600;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+    p {
+        color: $bg-3;
+        font-size: 13px;
+        font-weight: 400;
+        a {
+            color: $bg-2-derk;
+            font-weight: 700;
+            display: inline-block;
+        }
+    }
+}
+.congBoxBtm {
+    h4 {
+        color: $bg-3;
+        font-size: 1.375rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+    }
+    .congBoxDesc {
+        color: $bg-3;
+        font-size: 12px;
+        font-weight: 400;
+        span {
+            font-weight: 700;
+        }
+    }
+}
+.congBoxBtmLeft {
+    .congBoxImg {
+        flex: 0 0 60px;
+        max-width: 60px;
+    }
+}
+.congBoxText {
+    flex: 1 0 0%;
+    padding-left: 1.3rem;
+}

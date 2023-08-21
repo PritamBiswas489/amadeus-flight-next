@@ -4,7 +4,7 @@ import style from "./index.module.scss";
 import { useMemo } from "react";
 
 const MultiRangeSlider = ({ min, max, onChange, direction }) => {
-    console.log("max", max);
+   // console.log("max", max);
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
     const minValRef = useRef(min);

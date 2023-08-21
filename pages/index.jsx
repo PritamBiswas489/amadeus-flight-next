@@ -74,10 +74,10 @@ export default function Home() {
 
     return (
         <>
-            <Loader />
+            {/* <Loader /> */}
             <Layout>
                 <section className={style.homeBanner} style={{ backgroundImage: `url(${bg.src})` }}>
-                    <HomeFlightSearch />
+                    <HomeFlightSearch isInner={false} execute={0} exceuteSearch={""} />
                 </section>
                 <section className={`destinationsSection ${style.bgWhite} ${style.destinationsSection}`}>
                     <div className="container">
@@ -124,7 +124,7 @@ export default function Home() {
                                     <div className="tab-content" id="pills-tabContent">
                                         <div className="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                                             <OwlCarousel className="owl-theme" {...options}>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -143,7 +143,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -162,7 +162,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -181,7 +181,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -200,7 +200,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -223,7 +223,7 @@ export default function Home() {
                                         </div>
                                         <div className="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                                             <OwlCarousel className="owl-theme" {...options}>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -242,7 +242,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -261,7 +261,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -280,7 +280,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image
@@ -299,7 +299,7 @@ export default function Home() {
                                                         </Link>
                                                     </div>
                                                 </div>
-                                                <div class="item">
+                                                <div className="item">
                                                     <div className={style.citiesDestinationBox}>
                                                         <Link href="#">
                                                             <Image

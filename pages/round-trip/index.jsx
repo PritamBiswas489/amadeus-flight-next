@@ -20,6 +20,7 @@ import check from "@/assets/front/images/check.svg";
 import fxt from "@/assets/front/images/fxt.svg";
 import information from "@/assets/front/images/information.svg";
 import addBanner from "@/assets/front/images/add-banner.jpg";
+import { BiBell } from "react-icons/bi";
 
 import { AiFillCheckSquare } from "react-icons/ai";
 import Link from "next/link";
@@ -56,6 +57,11 @@ const RoundTrip = () => {
                                         </ul>
                                     </div>
                                     <div className={style.leftFilterInnerBox}>
+                                        <Link href={"#"} className={style.mainBtn}>
+                                            <BiBell /> Get price alerts
+                                        </Link>
+                                    </div>
+                                    <div className={style.leftFilterInnerBox}>
                                         <div className={style.lfibHeader}>
                                             <ul className="d-flex justify-content-between align-items-center">
                                                 <li>Stops</li>
@@ -89,6 +95,33 @@ const RoundTrip = () => {
                                                     2+ stops (1)
                                                 </li>
                                                 <li>₹ 12,845</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className={style.leftFilterInnerBox}>
+                                        <div className={style.airports}>
+                                            <h6>Alliances & Airlines </h6>
+                                            <ul>
+                                                <li className="checkbox custom-2">
+                                                    <label>
+                                                        <input type="checkbox" /> AirArabia <span>$1,882</span>
+                                                    </label>
+                                                </li>
+                                                <li className="checkbox custom-2">
+                                                    <label>
+                                                        <input type="checkbox" /> AirAstana <span>$1,882</span>
+                                                    </label>
+                                                </li>
+                                                <li className="checkbox custom-2">
+                                                    <label>
+                                                        <input type="checkbox" /> Air India <span>$1,882</span>
+                                                    </label>
+                                                </li>
+                                                <li className="checkbox custom-2">
+                                                    <label>
+                                                        <input type="checkbox" /> AirAsia <span>$1,882</span>
+                                                    </label>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

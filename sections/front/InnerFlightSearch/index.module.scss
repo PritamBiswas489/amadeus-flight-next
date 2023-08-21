@@ -1,10 +1,10 @@
-@import '@/assets/front/styles/variable';
+@import "@/assets/front/styles/variable";
 .bookFlight {
     background: #fff;
     padding: 30px;
     margin: 0 auto;
     width: 100%;
-    h4{
+    h4 {
         font-weight: 600;
         margin-bottom: 2rem;
     }
@@ -16,7 +16,7 @@
             &:not(:last-child) {
                 margin-right: 1.8rem;
             }
-            label{
+            label {
                 font-weight: 600;
                 font-size: 13px;
                 color: $bg-3;
@@ -31,7 +31,7 @@
     border-radius: 6px;
     padding: 10px 12px;
     position: relative;
-    .roundTripIcon{
+    .roundTripIcon {
         position: absolute;
         right: -27px;
         z-index: 1;
@@ -109,5 +109,11 @@
     &:hover {
         background: $bg-3;
         color: $bg-6;
+    }
+}
+
+.inputDropDownInside {
+    p {
+        font-weight: 600 !important;
     }
 }
