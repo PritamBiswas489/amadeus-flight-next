@@ -2,10 +2,13 @@ import React, { useCallback, useEffect, useState , useMemo} from "react";
 import Layout from "@/components/front/include/Layout";
  
 
-import useFetch from "@/hooks/useFetch";
+ 
+import { useHttpClient } from "@/hooks/http-hook";
+
+
 import SearchPanel from "@/components/front/SearchPage/SearchPanel";
 import SearchField from "@/components/front/SearchPage/SearchField";
-import Loader from "@/components/front/include/Loader";
+ 
 import { isValidDate } from "@/service/Helpers";
 import ResultLoader from "@/components/front/ResultLoader/ResultLoader";
 import ErrorMessage from "@/components/front/ErrorMessage/ErrorMessage";
@@ -18,41 +21,33 @@ import ErrorMessage from "@/components/front/ErrorMessage/ErrorMessage";
 
 const RoundTrip = ({querySearchField}) => {
     const [count, setCount] = useState(0);
-    const [loadingFlightOffer,setLoaderFlightOffer]   = useState(true);
     const [dataOffers,setDataOffers]   = useState([]);
-    const [error, setError] = useState(true);
     const [searchValue,setSearchValue] = useState('');
-    const {
-        data: responseOfferData,
-        fetchData: flightOfferFetch,
-        loading:flightOfferLoading,
-        error:flightOfferError
-      } = useFetch();
+    
+    const { isLoading:flightOfferLoading, error:flightOfferError, sendRequest:flightOfferFetch, clearError } = useHttpClient();
 
       useEffect(()=>{
-        let  timer = '';
-        if(searchValue!==''){
-            const queryString = new URLSearchParams(searchValue).toString();
-           timer = setTimeout(()=>{
-            flightOfferFetch(`${process.env.NEXT_PUBLIC_APP_HOST_API}flight/offer/search?${queryString}`, { method: 'GET' });
-           },1000);
-        }
+        let timer = '';
+        const fetcFlights = async () => {
+           
+            try {
+                const queryString = new URLSearchParams(searchValue).toString();
+                const responseData = await flightOfferFetch(
+                `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/offer/search?${queryString}`
+                );
+                 
+                setDataOffers(responseData);
+            } catch (err) {}
+          };
+          if(searchValue!==''){
+                timer = setTimeout(()=>{
+                fetcFlights();
+            },1000);
+          }
         return  ()=>clearTimeout(timer);
       },[searchValue]);
 
-      useEffect(()=>{
-        setDataOffers(responseOfferData);
-      },[responseOfferData]);
-
-      useEffect(()=>{
-        setLoaderFlightOffer(flightOfferLoading);
-      },[flightOfferLoading])
-
-      useEffect(()=>{
-        setError(flightOfferError);
-      },[flightOfferError])
-
-
+    
     const executeSearchProcess = useCallback((searchData)=>{
           setSearchValue(searchData);
     }, []);
@@ -64,10 +59,10 @@ const RoundTrip = ({querySearchField}) => {
     return (
         <>
             <Layout>
-                <SearchField disablebtn={loadingFlightOffer} querySearchField={querySearchField}   {...memoizedChildValue}></SearchField>
-                {!dataOffers && !error && <ResultLoader/> }
-                {!loadingFlightOffer && error && !dataOffers &&  <ErrorMessage error={error}/> }    
-                {(!loadingFlightOffer && !error  && dataOffers) &&  <SearchPanel dataOffers={dataOffers}  count={count}/> }
+                 <SearchField disablebtn={flightOfferLoading} querySearchField={querySearchField}   {...memoizedChildValue}></SearchField>
+                 {flightOfferLoading && <ResultLoader/> }
+                 {flightOfferError  &&  <ErrorMessage error={flightOfferError}/> }    
+                 {(dataOffers && !flightOfferError && !flightOfferLoading && typeof dataOffers.response!=='undefined') &&  <SearchPanel dataOffers={dataOffers}  count={count}/> }
             </Layout>
         </>
     );

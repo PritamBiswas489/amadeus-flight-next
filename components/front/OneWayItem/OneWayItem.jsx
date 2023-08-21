@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import style from "@/pages/flight/search/index.module.scss";
 import Image from "next/image";
 import airAsia from "@/assets/front/images/air-asia.svg";
@@ -11,10 +11,14 @@ import fxt from "@/assets/front/images/fxt.svg";
 import addBanner from "@/assets/front/images/add-banner.jpg";
 import Link from "next/link";
 import { getCurrencySymbol, convertToLocalDate, removeDuplicateData } from '@/service/Helpers';
+import useFetch from '@/hooks/useFetch';
+import { useRouter } from 'next/router';
+
 
  
 export default function OneWayItem({flightOffer}) {
   const { orginalTiming, currency, totalPrice, airport, baggage, cabinClass, airline } = flightOffer;
+  const router = useRouter();
   //get first and last airport of the journey
   const firstAirportSlot = airport[0];
   const lastAirportSlot = airport[airport.length - 1];
@@ -47,6 +51,42 @@ export default function OneWayItem({flightOffer}) {
   for (let i = 0; i < numberOfDotOfStop; i++) {
     renderedItems.push(<span></span>);
   }
+
+  const {
+    data: saveOfferData,
+    fetchData: saveOfferDataProcess,
+    loading:saveOfferDataLoading,
+    error:saveOfferDataError
+  } = useFetch();
+
+  function gotoBookPage(){
+    //   console.log("================ Hello get Offer load ==========================");
+    //   console.log(flightOffer.offer);
+      const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({offer:flightOffer.offer})
+      };
+      saveOfferDataProcess(
+        `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/save-offer`, 
+         options
+      );
+  }
+
+  useEffect(()=>{
+    if(saveOfferData!==null 
+        && typeof saveOfferData.response!=='undefined'
+        && typeof saveOfferData.response.filename!=='undefined'){
+        //console.log(saveOfferData.response.filename);
+        //console.log(saveOfferData.response.offer);
+        const destinationRoute = '/flight/reviewDetails';
+        const finalRoute = `${destinationRoute}?itineraryId=${saveOfferData.response.filename}`;
+        router.push(finalRoute);
+    }
+
+  },[saveOfferData])
    
   return (
     <div className={`d-flex flex-wrap ${style.listBox}`}>
@@ -93,7 +133,7 @@ export default function OneWayItem({flightOffer}) {
                                         <div className={style.selfTransfer}>
                                             <p>
                                                 <Image alt="" src={passenger} placeholder="passenger" width={14} height={13} />
-                                                Self-transfer <Link href={"#"}>Read More</Link>
+                                                Self-transfer <Link href={"javascript:void(0);"}>Read More</Link>
                                             </p>
                                         </div>
                                     </div>
@@ -128,7 +168,7 @@ export default function OneWayItem({flightOffer}) {
                                                                 <Image alt="" src={information} placeholder="passenger" width={10} height={10} />
                                                             </span> */}
                                                         </p>
-                                                        <Link href={"#"}>Book</Link>
+                                                        <Link href={"javascript:void(0);"} onClick={gotoBookPage}>Book</Link>
                                                     </div>
                                                 </div>
                                             </div>

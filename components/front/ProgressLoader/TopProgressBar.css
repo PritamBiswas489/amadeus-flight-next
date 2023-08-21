@@ -1,0 +1,9 @@
+#nprogress .bar {
+    background: rgb(109, 113, 222);
+    height: 5px;
+    z-index: 9999999999999999999999999999999999;
+   }
+   #nprogress .spinner {
+    display: none;
+ }
+ 

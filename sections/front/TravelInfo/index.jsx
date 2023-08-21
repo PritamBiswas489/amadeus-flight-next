@@ -14,7 +14,7 @@ import ti7 from "@/assets/front/images/ti7.png";
 import tick2 from "@/assets/front/images/tick2.svg";
 import Link from "next/link";
 
-const TravelInfo = () => {
+const TravelInfo = ({dt}) => {
     return (
         <>
             <div className={style.travelInfoSection}>
@@ -427,7 +427,7 @@ const TravelInfo = () => {
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-3 col-sm-4 col-12">
-                            <RightBar />
+                            <RightBar dt={dt} />
                         </div>
                     </div>
                 </div>

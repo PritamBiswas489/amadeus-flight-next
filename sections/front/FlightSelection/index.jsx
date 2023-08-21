@@ -19,7 +19,7 @@ import tick2 from "@/assets/front/images/tick-2.svg";
 import airAsia from "@/assets/front/images/air-asia.svg";
 import alarm from "@/assets/front/images/alarm-clock.svg";
 
-const FlightSelection = () => {
+const FlightSelection = ({dt}) => {
     return (
         <>
             <div className={style.stepDtlsSection}>
@@ -455,7 +455,7 @@ const FlightSelection = () => {
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-3 col-sm-4 col-12">
-                            <RightBar />
+                            <RightBar dt={dt} />
                         </div>
                     </div>
                 </div>

@@ -36,9 +36,9 @@ const HomeFlightSearch = ({isInner, execute,exceuteSearch, querySearchField = {}
     if(currentRoute!=='/flight/search'){
         defaultToValue = 'London';
     }
+    
 
-    const searchQueryStringValue = router.query;
-
+     
     const [depatureDate, setDepatureDate] = useState(new Date());
     const [returnDate, setReturnDate] = useState(new Date());
     const [fromAircodeShow,setFromAircodeShow]  = useState(false); 
@@ -140,10 +140,7 @@ const HomeFlightSearch = ({isInner, execute,exceuteSearch, querySearchField = {}
               ){
                 setDepatureDate(new Date(querySearchField.departureDate));
                 apiQueryObject.departureDate = apiDateFormat(new Date(querySearchField.departureDate));
-            }else{
-                setDepatureDate(new Date());
-                apiQueryObject.departureDate = apiDateFormat(new Date());
-            }
+            } 
             if(typeof querySearchField.tripType!=='undefined' && querySearchField.tripType === 'RETURN'){
                 if(
                     typeof querySearchField.arrivalDate!=='undefined' 
@@ -152,10 +149,7 @@ const HomeFlightSearch = ({isInner, execute,exceuteSearch, querySearchField = {}
                   ){
                     setReturnDate(new Date(querySearchField.arrivalDate));
                     apiQueryObject.returnDate = apiDateFormat(new Date(querySearchField.arrivalDate));
-                }else{
-                    setReturnDate(new Date());
-                    apiQueryObject.returnDate = apiDateFormat(new Date());
-                }
+                } 
             }
             if(
                 typeof querySearchField.tripType!=='undefined'){
@@ -166,12 +160,19 @@ const HomeFlightSearch = ({isInner, execute,exceuteSearch, querySearchField = {}
                 setClassValue(querySearchField.cabinClass);
                 apiQueryObject.travelClass = querySearchField.cabinClass;
             }
-            setAdultValue(querySearchField.adult);
-            apiQueryObject.adults = querySearchField.adult;
-            setChildrenValue(querySearchField.child);
-            apiQueryObject.children = querySearchField.child;
-            setInfantValue(querySearchField.infant);
-            apiQueryObject.infants = querySearchField.infant;
+             
+            if(typeof querySearchField.adult!=='undefined'){
+               setAdultValue(querySearchField.adult);
+               apiQueryObject.adults = querySearchField.adult;
+            }
+            if(typeof querySearchField.child!=='undefined'){
+               setChildrenValue(querySearchField.child);
+               apiQueryObject.children = querySearchField.child;
+            }
+            if(typeof querySearchField.infant!=='undefined'){
+                setInfantValue(querySearchField.infant);
+                apiQueryObject.infants = querySearchField.infant;
+            }
             if(typeof querySearchField.nonstopflight!=='undefined'){
                 setNonStop(querySearchField.nonstopflight);
                 apiQueryObject.nonStop = querySearchField.nonstopflight;
@@ -193,13 +194,13 @@ const HomeFlightSearch = ({isInner, execute,exceuteSearch, querySearchField = {}
 
 
 
-
+      
     
         const {
             geoLoading,
             geoError,
             geoLocationData
-          } =  useGeolocation(cookies.cityFrom || currentRoute==='/flight/search' ? {trigger:false} : {trigger:true}) ;
+          } =  useGeolocation((cookies.cityFrom || currentRoute!=='/') ? {trigger:false} : {trigger:true}) ;
     
           useEffect(() => {
               if(  typeof geoLocationData.latitude!=='undefined'){

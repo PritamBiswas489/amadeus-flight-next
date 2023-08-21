@@ -5,6 +5,10 @@ import '@/assets/front/styles/style.scss';
 
 
 import Loader from "@/components/front/include/Loader";
+import NProgress from "nprogress";
+
+import "nprogress/nprogress.css";
+import "@/components/front/ProgressLoader/TopProgressBar.css";
 
 import { SnackbarProvider } from "notistack";
 import useLoader from '@/hooks/useLoader';
@@ -21,6 +25,15 @@ export default function App({ Component, pageProps }) {
         setloading(isLoading);
     }, [loading]);
 
+    useEffect(() => {
+        if(isLoading){
+            NProgress.start();
+        }
+        if(!isLoading){
+            NProgress.done();
+        }
+    }, [isLoading]);
+
 
 
     
@@ -33,7 +46,7 @@ export default function App({ Component, pageProps }) {
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         autoHideDuration={3000}
       >
-        {isLoading  && <Loader/> }
+         
         {!isLoading  &&  <Component {...pageProps} /> }
          
        </SnackbarProvider>

@@ -14,7 +14,7 @@ import tick from "@/assets/front/images/tick-2.svg";
 import RightBar from "@/components/front/RightBar";
 import Link from "next/link";
 
-const Payment = () => {
+const Payment = ({dt}) => {
     const [inactive, setActive] = useState("false");
 
     const ToggleClass = () => {
@@ -184,7 +184,7 @@ const Payment = () => {
                             </div>
                         </div>
                         <div className="col-lg-3 col-md-3 col-sm-4 col-12">
-                            <RightBar />
+                            <RightBar dt={dt} />
                         </div>
                     </div>
                 </div>

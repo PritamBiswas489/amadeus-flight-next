@@ -59,6 +59,7 @@ export function formatDateWithLeadingZero(date) {
       }
   }
   export function convertToLocalDate(date){
+    if(date === '' || date === null){  return ''; }
     const inputDate = new Date(date); // Replace this with your input date
     // Convert date to "MMM DD" format
     const formattedDate = inputDate.toLocaleString('en-US', {
@@ -76,5 +77,23 @@ export function formatDateWithLeadingZero(date) {
 
   return uniqueObjects;
 
+}
+export function getWeekDayNameFromDate(value){
+  if(value === '' || value === null){  return ''; }
+   
+    const date = new Date(value); // Use the desired date in YYYY-MM-DD format
+
+     
+    const weekdayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    
+    const weekdayIndex = date.getDay();
+
+    
+    const weekdayName = weekdayNames[weekdayIndex];
+
+    return weekdayName;
+
+ 
 }
   
