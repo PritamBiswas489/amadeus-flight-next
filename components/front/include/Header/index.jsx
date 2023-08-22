@@ -20,7 +20,7 @@ const Header = () => {
     return (
         <>
             <header className={style.mainHeader}>
-                <div className="container">
+                <div className={`container-fluid ${style.ph50}`}>
                     <div className="row justify-content-between align-items-center">
                         <div className="col-auto">
                             <div className={style.logo}>
