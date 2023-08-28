@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import style from "./index.module.scss";
 import Image from "next/image";
 import logo from "@/assets/front/images/logo.svg";
@@ -17,9 +17,47 @@ import loginBg from "@/assets/front/images/login.jpg";
 
 import Link from "next/link";
 const Header = () => {
+    // const handleScroll = () => {
+    //     // setClientWindowHeight(window.scrollY);
+    //     alert("dfgdgdf");
+    // };
+
+    // useEffect(() => {
+    //     window.addEventListener("scroll", handleScroll);
+    //     return () => window.removeEventListener("scroll", handleScroll);
+    // });
+    const [state, setstate] = useState(false);
+    const changevalueonScroll = () => {
+        alert("dfgdgdf");
+        const scrollvalue = document.documentElement.scrollTop;
+        if (scrollvalue > 100) {
+            setstate(true);
+        } else {
+            setstate(false);
+        }
+    };
+    useEffect(() => {
+        window.addEventListener("scroll", changevalueonScroll);
+        // window.addEventListener("scroll", changevalueonScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", changevalueonScroll);
+        };
+    }, []);
+
+    // const [scrolltopdata, setscrolltopdata] = useState("");
+    // useEffect(() => {
+    //     window.addEventListener("scroll", () => {
+    //         if (window.scrollY < 15) {
+    //             setscrolltopdata("");
+    //         } else {
+    //             setscrolltopdata("scrolled");
+    //         }
+    //     });
+    // }, []);
     return (
         <>
-            <header className={style.mainHeader}>
+            {/* <header className={`${style.mainHeader} ${state ? "fixHeader" : ""}`}> */}
+            <header className={`${style.mainHeader} ${style.fixHeader}`}>
                 <div className={`container-fluid ${style.ph50}`}>
                     <div className="row justify-content-between align-items-center">
                         <div className="col-auto">
