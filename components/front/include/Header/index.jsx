@@ -17,15 +17,7 @@ import loginBg from "@/assets/front/images/login.jpg";
 
 import Link from "next/link";
 const Header = () => {
-    // const handleScroll = () => {
-    //     // setClientWindowHeight(window.scrollY);
-    //     alert("dfgdgdf");
-    // };
-
-    // useEffect(() => {
-    //     window.addEventListener("scroll", handleScroll);
-    //     return () => window.removeEventListener("scroll", handleScroll);
-    // });
+     
     const [state, setstate] = useState(false);
     const changevalueonScroll = () => {
         alert("dfgdgdf");
@@ -36,12 +28,20 @@ const Header = () => {
             setstate(false);
         }
     };
+    function handleScroll(){
+        alert('asasas');
+    }
+
     useEffect(() => {
-        window.addEventListener("scroll", changevalueonScroll);
-        // window.addEventListener("scroll", changevalueonScroll, { passive: true });
-        return () => {
-            window.removeEventListener("scroll", changevalueonScroll);
-        };
+       
+        const container = document.querySelector('body')
+
+        const handleScroll = ({ target }) => {
+          alert(target.scrollTop)
+        }
+      
+        container.addEventListener('scroll', handleScroll, false)
+        return () => container.removeEventListener('scroll', handleScroll)
     }, []);
 
     // const [scrolltopdata, setscrolltopdata] = useState("");
