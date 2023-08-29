@@ -17,31 +17,34 @@ import loginBg from "@/assets/front/images/login.jpg";
 
 import Link from "next/link";
 const Header = () => {
-     
     const [state, setstate] = useState(false);
-    const changevalueonScroll = () => {
-        alert("dfgdgdf");
-        const scrollvalue = document.documentElement.scrollTop;
-        if (scrollvalue > 100) {
-            setstate(true);
-        } else {
-            setstate(false);
-        }
-    };
-    function handleScroll(){
-        alert('asasas');
-    }
+    // const changevalueonScroll = () => {
+    //     alert("dfgdgdf");
+    //     const scrollvalue = document.documentElement.scrollTop;
+    //     if (scrollvalue > 100) {
+    //         setstate(true);
+    //     } else {
+    //         setstate(false);
+    //     }
+    // };
+    // function handleScroll() {
+    //     alert("asasas");
+    // }
 
     useEffect(() => {
-       
-        const container = document.querySelector('body')
+        const container = document.querySelector("body");
 
         const handleScroll = ({ target }) => {
-          alert(target.scrollTop)
-        }
-      
-        container.addEventListener('scroll', handleScroll, false)
-        return () => container.removeEventListener('scroll', handleScroll)
+            const scrollvalue = target.scrollTop;
+            if (scrollvalue > 100) {
+                setstate(true);
+            } else {
+                setstate(false);
+            }
+        };
+
+        container.addEventListener("scroll", handleScroll, false);
+        return () => container.removeEventListener("scroll", handleScroll);
     }, []);
 
     // const [scrolltopdata, setscrolltopdata] = useState("");
@@ -56,8 +59,8 @@ const Header = () => {
     // }, []);
     return (
         <>
-            {/* <header className={`${style.mainHeader} ${state ? "fixHeader" : ""}`}> */}
-            <header className={`${style.mainHeader} ${style.fixHeader}`}>
+            <header className={`${style.mainHeader} ${state ? style.fixHeader : ""}`}>
+                {/* <header className={`${style.mainHeader} ${style.fixHeader}`}> */}
                 <div className={`container-fluid ${style.ph50}`}>
                     <div className="row justify-content-between align-items-center">
                         <div className="col-auto">
