@@ -17,7 +17,7 @@ const RightBar = ({dt}) => {
             <div className={style.yourOrder}>
                 <h5>Your Order</h5>
                 {airport.map((airportdet,airportindex)=>{
-                   return <BookingDetails 
+                   return <BookingDetails key={airportindex}
                       airportdet={airportdet}
                       airlinedet={airline[airportindex]}
                       timingdet={timings[airportindex]}

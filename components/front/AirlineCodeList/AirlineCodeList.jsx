@@ -76,4 +76,6 @@ const AirlineCodeList = forwardRef((props, ref) => {
   );
 });
 
+AirlineCodeList.displayName = 'AirlineCodeList';
+
 export default AirlineCodeList;

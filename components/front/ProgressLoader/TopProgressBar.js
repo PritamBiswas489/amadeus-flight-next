@@ -57,6 +57,6 @@ Router.events.on("routeChangeError", stop);
 //   }
 // };
 
-export default function () {
+export default function TopProgressBar() {
   return null;
 }

@@ -47,9 +47,9 @@ const PassengerDetails = () => {
                     </div>
                 </section>
 
-                {activeStep === 1 && <FlightSelection />}
-                {activeStep === 2 && <TravelInfo />}
-                {activeStep === 3 && <Payment />}
+                {/* {activeStep === 1 && <FlightSelection dt={{}} />}
+                {activeStep === 2 && <TravelInfo dt={{}} />}
+                {activeStep === 3 && <Payment dt={{}} />} */}
             </Layout>
         </>
     );
