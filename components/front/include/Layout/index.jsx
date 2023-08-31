@@ -2,13 +2,13 @@ import React from 'react';
 import Header from '../Header';
 import Footer from '../Footer';
 const Layout = ({isHome, children }) => {
-    let headerClass = '';
+    let innerHeaderClass = false;
     if(typeof isHome ==='undefined'){
-               headerClass = 'innerHeader';      
+        innerHeaderClass = true;      
     } 
     return (
         <>
-            <Header headerClass={headerClass} />
+            <Header innerHeaderClass={innerHeaderClass} />
             {children}
             <Footer />
         </>
