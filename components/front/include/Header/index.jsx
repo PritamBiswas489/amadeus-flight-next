@@ -16,21 +16,9 @@ import trustpilot from "@/assets/front/images/trustpilot.png";
 import loginBg from "@/assets/front/images/login.jpg";
 
 import Link from "next/link";
-const Header = () => {
+const Header = ({headerClass}) => {
     const [state, setstate] = useState(false);
-    // const changevalueonScroll = () => {
-    //     alert("dfgdgdf");
-    //     const scrollvalue = document.documentElement.scrollTop;
-    //     if (scrollvalue > 100) {
-    //         setstate(true);
-    //     } else {
-    //         setstate(false);
-    //     }
-    // };
-    // function handleScroll() {
-    //     alert("asasas");
-    // }
-
+    
     useEffect(() => {
         const container = document.querySelector("body");
 
@@ -47,19 +35,10 @@ const Header = () => {
         return () => container.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // const [scrolltopdata, setscrolltopdata] = useState("");
-    // useEffect(() => {
-    //     window.addEventListener("scroll", () => {
-    //         if (window.scrollY < 15) {
-    //             setscrolltopdata("");
-    //         } else {
-    //             setscrolltopdata("scrolled");
-    //         }
-    //     });
-    // }, []);
+   
     return (
         <>
-            <header className={`${style.mainHeader} ${state ? style.fixHeader : ""}`}>
+            <header className={`${style.mainHeader} ${state ? style.fixHeader : ""} ${headerClass}`}>
                 {/* <header className={`${style.mainHeader} ${style.fixHeader}`}> */}
                 <div className={`container-fluid ${style.ph50}`}>
                     <div className="row justify-content-between align-items-center">
