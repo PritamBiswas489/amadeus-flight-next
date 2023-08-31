@@ -16,7 +16,7 @@ import trustpilot from "@/assets/front/images/trustpilot.png";
 import loginBg from "@/assets/front/images/login.jpg";
 
 import Link from "next/link";
-const Header = ({headerClass}) => {
+const Header = ({innerHeaderClass}) => {
     const [state, setstate] = useState(false);
     
     useEffect(() => {
@@ -38,7 +38,7 @@ const Header = ({headerClass}) => {
    
     return (
         <>
-            <header className={`${style.mainHeader} ${state ? style.fixHeader : ""} ${headerClass}`}>
+            <header className={`${style.mainHeader} ${state ? style.fixHeader : ""} ${innerHeaderClass ? style.innerHeader : ''}`}>
                 {/* <header className={`${style.mainHeader} ${style.fixHeader}`}> */}
                 <div className={`container-fluid ${style.ph50}`}>
                     <div className="row justify-content-between align-items-center">

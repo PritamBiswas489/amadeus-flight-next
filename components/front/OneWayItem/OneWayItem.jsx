@@ -27,7 +27,7 @@ export default function OneWayItem({flightOffer}) {
 
   let airlineListText = '';
     airlineData.forEach((airline,indexairline)=>{
-        airlineListText += airline.commonName+','; 
+        airlineListText += airline.commonName+'('+airline.number+')'+','; 
   });
   if (airlineListText.endsWith(',')) {
     airlineListText =  airlineListText.slice(0, -1);
