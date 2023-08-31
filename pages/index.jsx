@@ -75,7 +75,7 @@ export default function Home() {
     return (
         <>
             {/* <Loader /> */}
-            <Layout>
+            <Layout isHome={true}>
                 <section className={style.homeBanner} style={{ backgroundImage: `url(${bg.src})` }}>
                     <HomeFlightSearch isInner={false} execute={0} exceuteSearch={""} />
                 </section>
