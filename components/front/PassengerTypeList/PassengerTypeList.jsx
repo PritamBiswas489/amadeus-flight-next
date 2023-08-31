@@ -95,8 +95,9 @@ export default function PassengerTypeList({ setPassAdult, setPassChild, setPassI
     }, []);
 
     return (
-        <div ref={panelRef} className="col-lg-3 col-md-3 col-sm-6 col-6">
-            <div className={style.inputArea}>
+        <div ref={panelRef}>
+
+<div className={style.inputArea}>
                 <div className={`w-100 ${style.inputSelect}`}>
                     <label>Passengers</label>
                     <Link
@@ -223,5 +224,7 @@ export default function PassengerTypeList({ setPassAdult, setPassChild, setPassI
                 </div>
             </div>
         </div>
+           
+       
     );
 }

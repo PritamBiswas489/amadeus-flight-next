@@ -23,7 +23,15 @@ export default function OneWayItem({flightOffer}) {
   const firstAirportSlot = airport[0];
   const lastAirportSlot = airport[airport.length - 1];
 
-  const airlineImageArray = removeDuplicateData(airline);
+  const airlineData = removeDuplicateData(airline);
+
+  let airlineListText = '';
+    airlineData.forEach((airline,indexairline)=>{
+        airlineListText += airline.commonName+','; 
+  });
+  if (airlineListText.endsWith(',')) {
+    airlineListText =  airlineListText.slice(0, -1);
+  }
 
   let stopText = '';
   let numberOfDotOfStop = 0;
@@ -96,7 +104,7 @@ export default function OneWayItem({flightOffer}) {
                                             <div className="col-lg-5 col-md-5 col-sm-5 col-12">
                                                 <div className={style.depurture}>
                                                     <span className={style.airlinesIcon}>
-                                                      {airlineImageArray && airlineImageArray.map((imageArr)=>{
+                                                      {airlineData && airlineData.map((imageArr)=>{
                                                         return (<><Image alt="" src={imageArr.image} placeholder="flexibleDate" width={16} height={16} />  <br></br></>);
 
                                                       })}
@@ -125,7 +133,7 @@ export default function OneWayItem({flightOffer}) {
                                             </div>
                                             <div className="col-12">
                                                 <div className={style.operatedBy}>
-                                                    {/* <p>Etihad Airways, operated by Air Asia</p> */}
+                                                    <p>{airlineListText}</p>
                                                 </div>
                                             </div>
                                         </div>

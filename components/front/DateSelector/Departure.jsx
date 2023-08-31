@@ -9,13 +9,13 @@ export default function Departure({value, setValue}) {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
   return (
-    <div className="col-lg-3 col-md-3 col-sm-6 col-6">
+    
                                             <div className={style.inputArea}>
                                                 <div className="w-100">
                                                     <label>Departure</label>
                                                 </div>
                                                 <DatePicker clearIcon="" format="MM/dd/yyyy" minDate={today} onChange={setValue} value={formatDateWithLeadingZero(value)} />
                                             </div>
-                                        </div>
+                                       
   )
 }
