@@ -8,19 +8,22 @@ import BookingDetails from "./BookingDetails";
 import TotalPanel from "./TotalPanel";
 
 const RightBar = ({dt}) => {
-   
-    const {airline,airport,timings,orginalTiming,totalPrice,currency} = dt;
-    console.log(totalPrice);
-    console.log(currency);
+    const {
+        totalPrice,
+        currency,
+        cabinClass,
+        baggage,
+        baggageQty,
+        itineraries,
+    } = dt;
+    
     return (
         <>
             <div className={style.yourOrder}>
                 <h5>Your Order</h5>
-                {airport.map((airportdet,airportindex)=>{
-                   return <BookingDetails key={airportindex}
-                      airportdet={airportdet}
-                      airlinedet={airline[airportindex]}
-                      timingdet={timings[airportindex]}
+                {itineraries.map((itinerary,itineraryIndex)=>{
+                   return <BookingDetails key={itineraryIndex}
+                   itinerary={itinerary}
                    />
                 })}
                 <div className={style.yourOrderBox}>

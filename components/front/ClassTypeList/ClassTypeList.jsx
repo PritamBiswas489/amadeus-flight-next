@@ -3,19 +3,23 @@ import { useState , useEffect} from 'react';
 import Link from "next/link";
 import { FaAngleDown } from "react-icons/fa";
 import { useRef } from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { searchFieldActions } from "@/store/redux/search-field-slice";
 
 import style from "@/sections/front/HomeFlightSearch/index.module.scss";
 
-export default function ClassTypeList({classValue, setClass}) {
+export default function ClassTypeList() {
   ////ECONOMY, PREMIUM_ECONOMY, BUSINESS, FIRST 
   const [dropdownShow,setDropdownShow] = useState(false);
   const panelRef =  useRef(null); 
+  const dispatch = useDispatch();
  
   const [selectClassTextValue,setSelectedClassTextValue] = useState('Select');
 
-  function setClassValue(Value){
-     setClass(Value);
-  }
+  const classValue = useSelector((state)=>state['searchField'].classValue);
+  const setClassValue = (classValue)=> dispatch(searchFieldActions.setClassValue({classValue}));
+
+  
 
   useEffect(()=>{
     let typeTextValue = '';

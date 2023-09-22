@@ -20,41 +20,18 @@ import Return from "@/components/front/DateSelector/Return";
 import FromAirport from "@/components/front/FromAirport/FromAirport";
 import ToAirport from "@/components/front/ToAirport/ToAirport";
 
+import { useSelector, useDispatch } from "react-redux";
+import { searchFieldActions } from "@/store/redux/search-field-slice";
+
 export default function InnerSearch({
   isInner,
-  flightType,
-  setflightType,
-  defaultFromAirportList,
-  setfromAirportData,
-  setFromAircodeShow,
-  setDefaultFromAirportList,
-  fromAirportData,
-  fromAircodeShow,
-  defaultToAirportList,
-  settoAirportData,
-  settoAircodeShow,
-  setDefaultToAirportList,
-  toAirportData,
-  toAircodeShow,
-  depatureDate,
-  setDepatureDate,
-  returnDate,
-  setReturnDate,
-  setAdultValue,
-  setChildrenValue,
-  setInfantValue,
-  adultValue,
-  childrenValue,
-  infantValue,
-  classValue,
-  setClassValue,
   disablebtn,
   findFlightGoToSearch,
-  nonStop,
-  setNonStop,
 }) {
-  const [value, onChange] = useState(new Date());
-  const [valueTwo, onChangeTwo] = useState(new Date());
+  //console.log("============ InnerSearch ===============");
+  const dispatch = useDispatch();
+  const nonStop = useSelector((state)=>state['searchField'].nonStop);
+  const setNonStop = (nonStop)=> dispatch(searchFieldActions.setNonStop({nonStop}));
   return (
     <>
       <div className="container">
@@ -64,64 +41,25 @@ export default function InnerSearch({
               <div className="row g-3">
                 <div className="col-12">
                   <div className={style.radio}>
-                    <FlightType
-                      className={'justify-content-end'}
-                      fromAircodeShow={fromAircodeShow}
-                      flightType={flightType}
-                      setType={(value) => setflightType(value)}
-                    ></FlightType>
+                  <FlightType  className={'justify-content-end'}
+                  ></FlightType>
                   </div>
                 </div>
 
                 <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <FromAirport
-                    defaultFromAirportList={defaultFromAirportList}
-                    flightType={flightType}
-                    setfromAirportData={(data) => setfromAirportData(data)}
-                    setFromAircodeShow={(value) => setFromAircodeShow(value)}
-                    setDefaultFromAirportList={(value) =>
-                      setDefaultFromAirportList(value)
-                    }
-                    fromAirportData={fromAirportData}
-                    fromAircodeShow={fromAircodeShow}
-                  />
+                <FromAirport/>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <ToAirport
-                    defaultToAirportList={defaultToAirportList}
-                    flightType={flightType}
-                    settoAirportData={(value) => settoAirportData(value)}
-                    settoAircodeShow={(value) => settoAircodeShow(value)}
-                    setDefaultToAirportList={(value) =>
-                      setDefaultToAirportList(value)
-                    }
-                    toAirportData={toAirportData}
-                    toAircodeShow={toAircodeShow}
-                  />
+                <ToAirport/>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-4 col-4">
-                  <Departure
-                    value={depatureDate}
-                    setValue={(value) => setDepatureDate(value)}
-                  ></Departure>
+                <Departure></Departure>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-4 col-4">
-                  <Return
-                    depatureDate={depatureDate}
-                    flightType={flightType}
-                    value={returnDate}
-                    setValue={(value) => setReturnDate(value)}
-                  />
+                <Return/>
                 </div>
                 <div className="col-lg-2 col-md-2 col-sm-4 col-4">
-                  <PassengerTypeList
-                    setPassAdult={setAdultValue}
-                    setPassChild={setChildrenValue}
-                    setPassInfant={setInfantValue}
-                    adultValue={adultValue}
-                    childrenValue={childrenValue}
-                    infantValue={infantValue}
-                  ></PassengerTypeList>
+                <PassengerTypeList></PassengerTypeList>
                 </div>
               </div>
               <div className="row justify-content-between align-items-center mt-4">
@@ -130,7 +68,7 @@ export default function InnerSearch({
                     <label>
                       <input
                         type="checkbox"
-                        onChange={setNonStop}
+                        onChange={()=>setNonStop(!nonStop)}
                         defaultChecked={nonStop}
                         checked={nonStop}
                       />{" "}

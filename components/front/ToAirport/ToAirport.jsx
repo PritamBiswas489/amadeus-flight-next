@@ -2,21 +2,23 @@ import React,{useRef, useEffect} from 'react';
 import style from "@/sections/front/HomeFlightSearch/index.module.scss";
 import AirlineCodeList from "@/components/front/AirlineCodeList/AirlineCodeList";
 import Image from "next/image";
-
+import { useSelector, useDispatch } from "react-redux";
+import { searchFieldActions } from "@/store/redux/search-field-slice";
  
 import plain from "@/assets/front/images/plain.svg";
 
-export default function ToAirport({
-    defaultToAirportList,
-    flightType,
-    settoAirportData,
-    settoAircodeShow,
-    setDefaultToAirportList,
-    toAirportData,
-    toAircodeShow
-}) {
+export default function ToAirport( ) {
     const toAircodeRef = useRef(null);
     const listToAircodeRef = useRef(null);
+    const dispatch = useDispatch();
+
+   const  defaultToAirportList = useSelector((state)=>state['searchField'].defaultToAirportList);
+    const flightType =  useSelector((state)=>state['searchField'].flightType);
+    const settoAirportData = (toAirportData)=> dispatch(searchFieldActions.settoAirportData({toAirportData}));
+    const settoAircodeShow = (toAircodeShow)=> dispatch(searchFieldActions.settoAircodeShow({toAircodeShow}));
+    const setDefaultToAirportList = (defaultToAirportList)=> dispatch(searchFieldActions.setDefaultToAirportList({defaultToAirportList}));
+    const toAirportData =  useSelector((state)=>state['searchField'].toAirportData);
+    const toAircodeShow =  useSelector((state)=>state['searchField'].toAircodeShow);
 
      //to aircode
      useEffect(() => {

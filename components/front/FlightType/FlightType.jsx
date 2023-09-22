@@ -1,14 +1,19 @@
 import React from "react";
 
 import style from "@/sections/front/HomeFlightSearch/index.module.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { searchFieldActions } from "@/store/redux/search-field-slice";
 
-export default function FlightType({ flightType, setType, className }) {
+export default function FlightType({   className }) {
+  const dispatch = useDispatch();
+  const flightType = useSelector((state)=>state['searchField'].flightType);
+  const setflightType = (flightType)=> dispatch(searchFieldActions.setflightType({flightType}));
   return (
     
       <ul className={`d-flex ${className}`}>
         <li className="form-check">
           <input
-            onClick={() => setType("RETURN")}
+            onClick={() => setflightType("RETURN")}
             defaultChecked={flightType === "RETURN" ? true : false}
             checked={flightType === "RETURN" ? true : false}
             className="form-check-input"
@@ -24,7 +29,7 @@ export default function FlightType({ flightType, setType, className }) {
           <input
             defaultChecked={flightType === "ONEWAY" ? true : false}
             checked={flightType === "ONEWAY" ? true : false}
-            onClick={() => setType("ONEWAY")}
+            onClick={() => setflightType("ONEWAY")}
             className="form-check-input"
             type="radio"
             name="flexRadioDefault"
@@ -39,7 +44,7 @@ export default function FlightType({ flightType, setType, className }) {
             disabled
             defaultChecked={flightType === "MULTI_CITY" ? true : false}
             checked={flightType === "MULTI_CITY" ? true : false}
-            onClick={() => setType("MULTI_CITY")}
+            onClick={() => setflightType("MULTI_CITY")}
             className="form-check-input"
             type="radio"
             name="flexRadioDefault"

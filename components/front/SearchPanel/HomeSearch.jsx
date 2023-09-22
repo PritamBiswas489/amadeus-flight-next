@@ -12,39 +12,19 @@ import Return from "@/components/front/DateSelector/Return";
 import FromAirport from "@/components/front/FromAirport/FromAirport";
 import ToAirport from "@/components/front/ToAirport/ToAirport";
 
+import { useSelector, useDispatch } from "react-redux";
+import { searchFieldActions } from "@/store/redux/search-field-slice";
+
 export default function HomeSearch({
   isInner,
-  flightType,
-  setflightType,
-  defaultFromAirportList,
-  setfromAirportData,
-  setFromAircodeShow,
-  setDefaultFromAirportList,
-  fromAirportData,
-  fromAircodeShow,
-  defaultToAirportList,
-  settoAirportData,
-  settoAircodeShow,
-  setDefaultToAirportList,
-  toAirportData,
-  toAircodeShow,
-  depatureDate,
-  setDepatureDate,
-  returnDate,
-  setReturnDate,
-  setAdultValue,
-  setChildrenValue,
-  setInfantValue,
-  adultValue,
-  childrenValue,
-  infantValue,
-  classValue,
-  setClassValue,
   disablebtn,
   findFlightGoToSearch,
-  nonStop,
-  setNonStop,
+   
 }) {
+  const dispatch = useDispatch();
+  const nonStop = useSelector((state)=>state['searchField'].nonStop);
+  const setNonStop = (nonStop)=> dispatch(searchFieldActions.setNonStop({nonStop}));
+
   return (
     <div className="container">
       <div className="row">
@@ -56,10 +36,7 @@ export default function HomeSearch({
               <div className="col-12">
                 <div className={style.radio}>
                   <FlightType
-                    className={''}
-                    fromAircodeShow={fromAircodeShow}
-                    flightType={flightType}
-                    setType={(value) => setflightType(value)}
+                    className={''}   
                   ></FlightType>
                 </div>
               </div>
@@ -69,67 +46,29 @@ export default function HomeSearch({
               <div className="col-8">
                 <div className="row g-3">
                   <div className="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <FromAirport
-                      defaultFromAirportList={defaultFromAirportList}
-                      flightType={flightType}
-                      setfromAirportData={(data) => setfromAirportData(data)}
-                      setFromAircodeShow={(value) => setFromAircodeShow(value)}
-                      setDefaultFromAirportList={(value) =>
-                        setDefaultFromAirportList(value)
-                      }
-                      fromAirportData={fromAirportData}
-                      fromAircodeShow={fromAircodeShow}
-                    />
+                    <FromAirport/>
                   </div>
 
                   <div className="col-lg-6 col-md-6 col-sm-6 col-12">
-                    <ToAirport
-                      defaultToAirportList={defaultToAirportList}
-                      flightType={flightType}
-                      settoAirportData={(value) => settoAirportData(value)}
-                      settoAircodeShow={(value) => settoAircodeShow(value)}
-                      setDefaultToAirportList={(value) =>
-                        setDefaultToAirportList(value)
-                      }
-                      toAirportData={toAirportData}
-                      toAircodeShow={toAircodeShow}
-                    />
+                    <ToAirport/>
                   </div>
                   <div className="col-lg-3 col-md-3 col-sm-6 col-6">
                     <Departure
-                      value={depatureDate}
-                      setValue={(value) => setDepatureDate(value)}
+                      
                     ></Departure>
                   </div>
-                  <div
-                    style={
-                      flightType !== "RETURN"
-                        ? { backgroundColor: "#f0f0f0" }
-                        : {}
-                    }
-                    className="col-lg-3 col-md-3 col-sm-6 col-6"
-                  >
+                  
                     <Return
-                      depatureDate={depatureDate}
-                      flightType={flightType}
-                      value={returnDate}
-                      setValue={(value) => setReturnDate(value)}
+                      
                     />
-                  </div>
+                  
 
                   <div className="col-lg-3 col-md-3 col-sm-6 col-6">
                     <PassengerTypeList
-                      setPassAdult={setAdultValue}
-                      setPassChild={setChildrenValue}
-                      setPassInfant={setInfantValue}
-                      adultValue={adultValue}
-                      childrenValue={childrenValue}
-                      infantValue={infantValue}
                     ></PassengerTypeList>
                   </div>
                   <ClassTypeList
-                    classValue={classValue}
-                    setClass={(value) => setClassValue(value)}
+                     
                   ></ClassTypeList>
                 </div>
               </div>
@@ -149,7 +88,7 @@ export default function HomeSearch({
                   <label>
                     <input
                       type="checkbox"
-                      onChange={setNonStop}
+                      onChange={()=>setNonStop(!nonStop)}
                       defaultChecked={nonStop}
                       checked={nonStop}
                     />{" "}

@@ -81,11 +81,11 @@ const MultiRangeSlider = ({ min, max, onChange, direction }) => {
                 <div className={`${style.slider__track}`} />
                 <div ref={range} className={`${style.slider__range}`} />
                 <div className="d-flex justify-content-between align-items-center mt-3">
-                    <div className={`${style["slider__left-value"]}`}> {minVal}</div>
+                    {/* <div className={`${style["slider__left-value"]}`}> {minVal}</div> */}
                     {/* <div className="ms-2 me-2">
                         <i className="fas fa-minus"></i>
                     </div> */}
-                    <div className={`${style["slider__right-value"]}`}> {maxVal}</div>
+                    {/* <div className={`${style["slider__right-value"]}`}> {maxVal}</div> */}
                 </div>
             </div>
         </div>

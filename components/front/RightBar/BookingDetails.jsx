@@ -3,24 +3,32 @@ import airAsia from "@/assets/front/images/air-asia.svg";
 import style from "./index.module.scss";
 import Image from "next/image";
 import { convertToLocalDate, getWeekDayNameFromDate } from '@/service/Helpers';
-export default function BookingDetails({airportdet,airlinedet,timingdet}) {
-    console.log("============= timingdet ==============================//");
-    console.log(airlinedet);
+export default function BookingDetails({itinerary}) {
+  const {from_to_details} = itinerary;
+  const airlineListRenderImage = [];
+  const airLines = [];
+  for (let i = 0; i < itinerary.segments.length; i++) {
+    if(!airLines.includes(itinerary.segments[i].airline.iataCode)){
+        airlineListRenderImage.push(<Image  src={itinerary.segments[i].airline.image} alt={itinerary.segments[i].airline.name} title={itinerary.segments[i].airline.name} placeholder="airAsia" width={20} height={20} />);
+        airLines.push(itinerary.segments[i].airline.iataCode);
+    }
+  }
+
   return (
     <div className={style.yourOrderBox}>
     <div className={style.yourOrderInner}>
         <span className={style.airAsia}>
-            <Image  src={airlinedet.image} alt={airlinedet.commonName} title={airlinedet.commonName} placeholder="airAsia" width={20} height={20} />
+            {airlineListRenderImage}
         </span>
         <h6>Departure</h6>
         <ul>
-            <li>{getWeekDayNameFromDate(timingdet?.dep_date)} {convertToLocalDate(timingdet?.dep_date)}</li>
-            <li>
-                <span>{timingdet?.dep_time?.hours}:{timingdet?.dep_time?.minutes} - {timingdet?.ar_time?.hours}:{timingdet?.ar_time?.minutes}</span> 
-                {timingdet.num_days > 0 && `+${timingdet.num_days} day` }
-                 &nbsp;({timingdet?.total_duration?.hours}h{timingdet?.total_duration?.minutes}min)
+            <li>{getWeekDayNameFromDate(from_to_details?.depDate)} {convertToLocalDate(from_to_details?.depDate)}</li>
+             <li>
+                <span>{from_to_details?.depTime?.hours}:{from_to_details?.depTime?.minutes} - {from_to_details?.arrTime?.hours}:{from_to_details?.arrTime?.minutes}</span> 
+                {from_to_details.numberofdays > 0 && `+${from_to_details.numberofdays} day` }
+                 &nbsp;({from_to_details?.totalduration?.hours}h{from_to_details?.totalduration?.minutes}min)
             </li>
-            <li><b>{airportdet?.departure?.iataCode}</b> {airportdet?.departure?.location?.city} - <b>{airportdet?.arrival?.iataCode}</b> {airportdet?.arrival?.location?.city}</li>
+           <li><b>{from_to_details?.fromLocation?.name}</b>  - <b>{from_to_details?.toLocation?.name}</b></li>
         </ul>
     </div>
 </div>

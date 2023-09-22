@@ -1,31 +1,25 @@
 import React from 'react';
-
 import OneWayItem from '../OneWayItem/OneWayItem';
+import { useSelector } from 'react-redux';
+ 
 
-export default function ListPanel({flightOffers}) {
-    console.log("============================= hello ===============================//");
-    //console.log(flightOffers);
+
+export default function ListPanel() {
+  console.log("============ ListPanel ===============");
+  // Destructuring data from Redux state
+ 
+  const { filterOffers:offers } = useSelector((state) => state['filterOrders']);
+  // Filter the flight offers if filterOffersIds is not empty
+  // const filteredFlightOffers = filterOffersIds.length > 0
+  //   ? offers.filter(flightOffer => filterOffersIds.includes(flightOffer.id))
+  //   : offers;
+
   return (
     <>
-                              {flightOffers.map((flightOffer,flightOfferIndex)=>{
-                                     return <OneWayItem key={flightOfferIndex} flightOffer={flightOffer} />
-                              })}
-                              
-                                
-                                 
-                                
-
-
-
-
-                                
-                                {/* <div className={style.inrAddBann}>
-                                    <Image alt="" src={addBanner} placeholder="add-banner" width={0} height={0} sizes="100vw" style={{ width: "100%", height: "auto" }} />
-                                </div> */}
-                                {/* <div className={style.moreResult}>
-                                    <Link href={"#"}>Show More Result</Link>
-                                </div> */}
+      {offers.map((flightOffer, flightOfferIndex) => (
+        // Use a key to uniquely identify each list item
+        <OneWayItem key={flightOffer.id} flightOffer={flightOffer} />
+      ))}
     </>
-   
-  )
+  );
 }

@@ -1,21 +1,26 @@
 import React from 'react';
 import LeftSearchPanel from "@/components/front/SearchPage/LeftSearchPanel";
 import GraphPanel from "@/components/front/SearchPage/GraphPanel";
+import Sorting from "@/components/front/SearchPage/Sorting";
 import ListPanel from "@/components/front/SearchPage/ListPanel";
 import style from "@/pages/flight/search/index.module.scss";
 
-export default function SearchPanel({count,dataOffers}) {
-    const {offersWithAirlineDetails,  airlineDetails,airportDetails} = dataOffers.response;
-    //console.log("================== Hello ==========================================");
-    //console.log(offersWithAirlineDetails);
+ 
+ 
+
+export default function SearchPanel({}) { 
+  console.log("============ SearchPanel ===============");
+ 
+ 
   return (
     <section className={style.filterList}>
     <div className="container">
         <div className="row">
-            <LeftSearchPanel count={count}/>
+            <LeftSearchPanel />
             <div className={style.rightList}>
                <GraphPanel/>
-              <ListPanel flightOffers={offersWithAirlineDetails}/>
+               <Sorting/>
+              <ListPanel/>
             </div>
         </div>
     </div>

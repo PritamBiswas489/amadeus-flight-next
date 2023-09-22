@@ -6,63 +6,64 @@ import style from "@/sections/front/HomeFlightSearch/index.module.scss";
 import Link from "next/link";
 import { FaAngleDown } from "react-icons/fa";
 
-export default function PassengerTypeList({ setPassAdult, setPassChild, setPassInfant, adultValue, childrenValue, infantValue }) {
+import { useSelector, useDispatch } from "react-redux";
+import { searchFieldActions } from "@/store/redux/search-field-slice";
+
+
+
+export default function PassengerTypeList() {
     const [dropdownShow, setDropdownShow] = useState(false);
     const panelRef = useRef(null);
+    const dispatch = useDispatch();
+
+    const adultValue = useSelector((state)=>state['searchField'].adultValue);
+    const setAdultValue = (adultValue)=> dispatch(searchFieldActions.setAdultValue({adultValue}));
+
+    const childrenValue = useSelector((state)=>state['searchField'].childrenValue);
+    const setChildrenValue = (childrenValue)=> dispatch(searchFieldActions.setChildrenValue({childrenValue}));
+     
+    const infantValue = useSelector((state)=>state['searchField'].infantValue);
+    const setInfantValue = (infantValue)=> dispatch(searchFieldActions.setInfantValue({infantValue}));
 
     const [typeText, setTypeText] = useState("Select");
 
-    function setAdultValue(value) {
-        setPassAdult(value);
-    }
-    function setChildrenValue(value) {
-        setPassChild(value);
-    }
-    function setInfantValue(value) {
-        setPassInfant(value);
-    }
+     
 
     function addTypeValue(type) {
         if (type === "adult") {
-            setAdultValue((prev) => parseInt(prev) + 1);
+            setAdultValue(adultValue + 1);
         }
         if (type === "child") {
-            setChildrenValue((prev) => parseInt(prev) + 1);
+            setChildrenValue(childrenValue + 1);
         }
         if (type === "infant") {
-            setInfantValue((prev) => parseInt(prev) + 1);
+            setInfantValue(infantValue + 1);
         }
     }
     function minusTypeValue(type) {
         if (type === "adult") {
-            setAdultValue((prev) => {
-                let value = 0;
-                value = parseInt(prev) - 1;
-                if (value === 0) {
-                    return 1;
-                }
-                return value;
-            });
+            let value = 0;
+            value = adultValue - 1;
+            if (value === 0) {
+                value =  1;
+            }
+            setAdultValue(value);
         }
         if (type === "child") {
-            setChildrenValue((prev) => {
-                let value = 0;
-                value = parseInt(prev) - 1;
-                if (value < 0) {
-                    return 0;
-                }
-                return value;
-            });
+            let value = 0;
+            value = childrenValue - 1;
+            if (value === 0) {
+                value =  1;
+            }
+            setChildrenValue(value);
         }
         if (type === "infant") {
-            setInfantValue((prev) => {
-                let value = 0;
-                value = parseInt(prev) - 1;
-                if (value < 0) {
-                    return 0;
-                }
-                return value;
-            });
+            let value = 0;
+            value = infantValue - 1;
+            if (value === 0) {
+                value =  1;
+            }
+            setInfantValue(value);
         }
     }
     useEffect(() => {
