@@ -1,0 +1,49 @@
+@import "@/assets/front/styles/variable";
+.graphBoxCell {
+    height: 200px;
+    padding: 0 0.4rem;
+    margin-bottom: 4rem;
+    .bar {
+        height: 100%;
+    }
+}
+.barWrap {
+    height: 100%;
+    width: 100%;
+    background: $bg-6;
+    box-shadow: rgba(0, 0, 0, 0.15) 0 10px 20px -10px;
+    border-radius: 20px 20px 0 0;
+    span {
+        display: block;
+        background: $gray;
+        width: 100%;
+        border-radius: 20px 20px 0 0;
+    }
+}
+.monthPrice {
+    margin-top: 10px;
+    text-align: center;
+    background: $bg-6;
+    padding: 0.313rem;
+    border-radius: 0.25rem;
+    border: 1px solid #e7eaec;
+    font-size: 0.688rem;
+    span {
+        display: block;
+        font-weight: 600;
+    }
+}
+.graphBoxCell {
+    &.active {
+        .barWrap {
+            span {
+                background: $bg-2;
+            }
+        }
+        .monthPrice {
+            color: $bg-6;
+            background: $bg-2;
+            border-color: $bg-2;
+        }
+    }
+}

@@ -632,3 +632,41 @@ p {
         border: var(--bs-border-width) solid var(--bs-border-color) !important;
     }
 }
+
+.mapSlider .owl-prev,
+.mapSlider .owl-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: unset;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    background: #034265 !important;
+    color: #fff !important;
+    border: #034265 1px solid;
+    transition: all ease-in-out 0.4s;
+}
+
+.mapSlider .owl-prev:hover,
+.mapSlider .owl-next:hover {
+    background: #fff !important;
+    color: #034265 !important;
+    border-color: #fff;
+}
+
+.mapSlider .owl-prev {
+    left: -16px;
+}
+.mapSlider .owl-next {
+    right: -16px;
+}
+
+.mapSlider .owl-prev span,
+.mapSlider .owl-next span {
+    font-size: 26px;
+    display: block;
+    width: 32px;
+    height: 32px;
+    line-height: 26px;
+    border-radius: 50%;
+}
