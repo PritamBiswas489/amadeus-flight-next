@@ -2,36 +2,42 @@ import React from "react";
 import style from "@/pages/flight/search/index.module.scss";
 import { useSelector, useDispatch } from "react-redux";
 import { filterFieldActions } from "@/store/redux/filter-field-slice";
-export default function FilterAccordianDepartureTiming() {
+import { applyfilterFieldActions } from "@/store/redux/apply-fliter-slice";
+export default function FilterAccordianDepartureTiming({itineriesindex,itineriesData}) {
 //   console.log(
 //     "======================= FilterAccordianDepartureTiming ========================="
 //   );
   const dispatch = useDispatch();
-  const departureTimimgs = useSelector((state)=>state['filterField'].departureTimimgs);
+  const departureTimimgsState = useSelector((state)=>state['filterField'].departureTimimgs);
+  const departureTimimgs = departureTimimgsState?.[itineriesindex] || []; 
+  const applyFilterSelector = useSelector((state) => state["applyfilterField"].applyFilter);
   const handleCheckboxChange = (event)=>{
+      if(applyFilterSelector === false){
+        dispatch(applyfilterFieldActions.setApplyFilter({applyFilter:true}));
+      }
         const value = event.target.value;
        if (event.target.checked) {
-         dispatch(filterFieldActions.setDepartureTimimgs({value}));
+         dispatch(filterFieldActions.setDepartureTimimgs({index:itineriesindex,value}));
        } else {
-         dispatch(filterFieldActions.removeDepartureTimimgs({value}));
+         dispatch(filterFieldActions.removeDepartureTimimgs({index:itineriesindex,value}));
        }
    }
   return (
     <div className="accordion-item">
-      <h6 className="accordion-header" id="panelsStayOpen-headingdepartTiming">
+      <h6 className="accordion-header" id={`panelsStayOpen-headingdepartTiming${itineriesindex}`}>
         <button
           className="accordion-button"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#panelsStayOpen-collapsedepartTiming"
+          data-bs-target={`#panelsStayOpen-collapsedepartTiming${itineriesindex}`}
           aria-expanded="true"
-          aria-controls="panelsStayOpen-collapsedepartTiming"
+          aria-controls={`panelsStayOpen-collapsedepartTiming${itineriesindex}`}
         >
-         Departure
+         {`${itineriesData.from_to_details.fromLocation.iataCode} - ${itineriesData.from_to_details.toLocation.iataCode}`}
         </button>
       </h6>
       <div
-        id="panelsStayOpen-collapsedepartTiming"
+        id={`panelsStayOpen-collapsedepartTiming${itineriesindex}`}
         className="accordion-collapse collapse show"
         aria-labelledby="panelsStayOpen-headingdepartTiming"
       >

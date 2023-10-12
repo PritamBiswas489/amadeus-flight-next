@@ -3,13 +3,18 @@ import style from "@/pages/flight/search/index.module.scss";
 import { convertObjectToArray } from "@/service/Helpers";
 import { useSelector, useDispatch } from "react-redux";
 import { filterFieldActions } from "@/store/redux/filter-field-slice";
+import { applyfilterFieldActions } from "@/store/redux/apply-fliter-slice";
 
 export default function FilterAccordianAirports({locations}) {
   const list = convertObjectToArray(locations);
   const dispatch = useDispatch();
   const airports = useSelector((state)=>state['filterField'].airports);
+  const applyFilterSelector = useSelector((state) => state["applyfilterField"].applyFilter);
   //console.log("======================= FilterAccordianAirports =========================");
   const handleCheckboxChange = (event)=>{
+    if(applyFilterSelector === false){
+      dispatch(applyfilterFieldActions.setApplyFilter({applyFilter:true}));
+     }
     // alert('asa');
      const value = event.target.value;
      if (event.target.checked) {

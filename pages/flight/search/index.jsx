@@ -9,6 +9,9 @@ import ErrorMessage from "@/components/front/ErrorMessage/ErrorMessage";
 import { useDispatch, useSelector } from "react-redux";
 import { offerDataActions } from "@/store/redux/offer-data-slice";
 import { filterOrdersAction } from "@/store/redux/filter-orders-slice";
+import { graphDataActions } from "@/store/redux/graph-data-slice";
+import { parse } from "cookie";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 /**
  * Searching start from here
@@ -18,6 +21,9 @@ const RoundTrip = ({ querySearchField }) => {
   const flightOffers = useSelector((state) => state["offerData"].offers);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+
+  // console.log({querySearchField});
 
   const {
     isLoading: flightOfferLoading,
@@ -26,14 +32,72 @@ const RoundTrip = ({ querySearchField }) => {
     clearError,
   } = useHttpClient();
 
+  const {
+    isLoading: graphFlightOfferLoading,
+    error: graphFlightOfferError,
+    sendRequest: graphFlightOfferFetch,
+    clearError: graphClearError,
+  } = useHttpClient();
+
+  useEffect(() => {
+    if (flightOffers.length > 0) {
+      let timer = "";
+      const fetchFlights = async () => {
+        try {
+          const queryString = new URLSearchParams(searchValue).toString();
+          const responseData = await graphFlightOfferFetch(
+            `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/rest/graph/listing/offer/search?${queryString}`
+          );
+          if (responseData?.graphDates) {
+            dispatch(
+              graphDataActions.setOffers({
+                offers: responseData.graphDates,
+              })
+            );
+            dispatch(
+              graphDataActions.setCurrencyCode({
+                currencyCode: responseData.currencyCode,
+              })
+            );
+            dispatch(
+              graphDataActions.setMinTotalPrice({
+                minTotalPrice: responseData.minTotalPrice,
+              })
+            );
+            dispatch(
+              graphDataActions.setMaxTotalPrice({
+                maxTotalPrice: responseData.maxTotalPrice,
+              })
+            );
+
+            
+          }
+        } catch (err) {}
+      };
+      if (searchValue !== "") {
+        timer = setTimeout(() => {
+          fetchFlights();
+        }, 50);
+      }
+      return () => clearTimeout(timer);
+    }
+  }, [flightOffers]);
+  useEffect(() => {
+    if (flightOfferError) {
+      setLoading(false);
+    }
+  }, [flightOfferError]);
+
   useEffect(() => {
     let timer = "";
-    const fetcFlights = async () => {
+    const fetchFlights = async () => {
+      setLoading(true);
       try {
         const queryString = new URLSearchParams(searchValue).toString();
         const responseData = await flightOfferFetch(
           `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/rest/offer/search?${queryString}`
         );
+        setLoading(false);
         dispatch(
           offerDataActions.setOffers({
             offers: responseData.response.offersWithAirlineDetails,
@@ -49,43 +113,44 @@ const RoundTrip = ({ querySearchField }) => {
             dictionaries: responseData.response.dictionaries,
           })
         );
-         
-        dispatch(offerDataActions.setMaxPrice({
-          maxPrice: Math.ceil(responseData.response.maxPrice),
-        }));
-        dispatch(offerDataActions.setMinPrice({
-          minPrice: Math.floor(responseData.response.minPrice),
-        }));
-        dispatch(offerDataActions.setMaxDeparttureDuration({
-          maxDeparttureDuration: responseData.response.maxDeparttureDuration,
-        }));
-        dispatch(offerDataActions.setMinDeparttureDuration({
-          minDeparttureDuration: responseData.response.minDeparttureDuration,
-        }));
-        dispatch(offerDataActions.setMaxReturnDuration({
-          maxReturnDuration: responseData.response.maxReturnDuration,
-        }));
-        dispatch(offerDataActions.setMinReturnDuration({
-          minReturnDuration: responseData.response.minReturnDuration,
-        }));
 
+        dispatch(
+          offerDataActions.setMaxPrice({
+            maxPrice: Math.ceil(responseData.response.maxPrice),
+          })
+        );
+        dispatch(
+          offerDataActions.setMinPrice({
+            minPrice: Math.floor(responseData.response.minPrice),
+          })
+        );
 
-        dispatch(offerDataActions.setCheapestOffer({
-          cheapestOffer: responseData.response.cheapestOffer,
-        }));
-        dispatch(offerDataActions.setBestOffer({
-          bestOffer: responseData.response.bestOffer,
-        }));
-        dispatch(offerDataActions.setQuickestOffer({
-          quickestOffer: responseData.response.quickestOffer,
-        }));
-
-
+        dispatch(
+          offerDataActions.setCheapestOffer({
+            cheapestOffer: responseData.response.cheapestOffer,
+          })
+        );
+        dispatch(
+          offerDataActions.setBestOffer({
+            bestOffer: responseData.response.bestOffer,
+          })
+        );
+        dispatch(
+          offerDataActions.setQuickestOffer({
+            quickestOffer: responseData.response.quickestOffer,
+          })
+        );
+        dispatch(
+          offerDataActions.setItineraryDurationLimit({
+            itineraryDurationLimit:
+              responseData.response.itineraryDurationLimit,
+          })
+        );
       } catch (err) {}
     };
     if (searchValue !== "") {
       timer = setTimeout(() => {
-        fetcFlights();
+        fetchFlights();
       }, 1000);
     }
     return () => clearTimeout(timer);
@@ -104,15 +169,15 @@ const RoundTrip = ({ querySearchField }) => {
     <>
       <Layout>
         <SearchField
-          disablebtn={flightOfferLoading}
+          disablebtn={loading}
           querySearchField={querySearchField}
           {...memoizedChildValue}
         ></SearchField>
-        {flightOfferLoading && <ResultLoader />}
+        {loading && <ResultLoader />}
         {flightOfferError && <ErrorMessage error={flightOfferError} />}
-        {flightOffers.length > 0 &&
-          !flightOfferError &&
-          !flightOfferLoading && <SearchPanel />}
+        {flightOffers.length > 0 && !flightOfferError && !loading && (
+          <SearchPanel />
+        )}
       </Layout>
     </>
   );
@@ -131,59 +196,66 @@ export async function getServerSideProps(context) {
   let infant = 0;
   let nonstopflight = false;
 
+  const { req } = context;
+
+  // Get the cookies from the request headers
+  const cookies = parse(req.headers.cookie || "");
+
+  // Access a specific cookie by name
+  const fromAirportCodeCookie = cookies.fromAirportCode;
+  const toAirportCodeCookie = cookies.toAirportCode;
+
+  console.log(fromAirportCodeCookie);
+  console.log(toAirportCodeCookie);
+
   let fromAirportObject = {};
   let toAirportObject = {};
 
-  if (typeof query.itinerary !== "undefined") {
+  if (query?.itinerary) {
     const splitIti = query.itinerary.split("-");
-    departureAirport = typeof splitIti[0] !== "undefined" && splitIti[0];
-    arrivalAirport = typeof splitIti[1] !== "undefined" && splitIti[1];
-    if (typeof splitIti[2] !== "undefined") {
+    departureAirport = splitIti?.[0] && splitIti[0];
+    arrivalAirport = splitIti?.[1] && splitIti[1];
+    if (splitIti?.[2]) {
       departureDate = splitIti[2];
     }
-    if (
-      typeof splitIti[3] !== "undefined" &&
-      typeof query.tripType !== "undefined"
-    ) {
+    if (splitIti?.[3] && query?.tripType) {
       if (isValidDate(splitIti[3]) && query.tripType === "R") {
         arrivalDate = splitIti[3];
       }
     }
   }
   if (departureAirport != "") {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${departureAirport}`,
-      { method: "GET" }
-    );
-    const data = await response.json();
-    if (
-      typeof data.response !== "undefined" &&
-      typeof data.response[0] !== "undefined"
-    ) {
-      fromAirportObject = data.response[0];
+    if (fromAirportCodeCookie !== departureAirport) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${departureAirport}`,
+        { method: "GET" }
+      );
+      const data = await response.json();
+      if (data?.response?.[0]) {
+        fromAirportObject = data.response[0];
+      }
     }
   }
   if (arrivalAirport != "") {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${arrivalAirport}`,
-      { method: "GET" }
-    );
-    const data = await response.json();
-    if (
-      typeof data.response !== "undefined" &&
-      typeof data.response[0] !== "undefined"
-    ) {
-      toAirportObject = data.response[0];
+    if (toAirportCodeCookie !== arrivalAirport) {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${arrivalAirport}`,
+        { method: "GET" }
+      );
+      const data = await response.json();
+      if (data?.response?.[0]) {
+        toAirportObject = data.response[0];
+      }
     }
   }
-  if (typeof query.tripType !== "undefined") {
+  if (query?.tripType) {
     if (query.tripType === "R") {
       tripType = "RETURN";
     } else if (query.tripType === "M") {
       tripType = "MULTI_CITY";
     }
   }
-  if (typeof query.cabinClass !== "undefined") {
+  if (query?.cabinClass) {
     if (query.cabinClass === "P") {
       cabinClass = "PREMIUM_ECONOMY";
     }
@@ -194,26 +266,19 @@ export async function getServerSideProps(context) {
       cabinClass = "FIRST";
     }
   }
-  if (typeof query.paxType !== "undefined") {
+  if (query?.paxType) {
     const splitPax = query.paxType.split("_");
-    adult =
-      typeof splitPax[0] !== "undefined"
-        ? parseInt(splitPax[0].replace("A-", ""))
-        : 1;
-    child =
-      typeof splitPax[1] !== "undefined"
-        ? parseInt(splitPax[1].replace("C-", ""))
-        : 0;
-    infant =
-      typeof splitPax[2] !== "undefined"
-        ? parseInt(splitPax[2].replace("I-", ""))
-        : 0;
+    adult = splitPax?.[0] ? parseInt(splitPax[0].replace("A-", "")) : 1;
+    child = splitPax?.[1] ? parseInt(splitPax[1].replace("C-", "")) : 0;
+    infant = splitPax?.[2] ? parseInt(splitPax[2].replace("I-", "")) : 0;
   }
-  if (typeof query.ns !== "undefined") {
+  if (query?.ns) {
     if (parseInt(query.ns) === 1) {
       nonstopflight = true;
     }
   }
+  //  console.log(fromAirportObject);
+  //  console.log(toAirportObject);
   return {
     props: {
       querySearchField: {

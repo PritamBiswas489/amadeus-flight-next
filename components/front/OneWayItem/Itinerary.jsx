@@ -3,17 +3,31 @@ import style from "@/pages/flight/search/index.module.scss";
 import Image from "next/image";
 import airAsia from "@/assets/front/images/air-asia.svg";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/router";
 import {
     convertToLocalDate,
     removeDuplicateData,
   } from "@/service/Helpers";
 
-export default function Itinerary({ data,cabinClass }) {
+export default function Itinerary({ index, data,cabinClass }) {
+  const router = useRouter();
 
-    const toAirportData =  useSelector((state)=>state['searchField'].toAirportData);
-    const fromAirportData = useSelector((state)=>state['searchField'].fromAirportData);
-
-  
+    const s_toAirportData =  useSelector((state)=>state['searchField'].toAirportData);
+    const   s_fromAirportData = useSelector((state)=>state['searchField'].fromAirportData);
+     
+    const m_toAirportData =  useSelector((state)=>state['multicitySearch'].m_toAirportData) ;
+    const m_fromAirportData = useSelector((state)=>state['multicitySearch'].m_fromAirportData) ;
+    let  toAirportData = {};
+    let  fromAirportData = {};
+     
+    if(router.pathname =='/flight/multicity'){
+      fromAirportData = m_fromAirportData?.[index];
+      toAirportData = m_toAirportData?.[index];
+    }else{
+      fromAirportData = s_fromAirportData;
+      toAirportData = s_toAirportData;
+    }
+     
 
   const { from_to_details, segments } = data;
   const {
@@ -28,19 +42,22 @@ export default function Itinerary({ data,cabinClass }) {
 
 } = from_to_details;
 
+ 
+
+
 let fromLocationText = '';
 let toLocationText = '';
 
  
-if(fromAirportData.iataCode === fromLocation.iataCode){
+if(typeof fromAirportData!=='undefined'  &&    fromAirportData?.iataCode === fromLocation?.iataCode){
     fromLocationText = fromAirportData?.name+', '+fromAirportData?.address?.cityName;
-}else if(toAirportData.iataCode === fromLocation.iataCode){
+}else if(typeof toAirportData!=='undefined'   && toAirportData?.iataCode === fromLocation?.iataCode){
     fromLocationText = toAirportData?.name+', '+toAirportData?.address?.cityName;
 }
 
-if(fromAirportData.iataCode === toLocation.iataCode){
+if(typeof fromAirportData!=='undefined' && fromAirportData?.iataCode === toLocation?.iataCode){
     toLocationText = fromAirportData?.name+', '+fromAirportData?.address?.cityName;
-}else if(toAirportData.iataCode === toLocation.iataCode){
+}else if(typeof toAirportData!=='undefined'  && toAirportData?.iataCode === toLocation?.iataCode){
     toLocationText = toAirportData?.name+', '+toAirportData?.address?.cityName;
 }
 
@@ -60,7 +77,7 @@ if(fromAirportData.iataCode === toLocation.iataCode){
   }
   const renderedItems = [];
   for (let i = 0; i < numberOfDotOfStop; i++) {
-    renderedItems.push(<span></span>);
+    renderedItems.push(<span key={`nostop${i}`}></span>);
   }
   const airlineData = removeDuplicateData(airlines);
   let airlineListText = '';
@@ -79,7 +96,7 @@ if(fromAirportData.iataCode === toLocation.iataCode){
         <div className={style.depurture}>
           <span className={style.airlinesIcon}>
           {airlineData && airlineData.map((imageArr,imageIndex)=>{
-                                                        return (<><Image key={imageIndex} alt="" src={imageArr.image} placeholder="flexibleDate" width={16} height={16} />  <br></br></>);
+                                                        return (<div key={`im${imageIndex}`}><Image key={imageIndex} alt="" src={imageArr.image} placeholder="flexibleDate" width={16} height={16} />  <br></br></div>);
 
                                                       })}
           </span>

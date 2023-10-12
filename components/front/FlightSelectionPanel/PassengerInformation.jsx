@@ -108,7 +108,7 @@ export default function PassengerInformation({tpData}) {
             
           </div>
           <div className="col-12 text-center mb-3 mt-2">
-            <Link href={"javascript:void(0);"} className={style.frequentFlyer}>
+            <Link href={"#"} className={style.frequentFlyer}>
               Add Frequent flyer Program <FaAngleDown />
             </Link>
           </div>

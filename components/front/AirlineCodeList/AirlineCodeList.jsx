@@ -65,7 +65,7 @@ const AirlineCodeList = forwardRef((props, ref) => {
       <div className={style.dropdownSearchList}>
         <div className={style.recentSearch}>
          {
-            airportList!==null && typeof airportList.response!=='undefined' && airportList.response.map((airportData,index)=>{
+            airportList!==null &&  typeof airportList!=='undefined' &&   airportList?.response  && airportList.response.map((airportData,index)=>{
                 return <AirportItem setAirportDetails={(value)=>setAirportDetails(value)} data={airportData} key={index}></AirportItem>;
             })
          }   

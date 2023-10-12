@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useEffect, useState} from 'react'
 import MultiRangeSlider from "@/components/common/MultiRangeSlider";
 import style from "@/pages/flight/search/index.module.scss";
 import { useSelector, useDispatch } from 'react-redux';
@@ -11,21 +11,30 @@ export default function FilterAccordianPrice() {
   const {maxPrice:maxPriceValue,minPrice:minPriceValue} = useSelector((state)=>state['filterField']);   
   const {currencies} = useSelector((state)=>state['offerData'].dictionaries);
   const currency = convertObjectToArray(currencies);
+
+  const [minData,setMinData] = useState(minPriceValue);
+  const [maxData,setMaxData] = useState(maxPriceValue);
+  
+
+  useEffect(()=>{
+    dispatch(filterFieldActions.setMaxPrice({
+        maxPrice: maxData,
+      }));
+      dispatch(filterFieldActions.setMinPrice({
+        minPrice: minData,
+      }));
+  },[minData,maxData])
+  
+
+
   const setFilterCurrency = (min,max)=>{
     let minValue = min;
     let maxValue = max;
-
     if(maxValue >maxPrice ){
         maxValue = maxPrice;
     }
-    
-
-    dispatch(filterFieldActions.setMaxPrice({
-        maxPrice: maxValue,
-      }));
-      dispatch(filterFieldActions.setMinPrice({
-        minPrice: minValue,
-      }));
+    setMinData(minValue);
+    setMaxData(maxValue);
   }
   return (
     <div className="accordion-item">

@@ -58,7 +58,8 @@ export default function ClassTypeList() {
     <div className={style.inputArea}>
         <div className={`w-100 ${style.inputSelect}`}>
             <label>Class</label>
-            <Link href={"javascript:void(0)"}  onClick={()=>{
+            <Link href={""}  onClick={(e)=>{
+              e.preventDefault();  
               setDropdownShow(prev=>!prev)
     }}>
                 {selectClassTextValue} <FaAngleDown />

@@ -17,6 +17,7 @@ export default function useGeolocation(options) {
       setError(e)
       setLoading(false)
     }
+    //alert(options.trigger);
     
      if(options.trigger === true){
         navigator.geolocation.getCurrentPosition(

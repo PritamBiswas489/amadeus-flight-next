@@ -11,7 +11,8 @@ import { searchFieldActions } from "@/store/redux/search-field-slice";
 export default function Departure() {
     const dispatch = useDispatch();
     const value = useSelector((state)=>state['searchField'].departureDate);
-    //console.log(value);
+   // console.log( useSelector((state)=>state['searchField']));
+  // console.log({date:value});
    
     const setValue = (departureDate)=> dispatch(searchFieldActions.setDepartureDate({departureDate:formatDateWithLeadingZero(departureDate)}));
     const today = new Date();

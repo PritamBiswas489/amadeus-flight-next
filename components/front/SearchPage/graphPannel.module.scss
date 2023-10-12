@@ -1,6 +1,6 @@
 @import "@/assets/front/styles/variable";
 .graphBoxCell {
-    height: 200px;
+    height: 80px;
     padding: 0 0.4rem;
     margin-bottom: 4rem;
     .bar {
@@ -12,12 +12,12 @@
     width: 100%;
     background: $bg-6;
     box-shadow: rgba(0, 0, 0, 0.15) 0 10px 20px -10px;
-    border-radius: 20px 20px 0 0;
+    // border-radius: 20px 20px 0 0;
     span {
         display: block;
         background: $gray;
         width: 100%;
-        border-radius: 20px 20px 0 0;
+        // border-radius: 20px 20px 0 0;
     }
 }
 .monthPrice {
@@ -41,7 +41,7 @@
             }
         }
         .monthPrice {
-            color: $bg-6;
+            color: #000;
             background: $bg-2;
             border-color: $bg-2;
         }

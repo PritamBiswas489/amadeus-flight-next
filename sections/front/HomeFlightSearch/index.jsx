@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useGeolocation from "@/hooks/useGeolocation";
 import useFetch from "@/hooks/useFetch";
 import useGlobalCookies from "@/hooks/useGlobalCookies";
+ 
 import { useSnackbar } from "notistack";
 import {
   apiDateFormat,
@@ -16,6 +17,10 @@ import HomeSearch from "@/components/front/SearchPanel/HomeSearch";
 import InnerSearch from "@/components/front/SearchPanel/InnerSearch";
 import { useSelector, useDispatch } from "react-redux";
 import { searchFieldActions } from "@/store/redux/search-field-slice";
+import { applyfilterFieldActions } from "@/store/redux/apply-fliter-slice";
+import { filterFieldActions } from "@/store/redux/filter-field-slice";
+import useLocalStorage from "@/hooks/useLocalStorage";
+import { multicitySearchFieldActions } from "@/store/redux/multicity-search-field-slice";
 
 const HomeFlightSearch = ({
   isInner,
@@ -58,8 +63,11 @@ const HomeFlightSearch = ({
   const toAirportData = useSelector(
     (state) => state["searchField"].toAirportData
   );
+  
   const settoAirportData = (toAirportData) =>
     dispatch(searchFieldActions.settoAirportData({ toAirportData }));
+
+
   const country = useSelector((state) => state["searchField"].country);
   const setDefaultCountry = (country) =>
     dispatch(searchFieldActions.setDefaultCountry({ country }));
@@ -88,37 +96,32 @@ const HomeFlightSearch = ({
     );
 
   const { cookies, setGlobalCookie, removeGlobalCookie } = useGlobalCookies();
+  const [singleSearchValue, setSingleSearchValue, clearSingleSearchValue] = useLocalStorage('singleSearchValue', '');
+  
 
 
   useEffect(()=>{
-        if(isEmptyObject(fromAirportData)){
-                //console.log({fromAirportData});
-                if (currentRoute !== "/flight/search") {
-                    if(cookies.cityFrom ){
-                        setDefaultCity(cookies.cityFrom);
-                    }else{
-                        setDefaultCity(defaultFromValue);
-                    }
-                }
-
+    if (currentRoute !== "/flight/search") {
+      if(isEmptyObject(fromAirportData)){
+        if(cookies.cityFrom ){
+            setDefaultCity(cookies.cityFrom);
+        }else{
+            setDefaultCity(defaultFromValue);
         }
-    
-    
-    
-    
-    if(isEmptyObject(toAirportData)){
-            if (currentRoute !== "/flight/search") {
-                if(cookies.cityTo){
-                    setDefaultToCity(cookies.cityTo);
-                }else{
-                setDefaultToCity(defaultToValue);
-                }
-            } 
+     }
+     if(isEmptyObject(toAirportData)){
+        if(cookies.cityTo){
+            setDefaultToCity(cookies.cityTo);
+        }else{
+        setDefaultToCity(defaultToValue);
+        }
+      } 
     }
-
   },[currentRoute])
 
   function findFlightGoToSearch() {
+    dispatch(applyfilterFieldActions.setApplyFilter({applyFilter:false}));
+    dispatch(filterFieldActions.reset({}));
    
     if (fromAirportData.iataCode === "") {
       enqueueSnackbar("Select departure airport", { variant: "error" });
@@ -132,6 +135,36 @@ const HomeFlightSearch = ({
     ) {
       enqueueSnackbar("Select return date", { variant: "error" });
     } else {
+
+      
+      
+      
+      removeGlobalCookie('fromAirportCode');
+      removeGlobalCookie('toAirportCode');
+      setGlobalCookie("fromAirportCode", fromAirportData.iataCode, { path: '/', maxAge: 360000 });
+      setGlobalCookie("toAirportCode", toAirportData.iataCode, {  path: '/', maxAge: 360000 });
+
+      // clearSingleSearchValue();
+      console.log({fromAirportData});
+      console.log({toAirportData});
+       
+
+      setSingleSearchValue(JSON.stringify({
+        fromAirportData,
+        toAirportData,
+        departureDate,
+        returnDate,
+        classValue,
+        adultValue,
+        childrenValue,
+        infantValue,
+        nonStop,
+      }));
+       
+
+
+     
+
       let itinerary = `${fromAirportData.iataCode}-${
         toAirportData.iataCode
       }-${(departureDate)}`;
@@ -179,15 +212,42 @@ const HomeFlightSearch = ({
  
 
   useEffect(() => {
-
-
+    console.log("============== Pritam===============");
     
+    
+
+    if(singleSearchValue!==''){
+       
+       
+       
+      const get = JSON.parse(singleSearchValue);
+      
+      if( querySearchField?.fromAirportObject &&  ! querySearchField.fromAirportObject?.iataCode){
+        querySearchField.fromAirportObject = get.fromAirportData;
+      }else{
+        if(get &&  get?.fromAirportData &&  querySearchField?.fromAirportObject){
+          get.fromAirportData = querySearchField.fromAirportObject;
+          setSingleSearchValue(JSON.stringify(get));
+        }
+        
+      }
+      if( querySearchField?.toAirportObject &&  !querySearchField.toAirportObject?.iataCode){
+         querySearchField.toAirportObject = get.toAirportData;
+      }else{
+        if(get &&  get?.toAirportData &&  querySearchField?.toAirportObject){
+         get.toAirportData = querySearchField.toAirportObject;
+         setSingleSearchValue(JSON.stringify(get));
+        }
+      }
+
+    }
+
 
 
     if (
-      typeof querySearchField.departureDate !== "undefined" &&
+      ( querySearchField?.departureDate &&
       querySearchField.departureDate !== "" &&
-      querySearchField.departureDate !== null
+      querySearchField.departureDate !== null) && (flightType ==='RETURN' || flightType ==='ONEWAY')
     ) {
       dispatch(
         searchFieldActions.setDepartureDate({
@@ -196,11 +256,14 @@ const HomeFlightSearch = ({
       );
     }
     if (
-      typeof querySearchField.tripType !== "undefined" &&
-      querySearchField.tripType === "RETURN"
+      (querySearchField?.arrivalDate &&
+      querySearchField.arrivalDate !== "" &&
+      querySearchField.arrivalDate !== null) && 
+      querySearchField.tripType === "RETURN" 
     ) {
+       
       if (
-        typeof querySearchField.arrivalDate !== "undefined" &&
+         querySearchField?.arrivalDate &&
         querySearchField.arrivalDate !== "" &&
         querySearchField.arrivalDate !== null
       ) {
@@ -211,14 +274,14 @@ const HomeFlightSearch = ({
         );
       }
     }
-    if (typeof querySearchField.tripType !== "undefined") {
+    if ( querySearchField?.tripType) {
       dispatch(
         searchFieldActions.setflightType({
           flightType: querySearchField.tripType,
         })
       );
     }
-    if (typeof querySearchField.cabinClass !== "undefined") {
+    if ( querySearchField?.cabinClass) {
       dispatch(
         searchFieldActions.setClassValue({
           classValue: querySearchField.cabinClass,
@@ -226,38 +289,38 @@ const HomeFlightSearch = ({
       );
       
     }
-    if (typeof querySearchField.adult !== "undefined") {
+    if (querySearchField?.adult) {
       dispatch(
         searchFieldActions.setAdultValue({ adultValue: querySearchField.adult })
       );
     }
-    if (typeof querySearchField.child !== "undefined") {
+    if ( querySearchField?.child) {
       dispatch(
         searchFieldActions.setChildrenValue({
           childrenValue: querySearchField.child,
         })
       );
     }
-    if (typeof querySearchField.infant !== "undefined") {
+    if ( querySearchField?.infant) {
       dispatch(
         searchFieldActions.setInfantValue({
           infantValue: querySearchField.infant,
         })
       );
     }
-    if (typeof querySearchField.nonstopflight !== "undefined") {
+    if ( querySearchField?.nonstopflight) {
       dispatch(
         searchFieldActions.setNonStop({
           nonStop: querySearchField.nonstopflight,
         })
       );
     }
-    if (typeof querySearchField.fromAirportObject !== "undefined") {
+    if ( querySearchField?.fromAirportObject) {
       dispatch(searchFieldActions.setfromAirportData({ fromAirportData : querySearchField.fromAirportObject }));
       dispatch(searchFieldActions.setDefaultCity({ city : querySearchField?.fromAirportObject?.iataCode }));
 
     }
-    if (typeof querySearchField.toAirportObject !== "undefined") {
+    if ( querySearchField?.toAirportObject) {
       dispatch(searchFieldActions.settoAirportData({ toAirportData : querySearchField.toAirportObject }));  
       dispatch(searchFieldActions.setDefaultToCity({ cityTo : querySearchField?.toAirportObject?.iataCode }));
     }
@@ -271,7 +334,7 @@ const HomeFlightSearch = ({
 
     let apiQueryObject = {};
     if (
-      typeof querySearchField.departureDate !== "undefined" &&
+       querySearchField?.departureDate &&
       querySearchField.departureDate !== "" &&
       querySearchField.departureDate !== null
     ) {
@@ -280,11 +343,11 @@ const HomeFlightSearch = ({
       );
     }
     if (
-      typeof querySearchField.tripType !== "undefined" &&
+       querySearchField?.tripType &&
       querySearchField.tripType === "RETURN"
     ) {
       if (
-        typeof querySearchField.arrivalDate !== "undefined" &&
+         querySearchField?.arrivalDate  &&
         querySearchField.arrivalDate !== "" &&
         querySearchField.arrivalDate !== null
       ) {
@@ -294,27 +357,27 @@ const HomeFlightSearch = ({
       }
     }
     
-    if (typeof querySearchField.cabinClass !== "undefined") {
+    if ( querySearchField?.cabinClass) {
       apiQueryObject.travelClass = querySearchField.cabinClass;
     }
 
-    if (typeof querySearchField.adult !== "undefined") {
+    if ( querySearchField?.adult) {
       apiQueryObject.adults = querySearchField.adult;
     }
-    if (typeof querySearchField.child !== "undefined") {
+    if (querySearchField?.child) {
       apiQueryObject.children = querySearchField.child;
     }
-    if (typeof querySearchField.infant !== "undefined") {
+    if (querySearchField?.infant) {
       apiQueryObject.infants = querySearchField.infant;
     }
-    if (typeof querySearchField.nonstopflight !== "undefined") {
+    if (querySearchField?.nonstopflight) {
       apiQueryObject.nonStop = querySearchField.nonstopflight;
     }
-    if (typeof querySearchField.fromAirportObject !== "undefined") {
+    if ( querySearchField?.fromAirportObject) {
       apiQueryObject.originLocationCode =
         querySearchField?.fromAirportObject?.iataCode;
     }
-    if (typeof querySearchField.toAirportObject !== "undefined") {
+    if (querySearchField?.toAirportObject) {
       apiQueryObject.destinationLocationCode =
         querySearchField?.toAirportObject?.iataCode;
     }
@@ -325,14 +388,15 @@ const HomeFlightSearch = ({
     }
   }, [querySearchField]);
 
+  
   const { geoLoading, geoError, geoLocationData } = useGeolocation(
-    cookies.cityFrom || currentRoute !== "/"
+     cookies?.isGeoLocationChosen
       ? { trigger: false }
       : { trigger: true }
   );
 
   useEffect(() => {
-    if (typeof geoLocationData.latitude !== "undefined") {
+    if ( geoLocationData?.latitude) {
       const apiKey = "AIzaSyCBeYhfznD1X2nWYFXFpH6B4eJ9hGrr9_g";
       const lat = geoLocationData.latitude; // Example latitude
       const lng = geoLocationData.longitude; // Example longitude
@@ -357,7 +421,8 @@ const HomeFlightSearch = ({
               setDefaultCountry(country);
               setDefaultCity(city);
               if (city != "") {
-                setGlobalCookie("cityFrom", city, { maxAge: 360000 });
+                setGlobalCookie("cityFrom", city, { path: '/', maxAge: 360000 });
+                setGlobalCookie("isGeoLocationChosen", 1, { path: '/', maxAge: 360000 });
               }
             } else {
               console.log("No results found.");
@@ -375,24 +440,25 @@ const HomeFlightSearch = ({
   const { data: responseCityData, fetchData: cityFetch } = useFetch();
 
   useEffect(() => {
-    if (city != "") {
+    
+    if (city != "" && currentRoute !== "/flight/search") {
       cityFetch(
         `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${city}`,
         { method: "GET" }
       );
     }
-  }, [city]);
+  }, [city,currentRoute]);
 
   const { data: responseToCityData, fetchData: cityToFetch } = useFetch();
 
   useEffect(() => {
-    if (cityTo != "") {
+    if (cityTo != "" && currentRoute !== "/flight/search") {
       cityToFetch(
         `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${cityTo}`,
         { method: "GET" }
       );
     }
-  }, [cityTo]);
+  }, [cityTo,currentRoute]);
 
   useEffect(() => {
     if (responseCityData) {
@@ -400,10 +466,11 @@ const HomeFlightSearch = ({
         setDefaultFromAirportList(responseCityData);
 
         if (
-          typeof responseCityData.response !== "undefined" &&
-          typeof responseCityData.response[0] !== "undefined"
+           responseCityData?.response &&
+           responseCityData.response?.[0]
         ) {
           setfromAirportData(responseCityData.response[0]);
+          
         }
       }
     }
@@ -411,12 +478,12 @@ const HomeFlightSearch = ({
 
   useEffect(() => {
     if (responseToCityData) {
-      if (responseToCityData.response) {
+      if (responseToCityData?.response) {
         //console.log({ responseToCityData });
         setDefaultToAirportList(responseToCityData);
         if (
-          typeof responseToCityData.response !== "undefined" &&
-          typeof responseToCityData.response[0] !== "undefined"
+           responseToCityData?.response &&
+           responseToCityData.response?.[0]
         ) {
           settoAirportData(responseToCityData.response[0]);
         }

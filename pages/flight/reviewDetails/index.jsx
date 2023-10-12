@@ -41,7 +41,7 @@ const PassengerDetails = () => {
         setDataOffers(responseData);
       } catch (err) {}
     };
-    if (typeof query.itineraryId !== "undefined") {
+    if ( query?.itineraryId) {
       dispatch(passengerDetailsActions.setItineraryId({itineraryId:query.itineraryId}));
       timer = setTimeout(() => {
         fetcFlights(query.itineraryId);
@@ -62,7 +62,7 @@ const PassengerDetails = () => {
         {dataOffers &&
           !flightOfferError &&
           !loader &&
-          typeof dataOffers.response !== "undefined" && (
+           dataOffers?.response  && (
             <Panel
               dataOffers={dataOffers}
               activeStep={activeStep}

@@ -50,7 +50,7 @@ export default function TotalPanel({totalPrice,currency}) {
             </tr>
             <tr>
               <td>
-                <Link href={"javascript:void(0);"}>Payment Option</Link>
+                <Link href={"#"}>Payment Option</Link>
                 <strong>Amount to pay</strong>
               </td>
               <td className="text-end">{currency}{getCurrencySymbol(currency)}{totalPrice}</td>

@@ -13,8 +13,8 @@ export default function FlightType({   className }) {
       <ul className={`d-flex ${className}`}>
         <li className="form-check">
           <input
-            onClick={() => setflightType("RETURN")}
-            defaultChecked={flightType === "RETURN" ? true : false}
+            onChange={() => setflightType("RETURN")}
+            // defaultChecked={flightType === "RETURN" ? true : false}
             checked={flightType === "RETURN" ? true : false}
             className="form-check-input"
             type="radio"
@@ -27,9 +27,9 @@ export default function FlightType({   className }) {
         </li>
         <li className="form-check">
           <input
-            defaultChecked={flightType === "ONEWAY" ? true : false}
+            // defaultChecked={flightType === "ONEWAY" ? true : false}
             checked={flightType === "ONEWAY" ? true : false}
-            onClick={() => setflightType("ONEWAY")}
+            onChange={() => setflightType("ONEWAY")}
             className="form-check-input"
             type="radio"
             name="flexRadioDefault"
@@ -41,10 +41,10 @@ export default function FlightType({   className }) {
         </li>
         <li className="form-check">
           <input
-            disabled
-            defaultChecked={flightType === "MULTI_CITY" ? true : false}
+            
+            // defaultChecked={flightType === "MULTI_CITY" ? true : false}
             checked={flightType === "MULTI_CITY" ? true : false}
-            onClick={() => setflightType("MULTI_CITY")}
+            onChange={() => setflightType("MULTI_CITY")}
             className="form-check-input"
             type="radio"
             name="flexRadioDefault"

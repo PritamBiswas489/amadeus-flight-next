@@ -46,7 +46,8 @@ export default function OneWayItem({ flightOffer }) {
     sendRequest: saveOfferDataProcess,
     clearError,
   } = useHttpClient();
-  const processBooking = async () => {
+  const processBooking = async (e) => {
+    e.preventDefault();
     const offers = [];
     offers.push(offer);
     const responseData = await saveOfferDataProcess(
@@ -75,6 +76,7 @@ export default function OneWayItem({ flightOffer }) {
               key={itineraryIndex}
               cabinClass={cabinClass}
               data={itineraryData}
+              index={itineraryIndex}
             />
           );
         })}
@@ -87,7 +89,7 @@ export default function OneWayItem({ flightOffer }) {
               width={14}
               height={13}
             />
-            Self-transfer <Link href={"javascript:void(0);"}>Read More</Link>
+            Self-transfer <Link href={"#"}>Read More</Link>
           </p>
         </div>
       </div>
@@ -146,7 +148,7 @@ export default function OneWayItem({ flightOffer }) {
                   {getCurrencySymbol(currency)}
                   {totalPrice}
                 </h4>
-                <Link onClick={processBooking} href={"javascript:void(0);"}>
+                <Link onClick={processBooking} href={""}>
                   Book
                 </Link>
               </div>
@@ -171,7 +173,7 @@ export default function OneWayItem({ flightOffer }) {
                   {getCurrencySymbol(currency)}
                   {totalPrice}
                 </h4>
-                <Link onClick={processBooking} href={"javascript:void(0);"}>
+                <Link onClick={processBooking} href={"#"}>
                   Book
                 </Link>
               </div>

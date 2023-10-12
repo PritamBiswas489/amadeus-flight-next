@@ -2,8 +2,14 @@ import React, { useCallback, useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import style from "./index.module.scss";
 import { useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { applyfilterFieldActions } from "@/store/redux/apply-fliter-slice";
 
 const MultiRangeSlider = ({ min, max, onChange, direction }) => {
+    const dispatch = useDispatch();
+    const applyFilterSelector = useSelector((state) => state["applyfilterField"].applyFilter);
+
+
    // console.log("max", max);
     const [minVal, setMinVal] = useState(min);
     const [maxVal, setMaxVal] = useState(max);
@@ -57,6 +63,9 @@ const MultiRangeSlider = ({ min, max, onChange, direction }) => {
                 max={max}
                 value={minVal}
                 onChange={(event) => {
+                    if(applyFilterSelector === false){
+                        dispatch(applyfilterFieldActions.setApplyFilter({applyFilter:true}));
+                    }
                     const value = Math.min(Number(event.target.value), maxVal - 1);
                     setMinVal(value);
                     minValRef.current = value;
@@ -70,6 +79,9 @@ const MultiRangeSlider = ({ min, max, onChange, direction }) => {
                 max={max}
                 value={maxVal}
                 onChange={(event) => {
+                    if(applyFilterSelector === false){
+                        dispatch(applyfilterFieldActions.setApplyFilter({applyFilter:true}));
+                    }
                     const value = Math.max(Number(event.target.value), minVal + 1);
                     setMaxVal(value);
                     maxValRef.current = value;

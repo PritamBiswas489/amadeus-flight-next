@@ -4,6 +4,9 @@ import searchFieldSlice from "./redux/search-field-slice";
 import filterFieldSlice from "./redux/filter-field-slice";
 import offerDataSlice from "./redux/offer-data-slice";
 import filterOrdersSlice from "./redux/filter-orders-slice";
+import multicitySearchFieldSlice from "./redux/multicity-search-field-slice";
+import applyfilterFieldSlice from "./redux/apply-fliter-slice";
+import graphDataSlice from "./redux/graph-data-slice";
  
 
 const store = configureStore({
@@ -12,7 +15,10 @@ const store = configureStore({
       searchField: searchFieldSlice.reducer, 
       filterField:filterFieldSlice.reducer,
       offerData:offerDataSlice.reducer,
-      filterOrders:filterOrdersSlice.reducer
+      graphData:graphDataSlice.reducer,
+      filterOrders:filterOrdersSlice.reducer,
+      multicitySearch:multicitySearchFieldSlice.reducer,
+      applyfilterField:applyfilterFieldSlice.reducer
     },
   });
   

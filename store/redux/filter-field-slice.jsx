@@ -4,15 +4,14 @@ const initialState = {
    airports:[],
    airlines:[],
    onwardStops:[],
-   returnStops:[],
    departureTimimgs:[],
    returnTimimgs:[],
    maxPrice:0,
    minPrice:0,
-   maxDeparttureDuration: 0,
-   minDeparttureDuration: 0,
-   maxReturnDuration: 0,
-   minReturnDuration: 0
+   maxDeparttureDuration: [],
+   minDeparttureDuration: [],
+   
+    
 };
 
 const filterFieldSlice = createSlice({
@@ -30,37 +29,52 @@ const filterFieldSlice = createSlice({
             state.airlines = data;
         },
         setOnwardStops(state, action){
-            state.onwardStops = [...state.onwardStops,action.payload.value];
+            const d = [...state.onwardStops];
+            if(!d?.[action.payload.index]){
+                d[action.payload.index] = [];
+            }
+            if(!d[action.payload.index].includes(action.payload.value)){
+                d[action.payload.index].push(action.payload.value);
+            }
+            state.onwardStops = d;
         },
         removeOnwardStops(state, action){
-            const data = state.onwardStops.filter(item => item !== action.payload.value);
-            state.onwardStops = data;
+            const d = [...state.onwardStops];
+            const c = d[action.payload.index].filter(item => item !== action.payload.value);
+            if(c.length > 0){
+                d[action.payload.index] = c;
+            }else{
+                console.log('delete');
+                d.splice(action.payload.index, 1);
+            }
+            state.onwardStops = d;
         },
-        setReturnStops(state, action){
-            state.returnStops = [...state.returnStops,action.payload.value];
-        },
-        removeReturnStops(state, action){
-            const data = state.returnStops.filter(item => item !== action.payload.value);
-            state.returnStops = data;
-        },
+       
 
 
         setDepartureTimimgs(state, action){
-            state.departureTimimgs = [...state.departureTimimgs,action.payload.value];
+            const d = [...state.departureTimimgs];
+            if(!d?.[action.payload.index]){
+                d[action.payload.index] = [];
+            }
+            if(!d[action.payload.index].includes(action.payload.value)){
+                d[action.payload.index].push(action.payload.value);
+            }
+            state.departureTimimgs = d;
         },
         removeDepartureTimimgs(state, action){
-            const data = state.departureTimimgs.filter(item => item !== action.payload.value);
-            state.departureTimimgs = data;
+            const d = [...state.departureTimimgs];
+            const c = d[action.payload.index].filter(item => item !== action.payload.value);
+            if(c.length > 0){
+                d[action.payload.index] = c;
+            }else{
+                console.log('delete');
+                d.splice(action.payload.index, 1);
+            }
+            state.departureTimimgs = d;
         },
 
-
-        setReturnTimimgs(state, action){
-            state.returnTimimgs = [...state.returnTimimgs,action.payload.value];
-        },
-        removeReturnTimimgs(state, action){
-            const data = state.returnTimimgs.filter(item => item !== action.payload.value);
-            state.returnTimimgs = data;
-        },
+ 
         setMinPrice(state, action){
             state.minPrice = action.payload.minPrice;
         },
@@ -68,17 +82,31 @@ const filterFieldSlice = createSlice({
             state.maxPrice = action.payload.maxPrice;
         }, 
         setMaxDeparttureDuration(state, action){
-            state.maxDeparttureDuration = action.payload.maxDeparttureDuration;
+            const d = [...state.maxDeparttureDuration];
+            d[action.payload.index] = action.payload.maxDeparttureDuration; 
+            console.log(action.payload.index);
+            // console.log(d);
+            state.maxDeparttureDuration = d;
         }, 
         setMinDeparttureDuration(state, action){
-            state.minDeparttureDuration = action.payload.minDeparttureDuration;
+            const d = [...state.minDeparttureDuration];
+            d[action.payload.index] = action.payload.minDeparttureDuration; 
+            state.minDeparttureDuration = d;
         }, 
-        setMaxReturnDuration(state, action){
-            state.maxReturnDuration = action.payload.maxReturnDuration;
-        }, 
-        setMinReturnDuration(state, action){
-            state.minReturnDuration = action.payload.minReturnDuration;
-        },   
+        reset(state, action){
+            state.airports = [];
+            state.airlines =[];
+            state.onwardStops =[];
+            state.departureTimimgs =[];
+            state.returnTimimgs =[];
+            state.maxPrice =0;
+            state.minPrice= 0;
+            state.maxDeparttureDuration= [];
+            state.minDeparttureDuration= [];
+            
+      
+          }
+        
 
     }
 });

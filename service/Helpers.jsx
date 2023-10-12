@@ -116,18 +116,107 @@ export function shuffleArray(array) {
 }
 
 export function convertObjectToArray(myObject) {
-  
   const myArray = [];
   for (const key in myObject) {
     if (myObject.hasOwnProperty(key)) {
-      myArray.push({key:key,title:myObject[key]});
+      myArray.push({ key: key, title: myObject[key] });
     }
   }
   return myArray;
 }
-export function getHourMinute(timeDifference){
+export function getHourMinute(timeDifference) {
   // Calculate hours and minutes from the time difference
   const hours = Math.floor(timeDifference / (1000 * 60 * 60));
   const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-  return {hours,minutes};
+  return { hours, minutes };
+}
+// Assuming this code is in a module named 'locationUtils.js'
+
+export async function locationDetails(destinationCode) {
+  try {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_APP_HOST_API}flight/airport/city/search?keyword=${destinationCode}`,
+      { method: "GET" }
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    if (data && Array.isArray(data.response) && data.response.length > 0) {
+      return data.response[0];
+    } else {
+      return {};
+    }
+  } catch (error) {
+    throw error; // Rethrow the error for consistent error handling
+  }
+}
+
+export async function checkingLocation(locations, cookieLocations) {
+  try {
+    const promises = locations.map(async (locationArr, index) => {
+      if (
+        cookieLocations?.[index] &&
+        locationArr["originLocationCode"] !==
+          cookieLocations[index]["originLocationCode"]
+      ) {
+        locationArr["originLocationObject"] = await locationDetails(
+          locationArr["originLocationCode"]
+        );
+      }
+
+      if (
+        cookieLocations?.[index] &&
+        locationArr["destinationLocationCode"] !==
+          cookieLocations[index]["destinationLocationCode"]
+      ) {
+        locationArr["destinationLocationObject"] = await locationDetails(
+          locationArr["destinationLocationCode"]
+        );
+      }
+
+      return locationArr;
+    });
+
+    const resolvedData = await Promise.all(promises);
+
+    return resolvedData;
+  } catch (error) {
+    console.error("Error resolving Promises:", error);
+    throw error; // Rethrow the error for consistent error handling
+  }
+}
+export function dateToMonthDay(dateString) {
+  const date = new Date(dateString);
+
+  // Get the month and day components from the date
+  const monthIndex = date.getMonth();
+  const day = date.getDate();
+  const twoDigitYear = date.getFullYear().toString().slice(-2); // Extract the last 
+
+  // Create an array of month names
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+
+  // Get the month name from the array
+  const monthName = monthNames[monthIndex];
+
+  // Create the formatted date string as "Month Day"
+  const formattedDate = `${monthName} ${day},${twoDigitYear}`;
+
+  return (formattedDate); 
 }

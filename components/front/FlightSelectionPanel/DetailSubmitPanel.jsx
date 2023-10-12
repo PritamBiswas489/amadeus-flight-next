@@ -7,7 +7,8 @@ import tick2 from "@/assets/front/images/tick-2.svg";
 
 export default function DetailSubmitPanel() {
   const passergerDetails = useSelector((state)=>state['passergerdetails']);
-  function checkPassengerDetailsReducer(){
+  function checkPassengerDetailsReducer(e){
+    e.preventDefault();
       // //console.log("================ passenger details redux details ======================================"); 
        console.log(passergerDetails);
   }
@@ -40,7 +41,7 @@ export default function DetailSubmitPanel() {
           100% secure payment
         </li>
       </ul>
-      <Link href={"javascript:void(0);"}  onClick={checkPassengerDetailsReducer}>Continue</Link>
+      <Link href={""}  onClick={checkPassengerDetailsReducer}>Continue</Link>
       <p dangerouslySetInnerHTML={{__html:` Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text ever
         since the 1500s, when an unknown printer took a galley of type and

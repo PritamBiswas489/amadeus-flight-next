@@ -6,6 +6,9 @@ import { filterFieldActions } from '@/store/redux/filter-field-slice';
 import { getHourMinute } from '@/service/Helpers';
 
 export default function FilterAccordianDurationReturn() {
+    console.log(
+        "======================= FilterAccordianDurationReturn ========================="
+      );
     const   dispatch = useDispatch();
     const {minReturnDuration,maxReturnDuration} = useSelector((state)=>state['offerData']);   
     const {minReturnDuration:minReturnDurationValue,maxReturnDuration:maxReturnDurationValue} = useSelector((state)=>state['filterField']);   

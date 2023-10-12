@@ -7,23 +7,21 @@ import Link from "next/link";
 import { FaAngleDown } from "react-icons/fa";
 
 import { useSelector, useDispatch } from "react-redux";
-import { searchFieldActions } from "@/store/redux/search-field-slice";
+import { multicitySearchFieldActions } from '@/store/redux/multicity-search-field-slice';
 
-
-
-export default function PassengerTypeList() {
+export default function PassengerType() {
     const [dropdownShow, setDropdownShow] = useState(false);
     const panelRef = useRef(null);
     const dispatch = useDispatch();
 
-    const adultValue = useSelector((state)=>state['searchField'].adultValue);
-    const setAdultValue = (adultValue)=> dispatch(searchFieldActions.setAdultValue({adultValue}));
+    const adultValue = useSelector((state)=>state['multicitySearch'].adultValue);
+    const setAdultValue = (adultValue)=> dispatch(multicitySearchFieldActions.setAdultValue({adultValue}));
 
-    const childrenValue = useSelector((state)=>state['searchField'].childrenValue);
-    const setChildrenValue = (childrenValue)=> dispatch(searchFieldActions.setChildrenValue({childrenValue}));
+    const childrenValue = useSelector((state)=>state['multicitySearch'].childrenValue);
+    const setChildrenValue = (childrenValue)=> dispatch(multicitySearchFieldActions.setChildrenValue({childrenValue}));
      
-    const infantValue = useSelector((state)=>state['searchField'].infantValue);
-    const setInfantValue = (infantValue)=> dispatch(searchFieldActions.setInfantValue({infantValue}));
+    const infantValue = useSelector((state)=>state['multicitySearch'].infantValue);
+    const setInfantValue = (infantValue)=> dispatch(multicitySearchFieldActions.setInfantValue({infantValue}));
 
     const [typeText, setTypeText] = useState("Select");
 
@@ -193,11 +191,11 @@ export default function PassengerTypeList() {
                                         </div>
                                         <div className={style.numberRight}>
                                             <div className={`d-flex align-items-center ${style.number}`}>
-                                                <span   className={style.minus}>
+                                                <span onClick={() => minusTypeValue("child")} className={style.minus}>
                                                     -
                                                 </span>
                                                 <input className={style.valueInput} type="text" value={childrenValue} defaultValue={childrenValue} />
-                                                <span  className={style.plus}>
+                                                <span onClick={() => addTypeValue("child")} className={style.plus}>
                                                     +
                                                 </span>
                                             </div>
@@ -209,11 +207,11 @@ export default function PassengerTypeList() {
                                         </div>
                                         <div className={style.numberRight}>
                                             <div className={`d-flex align-items-center ${style.number}`}>
-                                                <span  className={style.minus}>
+                                                <span onClick={() => minusTypeValue("infant")} className={style.minus}>
                                                     -
                                                 </span>
                                                 <input className={style.valueInput} type="text" value={infantValue} defaultValue={infantValue} />
-                                                <span  className={style.plus}>
+                                                <span onClick={() => addTypeValue("infant")} className={style.plus}>
                                                     +
                                                 </span>
                                             </div>
